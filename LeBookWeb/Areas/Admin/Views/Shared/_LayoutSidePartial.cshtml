@@ -1,0 +1,81 @@
+﻿<div id="layoutSidenav_nav">
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+            <div class="nav accordion" id="accordionSidenav">
+                <div class="sidenav-menu-heading d-sm-none">Tài khoản</div>
+                <a class="nav-link d-sm-none" href="#!">
+                    <div class="nav-link-icon"><i data-feather="bell"></i></div>
+                    Thông báo
+                    <span class="badge bg-warning-soft text-warning ms-auto">4 New!</span>
+                </a>
+
+                <div class="sidenav-menu-heading">Hệ thống</div>
+                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    Thống kê
+                </a>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseItem" aria-expanded="false" aria-controls="collapseItem">
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
+                    Quản lý sản phẩm
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseItem" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Book" asp-action="Index">Danh sách sản phẩm</a>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Thể loại</a>
+                        <a class="nav-link" asp-area="Admin" asp-controller="CoverType" asp-action="Index">Loại bìa</a>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Age" asp-action="Index">Phân loại độ tuổi</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                    <div class="nav-link-icon"><i data-feather="shopping-cart"></i></div>
+                    Quản lý đơn hàng
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseOrders" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavAppsMenu">
+                        <a class="nav-link" href="#">Đơn đặt hàng</a>
+                        <a class="nav-link" href="#">Hoá đơn bán hàng</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSuppliers" aria-expanded="false" aria-controls="collapseSuppliers">
+                    <div class="nav-link-icon"><i data-feather="layers"></i></div>
+                    Quản lý nhà cung cấp
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseSuppliers" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Danh sách nhà cung cấp</a>
+                        <a class="nav-link" href="#">Đơn nhập hàng</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
+                    <div class="nav-link-icon"><i data-feather="layers"></i></div>
+                    Quản lý người dùng
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUsers" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav">
+                        <a class="nav-link" href="#">Danh sánh người dùng</a>
+                        <a class="nav-link" href="#">Quyền sử dụng</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link" href="/Admin">
+                    <div class="nav-link-icon"><i data-feather="gift"></i></div>
+                    Quản lý khuyến mãi
+                </a>
+            </div>
+        </div>
+        <!-- Sidenav Footer-->
+        <div class="sidenav-footer">
+            <div class="sidenav-footer-content">
+                <div class="sidenav-footer-subtitle">Người dùng hiện tại:</div>
+                <div class="sidenav-footer-title">Valerie Luna</div>
+            </div>
+        </div>
+    </nav>
+</div>
