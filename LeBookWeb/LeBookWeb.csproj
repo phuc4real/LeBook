@@ -35,21 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\Create.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\Create.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +54,10 @@
     <None Include="wwwroot\images\ico_menu.svg" />
     <None Include="wwwroot\images\ico_noti_gray.svg" />
     <None Include="wwwroot\images\ico_seemore_blue.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\books\" />
   </ItemGroup>
 
 </Project>

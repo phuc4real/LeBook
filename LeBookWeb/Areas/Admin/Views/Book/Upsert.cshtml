@@ -1,0 +1,136 @@
+﻿@model LeBook.Models.ViewModel.BookViewModel
+
+@{
+    ViewData["Title"] = "Cập nhật sách";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="plus"></i></div>
+                            @(Model.Book.Id!=0?"Chỉnh sửa thông tin":"Thêm sách mới")
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                            <i class="me-1" data-feather="corner-up-left"></i>
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Upsert" enctype="multipart/form-data">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group mt-2 col-md-6">
+                            <label asp-for="Book.Title" class="control-label"></label>
+                            <input asp-for="Book.Title" class="form-control" />
+                            <span asp-validation-for="Book.Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-6">
+                            <label asp-for="Book.ISBN" class="control-label"></label>
+                            <input asp-for="Book.ISBN" class="form-control" />
+                            <span asp-validation-for="Book.ISBN" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.Author" class="control-label"></label>
+                            <input asp-for="Book.Author" class="form-control" />
+                            <span asp-validation-for="Book.Author" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.Publisher" class="control-label"></label>
+                            <input asp-for="Book.Publisher" class="form-control" />
+                            <span asp-validation-for="Book.Publisher" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.PublicationDate" class="control-label"></label>
+                            <input asp-for="Book.PublicationDate" type="date" class="form-control" />
+                            <span asp-validation-for="Book.PublicationDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Book.Description" class="control-label"></label>
+                            <textarea asp-for="Book.Description" rows="4" class="form-control"></textarea>
+                            <span asp-validation-for="Book.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.ImgUrl" class="control-label"></label>
+                            <input type="file" id="uploadBox" name="file" class="form-control" />
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.Price" class="control-label"></label>
+                            <input asp-for="Book.Price" class="form-control" />
+                            <span asp-validation-for="Book.Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.InStock" class="control-label"></label>
+                            <input asp-for="Book.InStock" class="form-control" />
+                            <span asp-validation-for="Book.InStock" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.CoverTypeId" class="control-label"></label>
+                            <select asp-for="Book.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-select">
+                                <option disable selected>-- Chọn Loại bìa --</option>
+                            </select>
+                            <span asp-validation-for="Book.CoverTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.AgeId" class="control-label"></label>
+                            <select asp-for="Book.AgeId" asp-items="@Model.AgeList" class="form-select">
+                                <option disable selected>-- Chọn Độ tuổi --</option>
+                            </select>
+                            <span asp-validation-for="Book.AgeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-4">
+                            <label asp-for="Book.CategoryId" class="control-label"></label>
+                            <select asp-for="Book.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                                <option disable selected>-- Chọn Thể loại --</option>
+                            </select>
+                            <span asp-validation-for="Book.CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group mt-3">
+                            @if (Model.Book.Id!=0)
+                            {
+                                <input type="submit" value="Sửa thông tin" class="btn btn-primary" />
+                            }
+                            else
+                            {
+                                <input type="submit" onclick="return ValidateInput()" value="Thêm sách" class="btn btn-primary" />
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function ValidateInput(){
+            if(document.getElementById("uploadBox").value == ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ảnh bìa chưa được thêm!',
+                })
+                return false
+            }
+            return true
+        }
+    </script>
+}

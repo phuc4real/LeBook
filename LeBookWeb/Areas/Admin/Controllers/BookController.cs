@@ -9,6 +9,7 @@ using LeBook.DataAccess;
 using LeBook.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
+using LeBook.Models.ViewModel;
 
 namespace LeBook.Areas.Admin.Controllers
 {
@@ -16,12 +17,14 @@ namespace LeBook.Areas.Admin.Controllers
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _hostEnvironment;
         public INotyfService _notifyService { get; }
 
-        public BookController(IUnitOfWork unitOfWork, INotyfService notifyService)
+        public BookController(IUnitOfWork unitOfWork, INotyfService notifyService, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _notifyService = notifyService;
+            _hostEnvironment = hostEnvironment;
         }
 
         // GET: Admin/Book
@@ -30,77 +33,56 @@ namespace LeBook.Areas.Admin.Controllers
             return View( _unitOfWork.Book.Get());
         }
 
-        // GET: Admin/Book/Create
-        public IActionResult Create()
+        // GET: Admin/Book/Upsert/5
+        public IActionResult Upsert(int? id)
         {
-            return View();
+            BookViewModel bookView = new()
+            {
+                Book = new(),
+                CategoryList = _unitOfWork.Category.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                CoverTypeList = _unitOfWork.CoverType.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                AgeList = _unitOfWork.Age.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+            };
+             
+            if (id == null || id == 0 )
+            {
+                //Create Book
+                return View(bookView);
+            }
+            else
+            {
+                //Update Book
+            }
+            return View(bookView);
         }
 
-        // POST: Admin/Book/Create
+        // POST: Admin/Book/Upsert/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Book book)
+        public IActionResult Upsert(BookViewModel bookView, IFormFile file)
         {
+
             if (ModelState.IsValid)
             {
-                _unitOfWork.Book.Add(book);
+                string wwwRoot = _hostEnvironment.WebRootPath;
+                if (file != null) {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRoot, @"images\books");
+                    var extension = Path.GetExtension(file.FileName);
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    { 
+                        file.CopyTo(fileStreams);
+                    }
+                    bookView.Book.ImgUrl = @"\images\books\" + fileName + extension;
+                }
+
+                _unitOfWork.Book.Add(bookView.Book);
                 _unitOfWork.Save();
-                _notifyService.Success("Thêm thể loại thành công");
+                _notifyService.Success("Thể loại đã được chỉnh sửa");
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(book);
-        }
-
-        // GET: Admin/Book/Edit/5
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || _unitOfWork.Book == null)
-            {
-                return base.NotFound();
-            }
-
-            var book = _unitOfWork.Book.GetFirtOrDefault(x => x.Id == id);
-            if (book == null || book.IsDeleted)
-            {
-                return NotFound();
-            }
-            return View(book);
-        }
-
-        // POST: Admin/Book/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Book book)
-        {
-            if (id != book.Id || book.IsDeleted)
-            {
-                return NotFound();
-            }
-            
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _unitOfWork.Book.Update(book);
-                    _unitOfWork.Save();
-                    _notifyService.Success("Thể loại đã được chỉnh sửa");
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookExists(book.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-            return View(book);
+            return View(bookView);
         }
 
         // POST: Admin/Book/Delete/5
