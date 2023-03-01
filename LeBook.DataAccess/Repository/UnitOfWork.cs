@@ -16,12 +16,18 @@ namespace LeBook.DataAccess.Repository
             Category = new CategoryRepository(_context);
             CoverType = new CoverTypeRepository(_context);
             Age = new AgeRepository(_context);
+            Book = new BookRepository(_context);
+            Price = new PriceRepository(_context);
         }
         public ICategoryRepository Category { get; private set; }
 
         public ICoverTypeRepository CoverType { get; private set; }
 
         public IAgeRepository Age { get; private set; }
+
+        public IBookRepository Book { get; private set; }
+
+        public IPriceReposittory Price { get; private set; }
 
         public void Save()
         {

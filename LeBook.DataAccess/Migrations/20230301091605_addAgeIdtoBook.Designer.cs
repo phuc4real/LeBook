@@ -4,6 +4,7 @@ using LeBook.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301091605_addAgeIdtoBook")]
+    partial class addAgeIdtoBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace LeBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ages", (string)null);
+                    b.ToTable("Ages");
                 });
 
             modelBuilder.Entity("LeBook.Models.Book", b =>
@@ -124,7 +126,7 @@ namespace LeBook.Migrations
 
                     b.HasIndex("CoverTypeId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("LeBook.Models.Category", b =>
@@ -156,7 +158,7 @@ namespace LeBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("LeBook.Models.CoverType", b =>
@@ -188,7 +190,7 @@ namespace LeBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoverTypes", (string)null);
+                    b.ToTable("CoverTypes");
                 });
 
             modelBuilder.Entity("LeBook.Models.Price", b =>
@@ -224,7 +226,7 @@ namespace LeBook.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("Prices", (string)null);
+                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("LeBook.Models.Book", b =>

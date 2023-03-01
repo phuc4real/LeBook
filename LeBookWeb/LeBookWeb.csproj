@@ -27,4 +27,43 @@
     <ProjectReference Include="..\LeBook.Models\LeBook.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Areas\Admin\Views\Book\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\book1.webp" />
+    <None Include="wwwroot\images\book3.webp" />
+    <None Include="wwwroot\images\book4.webp" />
+    <None Include="wwwroot\images\book5.webp" />
+    <None Include="wwwroot\images\book6.webp" />
+    <None Include="wwwroot\images\ico_account_gray.svg" />
+    <None Include="wwwroot\images\ico_cart_gray.svg" />
+    <None Include="wwwroot\images\ico_coupon.svg" />
+    <None Include="wwwroot\images\ico_menu.svg" />
+    <None Include="wwwroot\images\ico_noti_gray.svg" />
+    <None Include="wwwroot\images\ico_seemore_blue.svg" />
+  </ItemGroup>
+
 </Project>

@@ -16,8 +16,8 @@ namespace LeBook.Models
         [DisplayName("Tên sách")]
         [Required(ErrorMessage = "Tên sách được bỏ trống!")]
         public string Title { get; set; }
-        [DisplayName("Mã ISBN")]
-        [Required(ErrorMessage = "Mã ISBN được bỏ trống!")]
+        [DisplayName("ISBN")]
+        [Required(ErrorMessage = "ISBN được bỏ trống!")]
         public string ISBN { get; set; }
         [DisplayName("Mô tả nội dung")]
         public string Description { get; set; }
@@ -44,7 +44,19 @@ namespace LeBook.Models
         [ForeignKey("CoverTypeId")]
         public CoverType CoverType { get; set; }
         [Required]
+        [DisplayName("Phân loại độ tuổi")]
+        public int AgeId { get; set; }
+        [ForeignKey("AgeId")]
+        public Age Age { get; set; }
+        [Required]
         [DisplayName("Giá bán")]
         public ICollection<Price> Price { get; set; }
+        [DisplayName("Ngày tạo")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [DisplayName("Ngày chỉnh sửa")]
+        public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
+        [DisplayName("Ngày xoá")]
+        public DateTime DeletedAt { get; set; }
     }
 }

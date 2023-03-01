@@ -14,6 +14,9 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         IAgeRepository Age { get; }
 
+        IPriceReposittory Price { get; }
+
+        IBookRepository Book { get; }
         void Save();
     }
 }
