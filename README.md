@@ -12,5 +12,5 @@ Bookstore Website
 
 ## Authors
 
-- [@lphuc-ctu](https://github.com/lhphuc-ctu)
+- [@lhphuc-ctu](https://github.com/lhphuc-ctu)
 
