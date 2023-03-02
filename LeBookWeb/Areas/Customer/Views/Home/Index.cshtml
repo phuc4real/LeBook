@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Book>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -190,48 +192,15 @@
     </div>
 
     <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
+        @foreach (var item in Model)
+        {
+            <div class="product-shelf">
+                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
+                  <div class="quick-add">
+                    <a href="addCart.html">Mua ngay</a>
+                  </div>
             </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -242,48 +211,15 @@
     </div>
 
     <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
+        @foreach (var item in Model)
+        {
+            <div class="product-shelf">
+                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
+                <div class="quick-add">
+                    <a href="addCart.html">Mua ngay</a>
+                </div>
             </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book3.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -294,65 +230,32 @@
     </div>
 
     <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
+        @foreach (var item in Model)
+        {
+            <div class="product-shelf">
+                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
+                <div class="quick-add">
+                    <a href="addCart.html">Mua ngay</a>
+                </div>
             </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="addCart.html">Mua ngay</a>
-            </div>
-        </div>
-        <div class="product-shelf">
-            <img src="~/images/book4.webp" alt="" />
-            <div class="quick-add">
-                <a href="">Mua ngay</a>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
 @section Scripts {
-    <script>
-        $('.owl-carousel').owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: true,
-            dots: true,
-            smartSpeed: 700,
-            navText: [prevIcon, nextIcon],
-            responsive: {
-                0: {
-                    items: 1,
+        <script>
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                dots: true,
+                smartSpeed: 700,
+                navText: [prevIcon, nextIcon],
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
                 },
-            },
-        })
-    </script>
+            })
+        </script>
 }

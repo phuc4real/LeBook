@@ -59,11 +59,6 @@
                             <input asp-for="Book.PublicationDate" type="date" class="form-control" />
                             <span asp-validation-for="Book.PublicationDate" class="text-danger"></span>
                         </div>
-                        <div class="form-group mt-2">
-                            <label asp-for="Book.Description" class="control-label"></label>
-                            <textarea asp-for="Book.Description" rows="4" class="form-control"></textarea>
-                            <span asp-validation-for="Book.Description" class="text-danger"></span>
-                        </div>
                         <div class="form-group mt-2 col-md-4">
                             <label asp-for="Book.ImgUrl" class="control-label"></label>
                             <input type="file" id="uploadBox" name="file" class="form-control" />
@@ -99,6 +94,11 @@
                             </select>
                             <span asp-validation-for="Book.CategoryId" class="text-danger"></span>
                         </div>
+                        <div class="form-group mt-2">
+                            <label asp-for="Book.Description" class="control-label"></label>
+                            <textarea asp-for="Book.Description" rows="4" class="form-control"></textarea>
+                            <span asp-validation-for="Book.Description" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group mt-3">
@@ -122,7 +122,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://cdn.tiny.cloud/1/gjdnzyvuiir6gk2k53j0thy7rjrb7qskd4rfcjic9t562u25/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
         function ValidateInput(){
             if(document.getElementById("uploadBox").value == ""){
                 Swal.fire({

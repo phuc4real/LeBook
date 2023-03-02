@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>annotations</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>92e83b3d-fc13-4059-80df-264dace73370</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,17 +44,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\book1.webp" />
-    <None Include="wwwroot\images\book3.webp" />
-    <None Include="wwwroot\images\book4.webp" />
-    <None Include="wwwroot\images\book5.webp" />
-    <None Include="wwwroot\images\book6.webp" />
-    <None Include="wwwroot\images\ico_account_gray.svg" />
-    <None Include="wwwroot\images\ico_cart_gray.svg" />
-    <None Include="wwwroot\images\ico_coupon.svg" />
-    <None Include="wwwroot\images\ico_menu.svg" />
-    <None Include="wwwroot\images\ico_noti_gray.svg" />
-    <None Include="wwwroot\images\ico_seemore_blue.svg" />
+    <None Include="wwwroot\assets\img\book1.webp" />
+    <None Include="wwwroot\assets\img\book3.webp" />
+    <None Include="wwwroot\assets\img\book4.webp" />
+    <None Include="wwwroot\assets\img\book5.webp" />
+    <None Include="wwwroot\assets\img\book6.webp" />
+    <None Include="wwwroot\assets\svg\ico_account_gray.svg" />
+    <None Include="wwwroot\assets\svg\ico_cart_gray.svg" />
+    <None Include="wwwroot\assets\svg\ico_coupon.svg" />
+    <None Include="wwwroot\assets\svg\ico_menu.svg" />
+    <None Include="wwwroot\assets\svg\ico_noti_gray.svg" />
+    <None Include="wwwroot\assets\svg\ico_seemore_blue.svg" />
   </ItemGroup>
 
 </Project>

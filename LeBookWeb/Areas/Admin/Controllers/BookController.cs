@@ -33,6 +33,22 @@ namespace LeBook.Areas.Admin.Controllers
         {
             return View( _unitOfWork.Book.Get());
         }
+        
+        // GET: Admin/Book/Upsert/5
+        public IActionResult Detail(int id)
+        {
+            BookViewModel bookView = new()
+            {
+                Book = _unitOfWork.Book.GetFirst(id),
+                CategoryList = _unitOfWork.Category.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                CoverTypeList = _unitOfWork.CoverType.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                AgeList = _unitOfWork.Age.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+            };
+
+            bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice;
+
+            return View(bookView);
+        }
 
         // GET: Admin/Book/Upsert/5
         public IActionResult Upsert(int? id)
@@ -65,7 +81,6 @@ namespace LeBook.Areas.Admin.Controllers
 
                 return View(bookView);
             }
-            return View(bookView);
         }
 
         // POST: Admin/Book/Upsert/5
@@ -130,6 +145,30 @@ namespace LeBook.Areas.Admin.Controllers
             return View(bookView);
         }
 
+        // GET: Admin/Book/BookByCategory/1
+        public IActionResult BookByCategory(int id)
+        {
+            IEnumerable<Book> books = _unitOfWork.Book.FindByCategory(id);
+            ViewBag.BookBy = "theo thể loại: " + _unitOfWork.Category.GetFirtOrDefault(x => x.Id == id).Name;
+            return View("Index", books);
+        }
+
+        // GET: Admin/Book/BookByCoverType/1
+        public IActionResult BookByCoverType(int id)
+        {
+            IEnumerable<Book> books = _unitOfWork.Book.FindByCoverType(id);
+            ViewBag.BookBy = "theo loại bìa: " + _unitOfWork.CoverType.GetFirtOrDefault(x => x.Id == id).Name;
+            return View("Index", books);
+        }
+
+        // GET: Admin/Book/BookByAge/1
+        public IActionResult BookByAge(int id)
+        {
+            IEnumerable<Book> books = _unitOfWork.Book.FindByAge(id);
+            ViewBag.BookBy = "theo độ tuổi: " + _unitOfWork.Age.GetFirtOrDefault(x => x.Id == id).Name;
+            return View("Index", books);
+        }
+
         // POST: Admin/Book/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -137,13 +176,13 @@ namespace LeBook.Areas.Admin.Controllers
         {
             if (_unitOfWork.Book == null)
             {
-                return base.Problem("Bảng thể loại trống.");
+                return base.Problem("Bảng sách trống.");
             }
             var book = _unitOfWork.Book.GetFirtOrDefault(x => x.Id == id);
             if (book != null && !book.IsDeleted)
             {
                 _unitOfWork.Book.SoftDelete(book);
-                _notifyService.Success("Xoá thể loại thành công");
+                _notifyService.Success("Xoá sách thành công");
             }
             
             _unitOfWork.Save();

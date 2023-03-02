@@ -1,4 +1,6 @@
-﻿using LeBook.Models;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using LeBook.DataAccess.Repository.IRepository;
+using LeBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,22 +9,26 @@ namespace LeBook.Controllers
     [Area("Customer")]
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public INotyfService _notifyService { get; }
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork, INotyfService notifyService)
         {
-
+            _unitOfWork = unitOfWork;
+            _notifyService = notifyService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Book> books = _unitOfWork.Book.Get();
+
+            return View(books);
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Details(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Book book = _unitOfWork.Book.GetFirst(id);
+            return View();
         }
     }
 }

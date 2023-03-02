@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<Book>
 
 @{
-    ViewData["Title"] = "Thể loại đã xoá";
+    ViewData["Title"] = "Danh sách sản phẩm đã xoá";
 }
 
 <main>
@@ -12,7 +12,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Danh sách thể loại đã xoá
+                            Danh sách sản phẩm đã xoá
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
@@ -33,19 +33,31 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.DisplayOrder)
+                                @Html.DisplayNameFor(model => model.ImgUrl)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.Title)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedAt)
+                                @Html.DisplayNameFor(model => model.ISBN)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.LastUpdatedAt)
+                                @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DeletedAt)
+                                @Html.DisplayNameFor(model => model.CategoryId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoverTypeId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AgeId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InStock)
                             </th>
                             <th></th>
                         </tr>
@@ -53,19 +65,31 @@
                     <tfoot>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.DisplayOrder)
+                                @Html.DisplayNameFor(model => model.ImgUrl)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.Title)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedAt)
+                                @Html.DisplayNameFor(model => model.ISBN)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.LastUpdatedAt)
+                                @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DeletedAt)
+                                @Html.DisplayNameFor(model => model.CategoryId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoverTypeId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AgeId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.InStock)
                             </th>
                             <th></th>
                         </tr>
@@ -75,22 +99,34 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                                    <img width="80" height="80" src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @Html.DisplayFor(modelItem => item.Title)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                    @Html.DisplayFor(modelItem => item.ISBN)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LastUpdatedAt)
+                                    @Html.DisplayFor(modelItem => item.Author)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DeletedAt)
+                                    @Html.DisplayFor(modelItem => item.Category.Name)
                                 </td>
                                 <td>
-                                    <a href="#" onclick="return submitRestore(event,'@item.Id','Thể loại')">Phục hồi</a>
+                                    @Html.DisplayFor(modelItem => item.CoverType.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Age.Name)
+                                </td>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InStock)
+                                </td>
+                                <td>
+                                    <a href="#" onclick="return submitRestore(event,'@item.Id','Sách')">Phục hồi</a>
                                     <form asp-action="Restore" id="Restore+@item.Id">
                                         <input type="hidden" value="@item.Id" name="id" id="id" />
                                     </form>
@@ -103,19 +139,3 @@
         </div>
     </div>
 </main>
-@section Scripts {
-    <script>
-        window.addEventListener('DOMContentLoaded', event => {
-            let dataTable = new simpleDatatables.DataTable("#CategoryTable", {
-                labels: {
-                    placeholder: "Tìm kiếm...",
-                    searchTitle: "Tìm trong bảng",
-                    perPage: "mẫu tin trên trang",
-                    noRows: "Không có dữ liệu",
-                    info: "Hiển thị mẫu tin {start} tới {end} trong {rows} mẫu tin",
-                    noResults: "Không tìm thấy dữ liệu!",
-                }
-            });
-        });
-    </script>
-}

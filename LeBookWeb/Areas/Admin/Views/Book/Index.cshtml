@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Book>
 
 @{
-    ViewData["Title"] = "Thể loại sách";
+    ViewData["Title"] = "Danh sách sản phẩm";
 }
 
 <main>
@@ -12,7 +12,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Danh sách sản phẩm
+                            Danh sách sản phẩm @if (ViewBag.BookBy != null) { @ViewBag.BookBy}
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
@@ -103,7 +103,7 @@
                         {
                             <tr>
                                 <td>
-                                    <img width="90" height="90" src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
+                                    <img width="80" height="80" src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Title)

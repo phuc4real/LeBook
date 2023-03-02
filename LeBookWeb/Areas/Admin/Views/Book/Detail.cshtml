@@ -1,0 +1,120 @@
+﻿@model LeBook.Models.ViewModel.BookViewModel
+
+@{
+    ViewData["Title"] = "Thông tin chi tiết sách";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="plus"></i></div>
+                            Thông tin chi tiết sách
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                            <i class="me-1" data-feather="corner-up-left"></i>
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="ps-10 col-md-3">
+                        <div class="mt-2 col">
+                            <h2 class="fw-bolder">@Model.Book.Title</h2>
+                        </div>
+                        <div class="mt-2 col">
+                            <img height="300" src="@Url.Content(Model.Book.ImgUrl)" alt="@Model.Book.Title" />
+                        </div>
+
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.ISBN" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.ISBN" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.Author" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.Author" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.Publisher" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.Publisher" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.PublicationDate" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.PublicationDate" type="date" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="itemPrice" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="itemPrice" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.InStock" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.InStock" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.Sold" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.Sold" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.CreatedAt" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.CreatedAt" type="date" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.LastUpdatedAt" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.LastUpdatedAt" type="date" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.Category.Name" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.Category.Name" class="form-control-plaintext" disabled />
+                            </div>
+                                                        <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.CoverType.Name" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.CoverType.Name" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2 col-md-4">
+                                <label asp-for="Book.Age.Name" class="control-label fw-bolder fs-5"></label>
+                                <input asp-for="Book.Age.Name" class="form-control-plaintext" disabled />
+                            </div>
+                            <div class="form-group mt-2">
+                                @Model.Book.Description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ảnh bìa chưa được thêm!',
+                })
+                return false
+            }
+            return true
+        }
+    </script>
+}

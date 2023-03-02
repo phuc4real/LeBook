@@ -1,6 +1,7 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,21 @@ namespace LeBook.DataAccess.Repository
         public IEnumerable<Book> FindByAge(int AgeId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.AgeId == AgeId);
+            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             return values.ToList();
         }
 
         public IEnumerable<Book> FindByCategory(int CategoryId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.CategoryId == CategoryId);
+            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             return values.ToList();
         }
 
         public IEnumerable<Book> FindByCoverType(int CoverTypeId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.CoverTypeId == CoverTypeId);
+            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             return values.ToList();
         }
 
@@ -46,12 +50,14 @@ namespace LeBook.DataAccess.Repository
         public IEnumerable<Book> GetDeleted()
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == true);
+            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             return values.ToList();
         }
 
         public Book GetFirst(int? id)
         {
-            IQueryable<Book> books = _context.Books.Where(c => c.Id == id).Include(c => c.Price);
+            IQueryable<Book> books = _context.Books.Where(c => c.Id == id);
+            books = books.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             Book book = books.FirstOrDefault(c => c.Id == id);
             return book;
         }
@@ -82,7 +88,8 @@ namespace LeBook.DataAccess.Repository
                 _book.InStock = book.InStock;
                 _book.Sold = book.Sold;
                 _book.CategoryId = book.CategoryId;
-                _book.CoverType = book.CoverType;
+                _book.CoverTypeId = book.CoverTypeId;
+                _book.AgeId = book.AgeId;
                 _book.LastUpdatedAt = DateTime.Now;
                 if (book.ImgUrl != null)
                 {
