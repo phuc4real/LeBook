@@ -103,7 +103,7 @@
                         {
                             <tr>
                                 <td>
-                                    <img src="@Url.Content(item.ImgUrl)" /> 
+                                    <img width="90" height="90" src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Title)
@@ -130,8 +130,8 @@
                                     @Html.DisplayFor(modelItem => item.InStock)
                                 </td>
                                 <td>
-                                    <a asp-action="Detail" asp-route-id="@item.Id" >Chi tiết</a> |
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a> |
+                                    <a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a> |
+                                    <a asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a> |
                                     <a href="#" onclick="return submitDelete(event,'@item.Id','Sách')">Xoá</a>
                                     <form asp-action="Delete" id="Delete+@item.Id">
                                         <input type="hidden" value="@item.Id" name="id" id="id" />

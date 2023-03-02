@@ -15,6 +15,8 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         void Restore(Book book);
 
+        Book GetFirst(int? id);
+
         IEnumerable<Book> Get();
 
         IEnumerable<Book> GetDeleted();

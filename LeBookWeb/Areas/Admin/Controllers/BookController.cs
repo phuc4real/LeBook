@@ -10,6 +10,7 @@ using LeBook.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models.ViewModel;
+using LeBook.DataAccess.Repository;
 
 namespace LeBook.Areas.Admin.Controllers
 {
@@ -52,6 +53,17 @@ namespace LeBook.Areas.Admin.Controllers
             else
             {
                 //Update Book
+                bookView.Book = _unitOfWork.Book.GetFirst(id);
+                if (bookView.Book.Price.Count > 0 )
+                {
+                    bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice;
+                }
+                else
+                {
+                    bookView.itemPrice = 0;
+                }
+
+                return View(bookView);
             }
             return View(bookView);
         }
@@ -59,7 +71,7 @@ namespace LeBook.Areas.Admin.Controllers
         // POST: Admin/Book/Upsert/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(BookViewModel bookView, IFormFile file)
+        public IActionResult Upsert(BookViewModel bookView, IFormFile? file)
         {
 
             if (ModelState.IsValid)
@@ -70,6 +82,15 @@ namespace LeBook.Areas.Admin.Controllers
                     var uploads = Path.Combine(wwwRoot, @"images\books");
                     var extension = Path.GetExtension(file.FileName);
 
+                    if (bookView.Book.ImgUrl != null)
+                    {
+                        var oldImg = Path.Combine(wwwRoot,bookView.Book.ImgUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImg))
+                        {
+                            System.IO.File.Delete(oldImg);
+                        }
+                    }
+
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     { 
                         file.CopyTo(fileStreams);
@@ -77,9 +98,33 @@ namespace LeBook.Areas.Admin.Controllers
                     bookView.Book.ImgUrl = @"\images\books\" + fileName + extension;
                 }
 
-                _unitOfWork.Book.Add(bookView.Book);
+
+
+                if (bookView.Book.Id == 0)
+                { 
+                    _unitOfWork.Book.Add(bookView.Book);
+                    Price price = new()
+                    {
+                        ItemPrice = bookView.itemPrice,
+                        Date = DateTime.Now,
+                        Book = bookView.Book
+                    };
+                    _unitOfWork.Price.Add(price);
+                }
+                else
+                { 
+                    _unitOfWork.Book.Update(bookView.Book);
+                    Price price = new()
+                    {
+                        ItemPrice = bookView.itemPrice,
+                        Date = DateTime.Now,
+                        BookId = bookView.Book.Id
+                    };
+                    _unitOfWork.Price.Add(price);
+                }
+
                 _unitOfWork.Save();
-                _notifyService.Success("Thể loại đã được chỉnh sửa");
+                _notifyService.Success("Cập nhật thành công!");
                 return RedirectToAction(nameof(Index));
             }
             return View(bookView);
@@ -136,5 +181,22 @@ namespace LeBook.Areas.Admin.Controllers
         {
           return _unitOfWork.Book.Any(e => e.Id == id);
         }
+
+        #region API
+        [HttpGet]
+        public IActionResult GetBook()
+        {
+            var bookList = _unitOfWork.Book.Get();
+            return Json(bookList);
+
+        }
+
+        public IActionResult GetBookWithPrice(int id)
+        {
+            var bookList = _unitOfWork.Book.GetFirst(id);
+            return Json(bookList);
+
+        }
+        #endregion
     }
 }

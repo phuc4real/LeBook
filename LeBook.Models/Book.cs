@@ -60,8 +60,8 @@ namespace LeBook.Models
         [ValidateNever]
         public Age Age { get; set; }
         [DisplayName("Giá bán")]
-        [Required(ErrorMessage = "Giá bán không được bỏ trống!")]
-        public ICollection<Price> Price { get; set; }
+        [ValidateNever]
+        public virtual ICollection<Price> Price { get; set; }
         [DisplayName("Ngày tạo")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [DisplayName("Ngày chỉnh sửa")]

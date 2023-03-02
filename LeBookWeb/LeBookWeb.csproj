@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>annotations</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -54,10 +54,6 @@
     <None Include="wwwroot\images\ico_menu.svg" />
     <None Include="wwwroot\images\ico_noti_gray.svg" />
     <None Include="wwwroot\images\ico_seemore_blue.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\books\" />
   </ItemGroup>
 
 </Project>

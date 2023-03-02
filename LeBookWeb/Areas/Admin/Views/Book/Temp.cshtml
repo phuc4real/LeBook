@@ -49,13 +49,6 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Publisher)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PublicationDate)
-                            </th>
-
-                            <th>
                                 @Html.DisplayNameFor(model => model.CategoryId)
                             </th>
                             <th>
@@ -88,12 +81,6 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Publisher)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PublicationDate)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.CategoryId)
                             </th>
                             <th>
@@ -116,7 +103,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ImgUrl)
+                                    <img width="90" height="90" src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Title)
@@ -126,15 +113,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Author)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Publisher)
-                                </td>
-                                <td>
-                                    @{
-                                        string parameterValue = item.PublicationDate.ToString("MM/dd/yyyy");
-                                    }
-                                    @Html.DisplayFor(modelItem => parameterValue)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Category.Name)
@@ -167,3 +145,7 @@
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script src="~/js/book.js"></script>
+}

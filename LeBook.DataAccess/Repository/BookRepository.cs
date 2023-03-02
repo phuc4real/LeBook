@@ -49,6 +49,13 @@ namespace LeBook.DataAccess.Repository
             return values.ToList();
         }
 
+        public Book GetFirst(int? id)
+        {
+            IQueryable<Book> books = _context.Books.Where(c => c.Id == id).Include(c => c.Price);
+            Book book = books.FirstOrDefault(c => c.Id == id);
+            return book;
+        }
+
         public void Restore(Book book)
         {
             book.IsDeleted = false;
