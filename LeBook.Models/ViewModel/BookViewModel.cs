@@ -16,6 +16,7 @@ namespace LeBook.Models.ViewModel
         [Required]
         [DisplayName("Đơn giá")]
         [Range(1, double.MaxValue,ErrorMessage ="Giá tiền không hợp lệ!")]
+        [DisplayFormat(DataFormatString = "{0:#,###.## vnđ}")]
         public double itemPrice { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }

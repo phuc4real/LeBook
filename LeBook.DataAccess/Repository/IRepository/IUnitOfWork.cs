@@ -8,15 +8,24 @@ namespace LeBook.DataAccess.Repository.IRepository
 {
     public interface IUnitOfWork
     {
+
+
+        IAgeRepository Age { get; }
+
+        IBookRepository Book { get; }
+
+        IPriceReposittory Price { get; }
+
+        ICompanyRepository Company { get; }
+
         ICategoryRepository Category { get; }
 
         ICoverTypeRepository CoverType { get; }
 
-        IAgeRepository Age { get; }
+        IShoppingCartRepository ShoppingCart { get; }
 
-        IPriceReposittory Price { get; }
+        IApplicationUserRepository ApplicationUser { get; }
 
-        IBookRepository Book { get; }
         void Save();
     }
 }

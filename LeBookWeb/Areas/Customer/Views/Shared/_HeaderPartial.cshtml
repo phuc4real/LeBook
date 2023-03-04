@@ -3,15 +3,15 @@
         <nav class="navbar-list container">
             <div class="row">
                 <div class="col-md-2">
-                    <a href="" class="logo-img">
-                        <img src="images/logo.png" alt="" />
+                    <a asp-action="Index" class="logo-img">
+                        <img src="~/images/logo.png" alt="" />
                     </a>
                 </div>
                 <form action=""
                       class="col-md-8 col-sm-12 form-input d-flex align-items-center">
                     <div class="d-flex search-bar">
                         <div class="search-options">
-                            <img src="images/ico_menu.svg" alt="" />
+                            <img src="~/assets/svg/ico_menu.svg" alt="" />
                             <i class="fa-solid fa-angle-down"></i>
                             <div class="dropdown">
                                 <div class="row">
@@ -265,22 +265,17 @@
                 <div class="cart col-md-2">
                     <div class="notification-button">
                         <a href="">
-                            <img src="images/ico_noti_gray.svg" alt="" />
+                            <img src="~/assets/svg/ico_noti_gray.svg" alt="" />
                             <p>Thông báo</p>
                         </a>
                     </div>
                     <div class="cart-button">
                         <a href="cart.html">
-                            <img src="images/ico_cart_gray.svg" alt="" />
+                            <img src="~/assets/svg/ico_cart_gray.svg" alt="" />
                             <p>Giỏ Hàng</p>
                         </a>
                     </div>
-                    <div class="account-button">
-                        <a href="">
-                            <img src="images/ico_account_gray.svg" alt="" />
-                            <p>Tài Khoản</p>
-                        </a>
-                    </div>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

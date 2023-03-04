@@ -30,12 +30,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="ps-10 col-md-3">
-                        <div class="mt-2 col">
+                    <div class="col-md-3">
+                        <div class="mt-2 col d-flex justify-content-center">
                             <h2 class="fw-bolder">@Model.Book.Title</h2>
                         </div>
-                        <div class="mt-2 col">
-                            <img height="300" src="@Url.Content(Model.Book.ImgUrl)" alt="@Model.Book.Title" />
+                        <div class="mt-2 col d-flex justify-content-center">
+                            <img width="240" src="@Url.Content(Model.Book.ImgUrl)" alt="@Model.Book.Title" />
                         </div>
 
                     </div>
@@ -43,54 +43,55 @@
                         <div class="row">
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.ISBN" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.ISBN" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.ISBN)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.Author" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.Author" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.Author)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.Publisher" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.Publisher" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.Publisher)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.PublicationDate" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.PublicationDate" type="date" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.PublicationDate)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="itemPrice" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="itemPrice" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.itemPrice)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.InStock" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.InStock" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.InStock)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.Sold" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.Sold" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.Sold)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.CreatedAt" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.CreatedAt" type="date" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.CreatedAt)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.LastUpdatedAt" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.LastUpdatedAt" type="date" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.LastUpdatedAt)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.Category.Name" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.Category.Name" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.Category.Name)</div>
                             </div>
-                                                        <div class="form-group mt-2 col-md-4">
+                            <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.CoverType.Name" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.CoverType.Name" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.CoverType.Name)</div>
                             </div>
                             <div class="form-group mt-2 col-md-4">
                                 <label asp-for="Book.Age.Name" class="control-label fw-bolder fs-5"></label>
-                                <input asp-for="Book.Age.Name" class="form-control-plaintext" disabled />
+                                <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Book.Age.Name)</div>
                             </div>
                             <div class="form-group mt-2">
-                                @Model.Book.Description
+                                <label asp-for="Book.Description" class="control-label fw-bolder fs-5"></label>
+                                @Html.Raw(Model.Book.Description)
                             </div>
                         </div>
                     </div>

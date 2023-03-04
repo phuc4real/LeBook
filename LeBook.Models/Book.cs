@@ -34,6 +34,8 @@ namespace LeBook.Models
         public string Publisher { get; set; }
         [DisplayName("Năm XB")]
         [Required(ErrorMessage = "Năm XB không được bỏ trống!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime PublicationDate { get; set; }
         [DisplayName("Tồn kho")]
         [Required(ErrorMessage = "Tồn kho không được bỏ trống!")]

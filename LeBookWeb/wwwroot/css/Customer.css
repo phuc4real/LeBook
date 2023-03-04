@@ -792,7 +792,7 @@ input:focus {
 }
 
 .add-cart .img-container img {
-  height: 300px;
+  height: 301px;
 }
 
 .add-cart .hover-image {
@@ -841,7 +841,7 @@ input:focus {
 }
 
 .product-name {
-  margin: 30px 0;
+    margin: 30px 0 15px 0;
 }
 
 .product-view-one,
@@ -1230,7 +1230,6 @@ input:focus {
 .form-box-content {
   background-color: #fff;
   position: relative;
-  width: 450px;
   max-width: calc(100vw - 20px);
 }
 

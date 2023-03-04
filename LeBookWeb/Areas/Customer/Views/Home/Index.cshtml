@@ -197,7 +197,7 @@
             <div class="product-shelf">
                 <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                   <div class="quick-add">
-                    <a href="addCart.html">Mua ngay</a>
+                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
                   </div>
             </div>
         }
@@ -216,7 +216,7 @@
             <div class="product-shelf">
                 <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                 <div class="quick-add">
-                    <a href="addCart.html">Mua ngay</a>
+                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
                 </div>
             </div>
         }
@@ -235,7 +235,7 @@
             <div class="product-shelf">
                 <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
                 <div class="quick-add">
-                    <a href="addCart.html">Mua ngay</a>
+                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
                 </div>
             </div>
         }

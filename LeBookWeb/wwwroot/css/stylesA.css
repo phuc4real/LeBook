@@ -9322,6 +9322,7 @@ textarea.form-control-lg {
 
 .d-flex {
   display: flex !important;
+  justify-content: center;
 }
 
 .d-inline-flex {

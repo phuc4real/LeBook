@@ -1,1 +1,76 @@
-﻿
+﻿@model ShoppingCart
+
+@{
+    ViewData["Title"] = "Thông tin chi tiết";
+}
+
+<form method="post" class="add-cart">
+    <input asp-for="BookId" hidden/>
+    <div class="container">
+        <div class="row add-cart-container">
+            <div class="col-sm-6">
+                <div class="img-container zoom">
+                    <img src="@Model.Book.ImgUrl" alt="" />
+                </div>
+                <div class="hover-image">
+                    <div class="book-img-cart">
+                        <img src="@Model.Book.ImgUrl" alt="" />
+                    </div>
+                    <div class="book-img-cart">
+                        <img src="@Model.Book.ImgUrl" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="product-name">
+                    <h3>@Model.Book.Title</h3>
+                </div>
+                <div class="product-view-one">
+                    <div class="product-supplier">
+                        <span>Nhà cung cấp:</span>
+                        <span>Kinokuniya Book Stores</span>
+                    </div>
+                    <div class="product-author">
+                        <span>Tác giả:</span>
+                        <span>@Model.Book.Author</span>
+                    </div>
+                </div>
+                <div class="product-view-two">
+                    <div class="product-supplier">
+                        <span>Nhà xuất bản:</span>
+                        <span>@Model.Book.Publisher</span>
+                    </div>
+                    <div class="product-author">
+                        <span>Hình thức bìa:</span>
+                        <span>@Model.Book.CoverType.Name</span>
+                    </div>
+                </div>
+                <div class="price text-red-soft">
+                    <h1>@Model.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</h1>
+                </div>
+                <div class="amount">
+                    <label>Số lượng:</label>
+                    <div class="quantity add">
+                        <span class="minus">-</span>
+                        <input asp-for="Count" type="text" class="number"/>
+                        <span class="plus">+</span>
+                    </div>
+                </div>
+                <div class="btn-groups mt-4">
+                    <button type="submit" class="add-cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Thêm vào giỏ hàng</span>
+                    </button>
+                    <button class="buy-now" type="submit">
+                        <i class="fa-solid fa-wallet"></i>
+                        <span>Mua ngay</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/js/zoom.js"></script>
+}

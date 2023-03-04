@@ -22,10 +22,10 @@
                 </a>
                 <div class="collapse" id="collapseItem" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Book" asp-action="Index">Danh sách sản phẩm</a>
-                        <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Thể loại</a>
-                        <a class="nav-link" asp-area="Admin" asp-controller="CoverType" asp-action="Index">Loại bìa</a>
-                        <a class="nav-link" asp-area="Admin" asp-controller="Age" asp-action="Index">Phân loại độ tuổi</a>
+                        <a class="nav-link" asp-controller="Book" asp-action="Index">Danh sách sản phẩm</a>
+                        <a class="nav-link" asp-controller="Category" asp-action="Index">Thể loại</a>
+                        <a class="nav-link" asp-controller="CoverType" asp-action="Index">Loại bìa</a>
+                        <a class="nav-link" asp-controller="Age" asp-action="Index">Phân loại độ tuổi</a>
                     </nav>
                 </div>
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
@@ -47,7 +47,7 @@
                 </a>
                 <div class="collapse" id="collapseSuppliers" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Danh sách nhà cung cấp</a>
+                        <a class="nav-link" asp-controller="Company" asp-action="Index">Danh sách nhà cung cấp</a>
                         <a class="nav-link" href="#">Đơn nhập hàng</a>
                     </nav>
                 </div>

@@ -12,6 +12,7 @@ namespace LeBook.Models
         [Required]
         [DisplayName("Giá tiền")]
         [Range(1, Double.MaxValue,ErrorMessage ="Giá tiền không hợp lệ")]
+        [DisplayFormat(DataFormatString = "{0:#,###.## vnđ}")]
         public double ItemPrice { get; set; }
         [Required]
         [DisplayName("Ngày áp dụng")]
