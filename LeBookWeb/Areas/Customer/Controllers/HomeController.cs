@@ -48,12 +48,20 @@ namespace LeBook.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
             cart.ApplicationUserId = claim.Value;
 
-           _unitOfWork.ShoppingCart.Add(cart);
-            _unitOfWork.Save();
+            ShoppingCart cartDB = _unitOfWork.ShoppingCart.GetFirtOrDefault(c => c.BookId ==  cart.BookId && c.ApplicationUserId == claim.Value);
 
+            if (cartDB == null)
+            {
+                _unitOfWork.ShoppingCart.Add(cart);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.IncrementCount(cartDB, cart.Count);
+            }
+            _unitOfWork.Save();
+            _notifyService.Success("Đã thêm sản phẩm vào giỏ hàng");
             return RedirectToAction(nameof(Index));
         }
 

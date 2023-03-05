@@ -24,5 +24,8 @@ namespace LeBook.Models
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
+        [NotMapped]
+        [DisplayFormat(DataFormatString = "{0:#,###.##đ}")]
+        public double ItemTotal { get; set; }
     }
 }
