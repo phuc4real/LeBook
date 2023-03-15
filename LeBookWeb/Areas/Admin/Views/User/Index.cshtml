@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Company>
+﻿@model IEnumerable<ApplicationUser>
 
 @{
-    ViewData["Title"] = "Danh sách nhà cung cấp";
+    ViewData["Title"] = "Danh sách người dùng";
 }
 
 <main>
@@ -12,17 +12,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Danh sách nhà cung cấp
+                            Danh sách người dùng
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" asp-action="Create">
+                        <a class="btn btn-sm btn-light text-primary" asp-area="Identity" asp-page="/Account/Register">
                             <i class="me-1" data-feather="plus"></i>
-                            Thêm nhà cung cấp
-                        </a>
-                        <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
-                            <i class="me-1" data-feather="trash-2"></i>
-                            Đã xoá
+                            Thêm người dùng
                         </a>
                     </div>
                 </div>
@@ -37,28 +33,25 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.DisplayOrder)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                                Địa chỉ Email
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Email)
+                                Số điện thoại
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Address)
+                                @Html.DisplayNameFor(model => model.DoB)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Ward)
+                                Vai trò
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.District)
+                                @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Province)
+                                Tình trạng
                             </th>
                             <th></th>
                         </tr>
@@ -66,28 +59,25 @@
                     <tfoot>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.DisplayOrder)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                                Địa chỉ Email
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Email)
+                                Số điện thoại
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Address)
+                                @Html.DisplayNameFor(model => model.DoB)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Ward)
+                                Vai trò
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.District)
+                                @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Province)
+                                Tình trạng
                             </th>
                             <th></th>
                         </tr>
@@ -97,32 +87,34 @@
                         {
                             <tr>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.DisplayOrder)
-                                </th>
-                                <th>
                                     @Html.DisplayFor(modelItem => item.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </th>
                                 <th>
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Address)
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Ward)
+                                    @Html.DisplayFor(modelItem => item.DoB)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.District)
+                                    @Html.DisplayFor(modelItem => item.CreatedAt)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Province)
+                                    @if(item.LockoutEnd != null)
+                                    {
+                                        <p>Đang bị khoá</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Bình thường</p>
+                                    }
                                 </th>
                                 <td>
-                                    <a asp-controller="Book" asp-action="BookByCategory" asp-route-id="@item.Id">Tìm sách</a> |
+                                    <a asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.Id">Tìm hoá đơn</a> |
                                     <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a> |
+                                    <a asp-action="Lock" asp-route-id="@item.Id">Khoá tài khoản</a> |
                                     <a href="#" onclick="return submitDelete(event,'@item.Id','Nhà cung cấp')">Xoá</a>
                                     <form asp-action="Delete" id="Delete+@item.Id">
                                         <input type="hidden" value="@item.Id" name="id" id="id" />

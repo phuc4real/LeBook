@@ -1,5 +1,6 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,12 @@ namespace LeBook.DataAccess.Repository
         {
             _context = context;
         }
+
+        public IEnumerable<ApplicationUser> GetListUser()
+        {
+            IQueryable<ApplicationUser> values = _context.ApplicationUsers;
+            return values.ToList();
+        }
+
     }
 }

@@ -49,7 +49,7 @@
                                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group mt-3">
-                                <input type="submit" value="Thêm thể loại" class="btn btn-primary" />
+                                <input type="submit" value="Thêm nhà cung cấp" class="btn btn-primary" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -69,12 +69,19 @@
                                 <span asp-validation-for="District" class="text-danger"></span>
                             </div>
                             <div class="form-group mt-2">
+                                <label asp-for="Ward" class="control-label"></label>
+                                <select asp-for="Ward" class="form-control">
+                                    <option selected>-- Chọn Xã/Phường --</option>
+                                </select>
+                                <span asp-validation-for="Ward" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mt-2">
                                 <label asp-for="Address" class="control-label"></label>
                                 <input asp-for="Address" class="form-control" />
                                 <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="col-md-4">
                             <div class="form-group mt-2">
                                 <label asp-for="Email" class="control-label"></label>
                                 <input asp-for="Email" class="form-control" />
@@ -95,6 +102,7 @@
     <script>
         let province = document.getElementById('Province');
         let district = document.getElementById('District');
+        let ward = document.getElementById('Ward');
     </script>
     <script src="~/js/location.js"></script>
 }

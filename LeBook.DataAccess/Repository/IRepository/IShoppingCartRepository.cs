@@ -10,6 +10,7 @@ namespace LeBook.DataAccess.Repository.IRepository
     public interface IShoppingCartRepository : IRepository<ShoppingCart>
     {
         IEnumerable<ShoppingCart> GetCart(string ApplicationUserId);
+        ShoppingCart GetCartById(int cartId);
         int IncrementCount(ShoppingCart shoppingCart, int value);
         int DecrementCount(ShoppingCart shoppingCart, int value);
     }

@@ -59,11 +59,14 @@
                 </a>
                 <div class="collapse" id="collapseUsers" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Danh sánh người dùng</a>
+                        <a class="nav-link"asp-controller="User" asp-action="Index">Danh sánh người dùng</a>
                         <a class="nav-link" href="#">Quyền sử dụng</a>
                     </nav>
                 </div>
-
+                <a class="nav-link" href="/Admin">
+                    <div class="nav-link-icon"><i data-feather="bookmark"></i></div>
+                    Quản lý Quảng cáo
+                </a>
                 <a class="nav-link" href="/Admin">
                     <div class="nav-link-icon"><i data-feather="gift"></i></div>
                     Quản lý khuyến mãi

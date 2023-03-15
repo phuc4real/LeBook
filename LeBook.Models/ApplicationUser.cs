@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,14 +16,14 @@ namespace LeBook.Models
         [DisplayName("Tên người dùng")]
         public string Name { get; set; }
         [DisplayName("Ngày sinh")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DoB { get; set; }
-        [DisplayName("Địa chỉ")]
-        public string? Address { get; set; }
-        [DisplayName("Quận/Huyện")]
-        public string? District { get; set; }
-        [DisplayName("Tỉnh/Thành phố")]
-        public string? Province { get; set; }
         [DisplayName("Ngày gia nhập")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [DisplayName("Địa chỉ giao hàng")]
+        [ValidateNever]
+        public virtual ICollection<UserAddress> Addresses { get; set; }
     }
 }

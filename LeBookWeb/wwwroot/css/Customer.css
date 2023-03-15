@@ -819,7 +819,6 @@ input:focus {
   overflow: hidden;
   cursor: zoom-in;
   width: max-content;
-  background-image: url(images/book7.jpg);
 }
 
 /* Cart */
@@ -1193,16 +1192,19 @@ input:focus {
   margin-top: 10px;
 }
 
-.button-cart button {
+.button-cart #checkout {
+  display: block;
   width: 100%;
   border: none;
   padding: 10px 15px;
   border-radius: 8px;
   background: #c92127;
   color: #fff;
+  text-decoration: none;
+  text-align: center;
 }
 
-.button-cart button span {
+.button-cart #checkout span {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: 600;
@@ -1368,4 +1370,26 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.checkout-block {
+  padding: 8px 16px;
+  background-color: white;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.checkout-block .title {
+  background-color: #fff;
+  padding: 10px 0;
+}
+
+.checkout-block .title h5 {
+  padding-left: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ced4da;
+}
+
+.checkout-block .checkout-content {
+
 }

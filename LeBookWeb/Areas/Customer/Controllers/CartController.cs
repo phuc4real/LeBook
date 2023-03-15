@@ -25,6 +25,9 @@ namespace LeBookWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CountErr = TempData["CountErr"] as string;
+            TempData.Remove("CountErr");
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -40,6 +43,60 @@ namespace LeBookWeb.Areas.Customer.Controllers
             }
 
             return View(cartViewModel);
+        }
+
+        public IActionResult CheckOut()
+        {
+            //ViewBag.CountErr = TempData["CountErr"] as string;
+            //TempData.Remove("CountErr");
+
+            //var claimsIdentity = (ClaimsIdentity)User.Identity;
+            //var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            //cartViewModel = new CartViewModel()
+            //{
+            //    ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value)
+            //};
+
+            //foreach (var cart in cartViewModel.ListCart)
+            //{
+            //    cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
+            //    cartViewModel.CartTotal += cart.ItemTotal;
+            //}
+
+            return View();
+        }
+
+        public IActionResult Plus(int cartId) 
+        {
+            var cart = _unitOfWork.ShoppingCart.GetCartById(cartId);
+            if (cart.Count >= 10)
+                TempData["CountErr"] = "Số lượng mỗi sản phẩm tối đa là 10!";
+            else
+            {
+                _unitOfWork.ShoppingCart.IncrementCount(cart, 1);
+                _unitOfWork.Save();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Minus(int cartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetCartById(cartId);
+            if(cart.Count <=1) 
+                _unitOfWork.ShoppingCart.Remove(cart);
+            else 
+                _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Remove(int cartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetCartById(cartId);
+            _unitOfWork.ShoppingCart.Remove(cart);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

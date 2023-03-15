@@ -45,19 +45,13 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CategoryId)
+                                @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CoverTypeId)
+                                @Html.DisplayNameFor(model => model.LastUpdatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.AgeId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Price)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.InStock)
+                                @Html.DisplayNameFor(model => model.DeletedAt)
                             </th>
                             <th></th>
                         </tr>
@@ -77,19 +71,13 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CategoryId)
+                                @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CoverTypeId)
+                                @Html.DisplayNameFor(model => model.LastUpdatedAt)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.AgeId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Price)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.InStock)
+                                @Html.DisplayNameFor(model => model.DeletedAt)
                             </th>
                             <th></th>
                         </tr>
@@ -111,19 +99,13 @@
                                     @Html.DisplayFor(modelItem => item.Author)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                    @Html.DisplayFor(modelItem => item.CreatedAt)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CoverType.Name)
+                                    @Html.DisplayFor(modelItem => item.LastUpdatedAt)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Age.Name)
-                                </td>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.InStock)
+                                    @Html.DisplayFor(modelItem => item.DeletedAt)
                                 </td>
                                 <td>
                                     <a href="#" onclick="return submitRestore(event,'@item.Id','Sách')">Phục hồi</a>

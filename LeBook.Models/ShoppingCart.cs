@@ -17,7 +17,7 @@ namespace LeBook.Models
         [ForeignKey("BookId")]
         [ValidateNever]
         public Book Book { get; set; }
-        [Range(0, 5, ErrorMessage = "Mua tối đa 5 sản phẩm")]
+        [Range(0, 10, ErrorMessage = "Mua tối đa 10 sản phẩm")]
         public int Count { get; set; }
 
         public string ApplicationUserId { get; set; }

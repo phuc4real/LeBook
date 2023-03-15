@@ -113,19 +113,10 @@ namespace LeBookWeb.Areas.Identity.Pages.Account
             [DisplayName("Ngày sinh")]
             public DateTime DoB { get; set; }
             [Required]
-            [DisplayName("Địa chỉ")]
-            public string? Address { get; set; }
-            [Required]
-            [DisplayName("Quận/Huyện")]
-            public string? District { get; set; }
-            [Required]
-            [DisplayName("Tỉnh/Thành phố")]
-            public string? Province { get; set; }
-            [Required]
             [DisplayName("Số điện thoại")]
-            public string? PhoneNumber { get; set; }
+            public string PhoneNumber { get; set; }
             [DisplayName("Vai trò")]
-            public string? Role { get; set; }
+            public string Role { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> Rolelist { get; set; }
         }
@@ -162,12 +153,9 @@ namespace LeBookWeb.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.Name = Input.Email;
+                user.Name = Input.Name;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.DoB = Input.DoB;
-                user.Address = Input.Address;
-                user.District = Input.District;
-                user.Province = Input.Province;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

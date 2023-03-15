@@ -9,5 +9,6 @@ namespace LeBook.DataAccess.Repository.IRepository
 {
     public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
+        IEnumerable<ApplicationUser> GetListUser();
     }
 }

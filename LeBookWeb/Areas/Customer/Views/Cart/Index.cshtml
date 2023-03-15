@@ -26,6 +26,12 @@
                     </div>
                     <div></div>
                 </div>
+                @if (ViewBag.CountErr != null)
+                {
+                    <div class="alert alert-danger">
+                        <span>@ViewBag.CountErr</span>
+                    </div>
+                }
                 <div class="product-cart">
                     @foreach(var item in Model.ListCart)
                     {
@@ -51,9 +57,13 @@
                                 </div>
                                 <div class="number-product-cart">
                                     <div class="quantity">
-                                        <span class="minus">-</span>
+                                        <a asp-action="minus" asp-route-cartId="@item.Id" class="minus pt-2">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </a>
                                         <input class="form-control-plaintext text-center" asp-for="@item.Count">
-                                        <span class="plus">+</span>
+                                        <a asp-action="plus" asp-route-cartId="@item.Id" class="plus pt-2">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a>
                                     </div>
                                     <div class="cart-price-total">
                                         <span class="cart-total">
@@ -63,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="remove-cart">
-                                <a href="" class="btn-remove-cart">
+                                <a asp-action="remove" asp-route-cartId="@item.Id" class="btn-remove-cart">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
                             </div>
@@ -133,9 +143,9 @@
                         </div>
                     </div>
                     <div class="button-cart">
-                        <button type="button">
+                        <a asp-action="CheckOut" id="checkout">
                             <span>Thanh Toán</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

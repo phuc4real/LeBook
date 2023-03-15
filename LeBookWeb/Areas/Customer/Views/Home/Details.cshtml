@@ -55,6 +55,7 @@
                         <input asp-for="Count" type="text" class="number"/>
                         <span class="plus">+</span>
                     </div>
+                    <span asp-validation-for="Count" class="ps-2 text-danger"></span>
                 </div>
                 <div class="btn-groups mt-4">
                     <button type="submit" class="add-cart">
@@ -72,5 +73,8 @@
 </form>
 
 @section Scripts {
-    <script src="~/js/zoom.js"></script>
+     @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+     <script src="~/js/zoom.js"></script>
 }

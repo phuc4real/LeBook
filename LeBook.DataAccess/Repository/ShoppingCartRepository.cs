@@ -31,6 +31,12 @@ namespace LeBook.DataAccess.Repository
             return carts.ToList();
         }
 
+        public ShoppingCart GetCartById(int cartId)
+        {
+            ShoppingCart cart = _context.ShoppingCarts.FirstOrDefault(c => c.Id == cartId);
+            return cart;
+        }
+
         public int IncrementCount(ShoppingCart shoppingCart, int value)
         {
             shoppingCart.Count += value;
