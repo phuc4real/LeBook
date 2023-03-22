@@ -19,31 +19,36 @@ namespace LeBook.DataAccess.Repository
             _context = context;
         }
 
+        private IQueryable<Book> AddProperty(IQueryable<Book> values)
+        {
+            return values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+        }
+
         public IEnumerable<Book> FindByAge(int AgeId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.AgeId == AgeId);
-            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            values = AddProperty(values);
             return values.ToList();
         }
 
         public IEnumerable<Book> FindByCategory(int CategoryId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.CategoryId == CategoryId);
-            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            values = AddProperty(values);
             return values.ToList();
         }
 
         public IEnumerable<Book> FindByCoverType(int CoverTypeId)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.CoverTypeId == CoverTypeId);
-            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            values = AddProperty(values);
             return values.ToList();
         }
 
         public IEnumerable<Book> Get()
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false);
-            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            values = AddProperty(values);
             return values.ToList();
         }
 
@@ -55,14 +60,14 @@ namespace LeBook.DataAccess.Repository
         public IEnumerable<Book> GetDeleted()
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == true);
-            values = values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            values = AddProperty(values);
             return values.ToList();
         }
 
         public Book GetFirst(int? id)
         {
             IQueryable<Book> books = _context.Books.Where(c => c.Id == id);
-            books = books.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            books = AddProperty(books);
             Book book = books.FirstOrDefault(c => c.Id == id);
             return book;
         }
