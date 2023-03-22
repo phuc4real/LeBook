@@ -1,104 +1,152 @@
-﻿
+﻿@model CheckoutViewModel
+
 @{
     ViewData["Title"] = "CheckOut";
 }
+@section Scripts{
+    <script src="~/js/paymentmethod.js"></script>
+}
 
-<section id="cart-container">
-    <div class="container">
-        <div class="row">
-            <div class="checkout-block mt-5">
-                <div class="title">
-                    <h5>Địa chỉ giao hàng</h5>
-                </div>
-                <div class="checkout-content">
-                    <div class="row small-padding">
-                        <div class="col-md-8"><div class="address-list"><!----> <div class="row small-padding"><div class="col-md-12"><div class="address-wrap"><div class="address-item is_default"><!----> <div class="address-edit"><div class="alert alert-block alert-danger fade in" style="display: none;"><button type="button" data-dismiss="alert" class="close"></button> </div> <form class="el-form el-form--label-left"><div class="el-form-item is-required"><label for="name" class="el-form-item__label" style="width: 150px;">Họ và Tên</label><div class="el-form-item__content" style="margin-left: 150px;"><div class="el-input el-input--small"><!----><input autocomplete="off" placeholder="Họ và Tên" size="small" type="text" rows="2" validateevent="true" class="el-input__inner"><!----><!----><!----></div><!----></div></div> <div class="el-form-item is-required"><label for="email" class="el-form-item__label" style="width: 150px;">Email</label><div class="el-form-item__content" style="margin-left: 150px;"><div class="el-input el-input--small"><!----><input autocomplete="off" placeholder="Email" size="small" type="text" rows="2" validateevent="true" class="el-input__inner"><!----><!----><!----></div><!----></div></div> <div class="el-form-item is-required"><label for="phone" class="el-form-item__label" style="width: 150px;">Số điện thoại</label><div class="el-form-item__content" style="margin-left: 150px;"><div class="el-input el-input--small"><!----><input autocomplete="off" placeholder="Số điện thoại" size="small" type="tel" rows="2" validateevent="true" class="el-input__inner"><!----><!----><!----></div><!----></div></div> <div class="el-form-item is-required"><label for="confirm_phone" class="el-form-item__label" style="width: 150px;">Nhập lại điện thoại</label><div class="el-form-item__content" style="margin-left: 150px;"><div class="el-input el-input--small"><!----><input autocomplete="off" placeholder="Nhập lại số điện thoại" size="small" type="tel" rows="2" validateevent="true" class="el-input__inner"><!----><!----><!----></div><!----></div></div> <div class="el-form-item is-required"><label for="province" class="el-form-item__label" style="width: 150px;">Tỉnh/Thành phố</label><div class="el-form-item__content" style="margin-left: 150px;"><div><div class="el-select ntc-select el-select--small"><!----><div class="el-input el-input--small el-input--suffix"><!----><input autocomplete="off" placeholder="Chọn Tỉnh / Thành phố" size="small" type="text" rows="2" class="el-input__inner"><!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----></span><!----></span><!----></div><div class="el-select-dropdown el-popper" style="display: none; min-width: 574.656px;"><div class="el-scrollbar" style=""><div class="el-select-dropdown__wrap el-scrollbar__wrap" style="margin-bottom: -17px; margin-right: -17px;"><ul class="el-scrollbar__view el-select-dropdown__list" style="position: relative;"><div class="resize-triggers"><div class="expand-trigger"><div style="width: 1px; height: 1px;"></div></div><div class="contract-trigger"></div></div><!----><li class="el-select-dropdown__item selected"><span>An Giang</span></li><li class="el-select-dropdown__item"><span>Bà Rịa - Vũng Tàu</span></li><li class="el-select-dropdown__item"><span>Bắc Giang</span></li><li class="el-select-dropdown__item"><span>Bắc Kạn</span></li><li class="el-select-dropdown__item"><span>Bạc Liêu</span></li><li class="el-select-dropdown__item"><span>Bắc Ninh</span></li><li class="el-select-dropdown__item"><span>Bến Tre</span></li><li class="el-select-dropdown__item"><span>Bình Dương</span></li><li class="el-select-dropdown__item"><span>Bình Định</span></li><li class="el-select-dropdown__item"><span>Bình Phước</span></li><li class="el-select-dropdown__item"><span>Bình Thuận</span></li><li class="el-select-dropdown__item"><span>Cà Mau</span></li><li class="el-select-dropdown__item"><span>Cần Thơ</span></li><li class="el-select-dropdown__item"><span>Cao Bằng</span></li><li class="el-select-dropdown__item"><span>Đà Nẵng</span></li><li class="el-select-dropdown__item"><span>Đắk Lắk</span></li><li class="el-select-dropdown__item"><span>Đắk Nông</span></li><li class="el-select-dropdown__item"><span>Điện Biên</span></li><li class="el-select-dropdown__item"><span>Đồng Nai</span></li><li class="el-select-dropdown__item"><span>Đồng Tháp</span></li><li class="el-select-dropdown__item"><span>Gia Lai</span></li><li class="el-select-dropdown__item"><span>Hà Giang</span></li><li class="el-select-dropdown__item"><span>Hà Nam</span></li><li class="el-select-dropdown__item"><span>Hà Nội</span></li><li class="el-select-dropdown__item"><span>Hà Tĩnh</span></li><li class="el-select-dropdown__item"><span>Hải Dương</span></li><li class="el-select-dropdown__item"><span>Hải Phòng</span></li><li class="el-select-dropdown__item"><span>Hậu Giang</span></li><li class="el-select-dropdown__item"><span>Hồ Chí Minh</span></li><li class="el-select-dropdown__item"><span>Hòa Bình</span></li><li class="el-select-dropdown__item"><span>Hưng Yên</span></li><li class="el-select-dropdown__item"><span>Khánh Hòa</span></li><li class="el-select-dropdown__item"><span>Kiên Giang</span></li><li class="el-select-dropdown__item"><span>Kon Tum</span></li><li class="el-select-dropdown__item"><span>Lai Châu</span></li><li class="el-select-dropdown__item"><span>Lâm Đồng</span></li><li class="el-select-dropdown__item"><span>Lạng Sơn</span></li><li class="el-select-dropdown__item"><span>Lào Cai</span></li><li class="el-select-dropdown__item"><span>Long An</span></li><li class="el-select-dropdown__item"><span>Nam Định</span></li><li class="el-select-dropdown__item"><span>Nghệ An</span></li><li class="el-select-dropdown__item"><span>Ninh Bình</span></li><li class="el-select-dropdown__item"><span>Ninh Thuận</span></li><li class="el-select-dropdown__item"><span>Phú Thọ</span></li><li class="el-select-dropdown__item"><span>Phú Yên</span></li><li class="el-select-dropdown__item"><span>Quảng Bình</span></li><li class="el-select-dropdown__item"><span>Quảng Nam</span></li><li class="el-select-dropdown__item"><span>Quảng Ngãi</span></li><li class="el-select-dropdown__item"><span>Quảng Ninh</span></li><li class="el-select-dropdown__item"><span>Quảng Trị</span></li><li class="el-select-dropdown__item"><span>Sóc Trăng</span></li><li class="el-select-dropdown__item"><span>Sơn La</span></li><li class="el-select-dropdown__item"><span>Tây Ninh</span></li><li class="el-select-dropdown__item"><span>Thái Bình</span></li><li class="el-select-dropdown__item"><span>Thái Nguyên</span></li><li class="el-select-dropdown__item"><span>Thanh Hóa</span></li><li class="el-select-dropdown__item"><span>Thừa Thiên Huế</span></li><li class="el-select-dropdown__item"><span>Tiền Giang</span></li><li class="el-select-dropdown__item"><span>Trà Vinh</span></li><li class="el-select-dropdown__item"><span>Tuyên Quang</span></li><li class="el-select-dropdown__item"><span>Vĩnh Long</span></li><li class="el-select-dropdown__item"><span>Vĩnh Phúc</span></li><li class="el-select-dropdown__item"><span>Yên Bái</span></li></ul></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical"><div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div></div></div><!----></div><div class="resize-triggers"><div class="expand-trigger"><div style="width: 576px; height: 41px;"></div></div><div class="contract-trigger"></div></div></div></div><!----></div></div> <div class="el-form-item is-required"><label for="district" class="el-form-item__label" style="width: 150px;">Quận/Huyện</label><div class="el-form-item__content" style="margin-left: 150px;"><div><div class="el-select ntc-select el-select--small"><!----><div class="el-input el-input--small el-input--suffix"><!----><input autocomplete="off" placeholder="Chọn Quận / Huyện" size="small" type="text" rows="2" class="el-input__inner"><!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----></span><!----></span><!----></div><div class="el-select-dropdown el-popper" style="display: none; min-width: 574.656px;"><div class="el-scrollbar" style=""><div class="el-select-dropdown__wrap el-scrollbar__wrap" style="margin-bottom: -17px; margin-right: -17px;"><ul class="el-scrollbar__view el-select-dropdown__list" style="position: relative;"><div class="resize-triggers"><div class="expand-trigger"><div style="width: 1px; height: 1px;"></div></div><div class="contract-trigger"></div></div><!----><li class="el-select-dropdown__item selected"><span>Huyện An Phú</span></li><li class="el-select-dropdown__item"><span>Huyện Châu Phú</span></li><li class="el-select-dropdown__item"><span>Huyện Châu Thành</span></li><li class="el-select-dropdown__item"><span>Huyện Chợ Mới</span></li><li class="el-select-dropdown__item"><span>Huyện Phú Tân</span></li><li class="el-select-dropdown__item"><span>Huyện Thoại Sơn</span></li><li class="el-select-dropdown__item"><span>Huyện Tịnh Biên</span></li><li class="el-select-dropdown__item"><span>Huyện Tri Tôn</span></li><li class="el-select-dropdown__item"><span>Thành Phố Châu Đốc</span></li><li class="el-select-dropdown__item"><span>Thành Phố Long Xuyên</span></li><li class="el-select-dropdown__item"><span>Thị Xã Tân Châu</span></li></ul></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical"><div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div></div></div><!----></div><div class="resize-triggers"><div class="expand-trigger"><div style="width: 576px; height: 41px;"></div></div><div class="contract-trigger"></div></div></div></div><!----></div></div> <div class="el-form-item is-required"><label for="township" class="el-form-item__label" style="width: 150px;">Xã/Phường</label><div class="el-form-item__content" style="margin-left: 150px;"><div><div class="el-select ntc-select el-select--small"><!----><div class="el-input el-input--small el-input--suffix"><!----><input autocomplete="off" placeholder="Chọn Xã / Phường" size="small" type="text" rows="2" class="el-input__inner"><!----><span class="el-input__suffix"><span class="el-input__suffix-inner"><i class="el-select__caret el-input__icon el-icon-"></i><!----></span><!----></span><!----></div><div class="el-select-dropdown el-popper" style="display: none; min-width: 574.656px;"><div class="el-scrollbar" style=""><div class="el-select-dropdown__wrap el-scrollbar__wrap" style="margin-bottom: -17px; margin-right: -17px;"><ul class="el-scrollbar__view el-select-dropdown__list" style="position: relative;"><div class="resize-triggers"><div class="expand-trigger"><div style="width: 1px; height: 1px;"></div></div><div class="contract-trigger"></div></div><!----><li class="el-select-dropdown__item"><span>Thị Trấn An Phú</span></li><li class="el-select-dropdown__item"><span>Thị Trấn Long Bình</span></li><li class="el-select-dropdown__item"><span>Xã Đa Phước</span></li><li class="el-select-dropdown__item selected"><span>Xã Khánh An</span></li><li class="el-select-dropdown__item"><span>Xã Khánh Bình</span></li><li class="el-select-dropdown__item"><span>Xã Nhơn Hội</span></li><li class="el-select-dropdown__item"><span>Xã Phú Hội</span></li><li class="el-select-dropdown__item"><span>Xã Phú Hữu</span></li><li class="el-select-dropdown__item"><span>Xã Phước Hưng</span></li><li class="el-select-dropdown__item"><span>Xã Quốc Thái</span></li><li class="el-select-dropdown__item"><span>Xã Vĩnh Hậu</span></li><li class="el-select-dropdown__item"><span>Xã Vĩnh Hội Đông</span></li><li class="el-select-dropdown__item"><span>Xã Vĩnh Lộc</span></li><li class="el-select-dropdown__item"><span>Xã Vĩnh Trường</span></li></ul></div><div class="el-scrollbar__bar is-horizontal"><div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div></div><div class="el-scrollbar__bar is-vertical"><div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div></div></div><!----></div><div class="resize-triggers"><div class="expand-trigger"><div style="width: 576px; height: 41px;"></div></div><div class="contract-trigger"></div></div></div></div><!----></div></div> <div class="el-form-item is-required"><label for="address" class="el-form-item__label" style="width: 150px;">Địa chỉ</label><div class="el-form-item__content" style="margin-left: 150px;"><div class="el-input el-input--small"><!----><input autocomplete="off" placeholder="Nhập số nhà, tên đường" size="small" type="text" rows="2" validateevent="true" class="el-input__inner"><!----><!----><!----></div><!----></div></div> <div class="el-form-item form-item-button"><!----><div class="el-form-item__content" style="margin-left: 150px;"><button type="button" class="el-button el-button--danger"><!----><!----><span><strong>Tiếp tục</strong> <i class="fa fa-arrow-right"></i></span></button><!----></div></div></form></div></div><div class="el-loading-mask el-loading-fade-enter-to" style="display: none;"><div class="el-loading-spinner"><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><!----></div></div></div></div></div></div></div> <div class="col-md-4">
-                            <div class="cart-box">
-                                <div class="checkout-detail">
-                                    <div class="title"><span>Đơn hàng</span> <small>(1 sản phẩm)</small></div> <div class="content">
-                                        <div class="products">
-                                            <div class="item">
-                                                <div class="image"><img src="https://newshop.vn/public/thumbs/100x135/products/52040/sach-3x3-eyes-co-be-ba-mat-tap-5.jpg" alt="3x3 Eyes - Cô Bé Ba Mắt - Tập 5"></div> <div class="info">
-                                                    <div class="name">
-                                                        <a href="https://newshop.vn/3x3-eyes-co-be-ba-mat-tap-5.html" target="_blank">
-                                                            3x3 Eyes - Cô Bé Ba Mắt - Tập 5
-                                                        </a>
-                                                    </div>
-                                                </div> <div class="price">
-                                                    <div title="1 sản phẩm" class="qty">x1</div> <div class="total">
-                                                        85.500đ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <div class="sub-total"><div class="total-item"><span class="text">Tạm tính: </span> <span class="price">85.500đ</span></div> <!----> <!----> <div class="total-item"><span class="text">Phí vận chuyển: </span> <span class="price">29.000đ</span> <!----></div> <!----></div> <div class="total">
-                                            <div class="total-item">
-                                                <span class="text">Thành tiền: </span> <!----> <span class="price">
-                                                    114.500đ
-                                                </span>
-                                            </div>
-                                        </div> <div class="total-vat"><em>(Đã bao gồm VAT)</em></div>
-                                    </div>
-                                </div>
-                            </div> <!---->
+    <div class="payment-container">
+        <div class="container">
+        <form method="post">
+            <input asp-for="OrderTotal" value="@Model.CartTotal" hidden />
+            <div class="row">
+                <div class="payment-address">
+                    <div class="payment-title">Địa chỉ giao hàng</div>
+
+                    <div class="payment-content">
+                        <ul class="address-list">
+                            @foreach (var address in Model.Address)
+                            {
+                                <li class="address-item method d-flex justify-content-between mt-2">
+                                    @{
+                                        string item = address.User.Name + " | " + address.Street + "," + address.Ward + "," + address.District + "," + address.Province + " | " + address.Contact;
+
+                                    }
+                                    @item.ToString()    
+                                    <input type="radio" asp-for="AddressId" id="@address.Id" value="@address.Id" class="checkout-option">
+                                    <span class="radiomark-big"></span>
+                                    <a class="text-decoration-none text-black" asp-controller="Address" asp-action="Edit" asp-route-id="@address.Id">
+                                        <span>Sửa</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <div class="address-list-btn">
+                            <span>
+                                <img src="~/assets/svg/ico_add_circle_red.svg" alt="">
+                            </span>
+                            <a class="text-decoration-none text-black" asp-controller="Address" asp-action="Create">
+                                <p>Giao hàng đến địa chỉ khác</p>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
 
+                <div class="payment-shippingmethod">
+                    <div class="payment-title">Phương thức vận chuyển</div>
+                    <div class="payment-content">
+                        <ul class="address-list">
+                            <li class="address-item" style="font-weight: 600">
+                                Giao hàng tiêu chuẩn: 30.000 đ
+                                <input type="radio" class="checkout-option" asp-for="ShippingType" value="ghtc" checked>
+                                <span class="radiomark-big"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-<div class="step-container">
-    <!----> <!----> <div>
-        <div class="step-title">
-            Hoàn tất thanh toán
-        </div> <div class="step-content">
-            <div class="row small-padding">
-                <div class="col-md-8">
-                    <div class="cart-box address-detail">
-                        <div class="title">
-                            Thông tin đặt hàng
-                            <div class="pull-right"><a href="#" class="edit-info">Thay đổi</a></div>
-                        </div> <div class="content"><div class="name">1</div> <div class="phone">SĐT: 0123456789</div> <div class="email">Email: AHJSHgfjd@gmail.com</div> <div class="full-address">Địa chỉ: 1, Xã Khánh An, Huyện An Phú, An Giang</div></div>
-                    </div> <div class="cart-box payment-detail"><div class="title">Phương thức thanh toán</div> <div class="content"><div role="radiogroup" class="el-radio-group"><label role="radio" aria-checked="true" tabindex="0" class="el-radio is-checked"><span class="el-radio__input is-checked"><span class="el-radio__inner"></span><input type="radio" tabindex="-1" class="el-radio__original" value="cod"></span><span class="el-radio__label">Thanh toán khi nhận hàng<!----></span></label><label role="radio" tabindex="-1" class="el-radio"><span class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" tabindex="-1" class="el-radio__original" value="bank"></span><span class="el-radio__label">Chuyển khoản ngân hàng<!----></span></label><label role="radio" tabindex="-1" class="el-radio"><span class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" tabindex="-1" class="el-radio__original" value="zalo_cc"></span><span class="el-radio__label">Thẻ quốc tế Visa, Master (qua cổng ZaloPay)<!----></span></label><label role="radio" tabindex="-1" class="el-radio"><span class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" tabindex="-1" class="el-radio__original" value="zalo_atm"></span><span class="el-radio__label">Thẻ ATM nội địa/Internet Banking (qua cổng ZaloPay)<!----></span></label><label role="radio" tabindex="-1" class="el-radio"><span class="el-radio__input"><span class="el-radio__inner"></span><input type="radio" tabindex="-1" class="el-radio__original" value="zalo_pay"></span><span class="el-radio__label">Thanh toán bằng ví ZaloPay<!----></span></label></div></div> <div class="title">Nhận bản tin thông báo</div> <div class="content"><label role="checkbox" aria-checked="true" class="el-checkbox is-checked"><span aria-checked="mixed" class="el-checkbox__input is-checked"><span class="el-checkbox__inner"></span><input type="checkbox" class="el-checkbox__original" value=""></span><span class="el-checkbox__label">Nhận email thông tin khuyến mãi, các chương trình giảm giá,...<!----></span></label></div></div> <div class="cart-box order-comment"><div class="title">Ghi chú</div> <div class="content"><div class="el-textarea"><textarea placeholder="Ghi chú" type="textarea" rows="4" autocomplete="off" validateevent="true" class="el-textarea__inner" style="min-height: 33px;"></textarea></div></div></div> <!----> <div class="checkout-done checkout-done-mobile">
-                        <button type="button" class="el-button el-button--danger">
-                            <!----><!----><span>
-                                Hoàn tất đặt mua
-                                <i class="fa fa-arrow-right"></i>
-                            </span>
-                        </button>
-                    </div> <!---->
-                </div> <div class="col-md-4">
-                    <div class="cart-box">
-                        <div class="checkout-detail">
-                            <div class="title"><span>Đơn hàng</span> <small>(1 sản phẩm)</small></div> <div class="content">
-                                <div class="products">
-                                    <div class="item">
-                                        <div class="image"><img src="https://newshop.vn/public/thumbs/100x135/products/52040/sach-3x3-eyes-co-be-ba-mat-tap-5.jpg" alt="3x3 Eyes - Cô Bé Ba Mắt - Tập 5"></div> <div class="info">
-                                            <div class="name">
-                                                <a href="https://newshop.vn/3x3-eyes-co-be-ba-mat-tap-5.html" target="_blank">
-                                                    3x3 Eyes - Cô Bé Ba Mắt - Tập 5
-                                                </a>
-                                            </div>
-                                        </div> <div class="price">
-                                            <div title="1 sản phẩm" class="qty">x1</div> <div class="total">
-                                                85.500đ
-                                            </div>
-                                        </div>
+                <div class="payment-mothod">
+                    <div class="payment-title">Phương thức thanh toán</div>
+                    <div class="payment-content">
+                        <ul class="address-list">
+                            <li class="address-item method d-flex align-center justify-center" style="font-weight: 600">
+                                <div style="
+                      background: url(/assets/svg/ico_vnpay.svg) no-repeat
+                        center;
+                      width: 40px;
+                    "></div>
+                                <div class="payment-name">VNPay</div>
+                                <input type="radio" class="checkout-option" asp-for="PaymentType" id="vnpay" value="vnpay">
+                                <span class="radiomark-big"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="payment-content">
+                        <ul class="address-list">
+                            <li class="address-item method d-flex align-center justify-center" style="font-weight: 600">
+                                <div style="
+                      background: url(/assets/svg/ico_cashondelivery.svg) no-repeat
+                        center;
+                      width: 40px;
+                    "></div>
+                                <div class="payment-name">
+                                    Thanh toán bằng tiền mặt khi nhận hàng
+                                </div>
+                                <input type="radio" class="checkout-option" asp-for="PaymentType" id="cashondelivery" value="cod">
+                                <span class="radiomark-big"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="checkout-product-block">
+                    <div class="checkout-product-title">Kiểm tra đơn hàng</div>
+                    <div class="checkout-product-content">
+                        @foreach (var item in Model.ListCart){
+                            <div class="checkout-product-item">
+                                <div class="checkout-product-item-img">
+                                    <img src="@item.Book.ImgUrl" />
+                                </div>
+                                <div class="checkout-product-item-detail">
+                                    <div class="checkout-product-item-name">
+                                        <p>@item.Book.Title</p>
                                     </div>
-                                </div> <div class="sub-total"><div class="total-item"><span class="text">Tạm tính: </span> <span class="price">85.500đ</span></div> <!----> <!----> <div class="total-item"><span class="text">Phí vận chuyển: </span> <span class="price">29.000đ</span> <!----></div> <!----></div> <div class="total">
-                                    <div class="total-item">
-                                        <span class="text">Thành tiền: </span> <!----> <span class="price">
-                                            114.500đ
-                                        </span>
+                                    <div class="checkout-product-item-price">
+                                        <p>@Html.DisplayFor(modelItem => item.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)</p>
                                     </div>
-                                </div> <div class="total-vat"><em>(Đã bao gồm VAT)</em></div>
+                                    <div class="checkout-product-item-quantity">
+                                        <p>@item.Count</p>
+                                    </div>
+                                    <div class="checkout-product-item-total">
+                                        <p>@Html.DisplayFor(modelItem => item.ItemTotal)</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div> <!---->
+                        }
+                    </div>
+                </div>
+
+                <div class="payment-mothod payment-total">
+                    <div class="payment-title">Thanh Toán</div>
+                    <div class="payment-content">
+                        <ul class="address-list">
+                            <li class="payment-product" style="font-weight: 600">
+                                <div class="total-subtotal">
+                                    <div>Thành Tiền:</div>
+                                    <div>@Html.DisplayFor(Model => Model.CartTotal)</div>
+                                </div>
+                                <div class="total-shipping">
+                                    <div>Phí vận chuyển (Giao hàng tiêu chuẩn):</div>
+                                    <div>30,000 đ</div>
+                                </div>
+                                <div class="total-grand-total">
+                                    <div>Tổng Số Tiền (gồm VAT):</div>
+                                    <div>@Html.DisplayFor(Model => Model.CartTotal)</div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <button type="submit" class="btn-orderconfirm">
+                                            <span>Xác nhận thanh toán</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
-</div>

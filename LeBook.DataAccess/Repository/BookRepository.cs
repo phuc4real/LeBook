@@ -52,11 +52,6 @@ namespace LeBook.DataAccess.Repository
             return values.ToList();
         }
 
-        public IEnumerable<Book> GetBestSeller()
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Book> GetDeleted()
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == true);
@@ -70,19 +65,6 @@ namespace LeBook.DataAccess.Repository
             books = AddProperty(books);
             Book book = books.FirstOrDefault(c => c.Id == id);
             return book;
-        }
-
-        public IEnumerable<Book> GetHotDeal()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Book> GetNewBook()
-        {
-            IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false);
-            values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay).Take(10);
-            values = values.Include(c => c.Price);
-            return values.ToList();
         }
 
         public void Restore(Book book)
@@ -119,6 +101,45 @@ namespace LeBook.DataAccess.Repository
                     _book.ImgUrl = book.ImgUrl;
                 }
             }
+        }
+
+        public IEnumerable<Book> Get10(string key)
+        {
+            IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false).Include(c => c.Price);
+            switch (key)
+            {
+                case "new":
+                    values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
+                    break;
+                case "bestseller":
+                    //loc hoa don
+                    break;
+                case "hotdeal":
+                    //Loc khuyen mai
+                    break;
+                case "newmanga":
+                    values = values.Where(c => c.Category.Id == 6);
+                    values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
+                    break;
+                case "topmanga":
+                    values = values.Where(c => c.Category.Id == 6);
+                    //Loc top
+                    break;
+                case "newlightnovel":
+                    values = values.Where(c => c.Category.Id == 22);
+                    values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
+                    break;
+                case "cate1":
+                    values = values.Where(c => c.Category.Id == 5);
+                    break;
+                case "cate2":
+                    values = values.Where(c => c.Category.Id == 2);
+                    break;
+                case "cate3":
+                    values = values.Where(c => c.Category.Id == 1);
+                    break;
+            }
+            return values.Take(10).ToList();
         }
     }
 }

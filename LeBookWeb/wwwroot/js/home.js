@@ -1,86 +1,107 @@
-﻿const searchOptions = document.querySelector('.search-options')
-const dropDown = document.querySelector('.dropdown')
-const overLay = document.querySelector('.overlay')
+const prevIcon = '<i class="fa-solid fa-chevron-left"></i>'
+const nextIcon = '<i class="fa-solid fa-chevron-right"></i>'
 
-searchOptions.addEventListener('mouseover', () => {
-    dropDown.classList.add('active')
-    if (overLay != null) overLay.classList.add('show')
+$('.owl-banner').owlCarousel({
+    loop: false,
+    margin: 10,
+    nav: true,
+    dots: true,
+    lazyLoad: true,
+    smartSpeed: 700,
+    navText: [prevIcon, nextIcon],
+    responsive: {
+        0: {
+            items: 1,
+        },
+    },
 })
 
-searchOptions.addEventListener('mouseleave', () => {
-  dropDown.classList.remove('active')
-    if (overLay != null) overLay.classList.remove('show')
+var owl = $('.owl-product-2').owlCarousel({
+    loop: false,
+    dots: false,
+    nav: true,
+    lazyLoad: true,
+    margin: 10,
+    navText: [prevIcon, nextIcon],
+    responsive: {
+        0: {
+            items: 1,
+        },
+        600: {
+            items: 3,
+        },
+        900: {
+            items: 5,
+        },
+    },
 })
 
-const tabs = document.querySelectorAll('.right')
-const tabBtns = document.querySelectorAll('.tab-btn')
-
-const tab_Nav = function (tabBtnClick) {
-  tabBtns.forEach((tabBtn) => {
-    tabBtn.classList.remove('active')
-  })
-
-  tabs.forEach((tab) => {
-    tab.classList.remove('active')
-  })
-
-  tabBtns[tabBtnClick].classList.add('active')
-  tabs[tabBtnClick].classList.add('active')
-}
-
-tabBtns.forEach((tabBtn, i) => {
-  tabBtn.addEventListener('mouseover', () => {
-    tab_Nav(i)
-  })
+var owl3 = $('.owl-product-3').owlCarousel({
+    loop: false,
+    dots: false,
+    nav: true,
+    lazyLoad: true,
+    margin: 10,
+    navText: [prevIcon, nextIcon],
+    responsive: {
+        0: {
+            items: 1,
+        },
+        600: {
+            items: 3,
+        },
+        900: {
+            items: 5,
+        },
+    },
 })
 
-const plusBtn = document.querySelectorAll('.plus')
-const minusBtn = document.querySelectorAll('.minus')
-const number = document.querySelector('.number')
-
-// INCREMENT
-plusBtn.forEach((plus) => {
-    plus.addEventListener('click', (event) => {
-        var buttonClicked = event.target
-
-        var inputPlus = buttonClicked.parentElement.children[1]
-
-        var inputValue = inputPlus.value
-
-        var newValue = parseInt(inputValue) + 1
-
-        inputPlus.value = newValue
-    })
+var owl4 = $('.owl-product-4').owlCarousel({
+    loop: false,
+    dots: false,
+    nav: true,
+    lazyLoad: true,
+    margin: 10,
+    navText: [prevIcon, nextIcon],
+    responsive: {
+        0: {
+            items: 1,
+        },
+        600: {
+            items: 3,
+        },
+        900: {
+            items: 5,
+        },
+    },
 })
 
-// DECREMENT
-minusBtn.forEach((minus) => {
-    minus.addEventListener('click', (event) => {
-        var buttonClicked = event.target
+$("document").ready(function () {
+    owl.owlcarousel2_filter('.sachmoi');
+    owl3.owlcarousel2_filter('.mangamoi');
+    owl4.owlcarousel2_filter('.sachtl');
+});
 
-        var inputMinus = buttonClicked.parentElement.children[1]
+$('.owl-filter-bar').on('click', '.girdslider-item', function () {
+    const $item = $(this)
+    $item.addClass('active').siblings().removeClass('active')
+    const filter = $item.data('owl-filter')
 
-        var inputValue = inputMinus.value
-
-        var newValue = parseInt(inputValue) - 1
-
-        if (newValue >= 0) {
-            inputMinus.value = newValue
-        } else {
-            inputMinus.value = 0
-            alert('Sản phẩm không được nhỏ hơn 0')
-        }
-    })
+    owl.owlcarousel2_filter(filter)
 })
 
+$('.owl-filter-bar-2').on('click', '.girdslider-item-2', function () {
+    const $item = $(this)
+    $item.addClass('active').siblings().removeClass('active')
+    const filter = $item.data('owl-filter-2')
 
-const linkElements = document.querySelectorAll('.link')
+    owl3.owlcarousel2_filter(filter)
+})
 
-linkElements.forEach((dropdown) => {
-    const caret = dropdown.querySelector('.caret')
+$('.owl-filter-bar-3').on('click', '.girdslider-item-3', function () {
+    const $item = $(this)
+    $item.addClass('active').siblings().removeClass('active')
+    const filter = $item.data('owl-filter-3')
 
-    dropdown.addEventListener('click', () => {
-        dropdown.classList.toggle('active')
-        caret.classList.toggle('caret-rotate')
-    })
+    owl4.owlcarousel2_filter(filter)
 })

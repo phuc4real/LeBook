@@ -5,7 +5,7 @@
 }
 
 @section Scripts {
-    <script src="~/js/chscript.js"></script> 
+    <script defer src="~/js/home.js"></script>
 }
 
 <main class="page">
@@ -111,7 +111,7 @@
                                     <li class="slider-item banchay">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -140,7 +140,7 @@
                                     <li class="slider-item giamgia">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -174,17 +174,9 @@
             <div class="tabslider-header">
                 <div class="tab-title">
                     <ul class="girdslider owl-filter-bar-2">
-                        <li class="girdslider-item-2 active"
-                            data-owl-filter-2=".mangamoi">
-                            Manga Mới
-                        </li>
-                        <li class="girdslider-item-2" data-owl-filter-2=".topmanga">
-                            Top Manga
-                        </li>
-                        <li class="girdslider-item-2"
-                            data-owl-filter-2=".lightnovelmoi">
-                            Light Novel Mới
-                        </li>
+                        <li class="girdslider-item-2 active" data-owl-filter-2=".mangamoi">Manga Mới</li>
+                        <li class="girdslider-item-2" data-owl-filter-2=".topmanga">Top Manga</li>
+                        <li class="girdslider-item-2" data-owl-filter-2=".lightnovelmoi">Light Novel Mới</li>
                     </ul>
                 </div>
             </div>
@@ -198,7 +190,7 @@
                                     <li class="slider-item mangamoi">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -226,7 +218,7 @@
                                     <li class="slider-item topmanga">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -254,7 +246,7 @@
                                     <li class="slider-item lightnovelmoi">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -304,7 +296,7 @@
                                     <li class="slider-item sachtl">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -332,7 +324,7 @@
                                     <li class="slider-item sachkt">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -360,7 +352,7 @@
                                     <li class="slider-item sachvh">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a href="">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>

@@ -21,11 +21,7 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         IEnumerable<Book> GetDeleted();
 
-        IEnumerable<Book> GetNewBook();
-
-        IEnumerable<Book> GetBestSeller();
-
-        IEnumerable<Book> GetHotDeal();
+        IEnumerable<Book> Get10(String key);
 
         IEnumerable<Book> FindByCategory(int CategoryId);
 

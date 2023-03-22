@@ -20,10 +20,10 @@ namespace LeBook.DataAccess.Repository
             Company = new CompanyRepository(_context);
             Category = new CategoryRepository(_context);
             CoverType = new CoverTypeRepository(_context);
+            UserAddress = new UserAddressRepository(_context);
             ShoppingCart = new ShoppingCartRepository(_context);
             ApplicationUser = new ApplicationUserRepository(_context);
         }
-
 
         public IAgeRepository Age { get; private set; }
 
@@ -36,6 +36,8 @@ namespace LeBook.DataAccess.Repository
         public ICategoryRepository Category { get; private set; }
 
         public ICoverTypeRepository CoverType { get; private set; }
+
+        public IUserAddressRepository UserAddress { get; private set; }
 
         public IShoppingCartRepository ShoppingCart { get; private set; }
 

@@ -28,18 +28,16 @@ namespace LeBook.Controllers
         {
             CHomeViewModel viewModel = new() 
             { 
-                NewBook = _unitOfWork.Book.GetNewBook(),
-                BestSeller = _unitOfWork.Book.Get(),
-                HotDeal = _unitOfWork.Book.Get(),
-                NewManga = _unitOfWork.Book.Get(),
-                NewLightNovel = _unitOfWork.Book.Get(),
-                TopManga = _unitOfWork.Book.Get(),
-                Cate1 = _unitOfWork.Book.Get(),
-                Cate2 = _unitOfWork.Book.Get(),
-                Cate3 = _unitOfWork.Book.Get()
+                NewBook = _unitOfWork.Book.Get10("new"),
+                BestSeller = _unitOfWork.Book.Get10("bestseller"),
+                HotDeal = _unitOfWork.Book.Get10("hotdeal"),
+                NewManga = _unitOfWork.Book.Get10("newmanga"),
+                NewLightNovel = _unitOfWork.Book.Get10("newlightnovel"),
+                TopManga = _unitOfWork.Book.Get10("topmanga"),
+                Cate1 = _unitOfWork.Book.Get10("cate1"),
+                Cate2 = _unitOfWork.Book.Get10("cate2"),
+                Cate3 = _unitOfWork.Book.Get10("cate3")
             };
-
-            //IEnumerable<Book> books = _unitOfWork.Book.Get();
 
             return View(viewModel);
         }
