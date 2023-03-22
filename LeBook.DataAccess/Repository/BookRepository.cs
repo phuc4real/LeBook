@@ -47,6 +47,11 @@ namespace LeBook.DataAccess.Repository
             return values.ToList();
         }
 
+        public IEnumerable<Book> GetBestSeller()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Book> GetDeleted()
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == true);
@@ -60,6 +65,19 @@ namespace LeBook.DataAccess.Repository
             books = books.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
             Book book = books.FirstOrDefault(c => c.Id == id);
             return book;
+        }
+
+        public IEnumerable<Book> GetHotDeal()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Book> GetNewBook()
+        {
+            IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false);
+            values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay).Take(10);
+            values = values.Include(c => c.Price);
+            return values.ToList();
         }
 
         public void Restore(Book book)

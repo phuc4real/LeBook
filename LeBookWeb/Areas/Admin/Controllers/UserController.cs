@@ -18,7 +18,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var list = _unitOfWork.ApplicationUser.GetListUser();
-            var userRole = _unitOfWork
+            //var userRole = _unitOfWork;
             return View(list);
         }
 

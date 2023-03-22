@@ -52,7 +52,7 @@
                     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="register-content">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-box">
                                     <label asp-for="Input.Email"></label>
                                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Nhập địa chỉ email" />
@@ -69,7 +69,7 @@
                                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="input-box">
                                     <label asp-for="Input.Name"></label>
                                     <input asp-for="Input.Name" class="form-control" placeholder="Nhập Họ và tên" />
@@ -84,15 +84,6 @@
                                     <label asp-for="Input.PhoneNumber"></label>
                                     <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
                                     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-box">
-                                    <label asp-for="Input.Role"></label>
-                                    <select asp-for="Input.Role" asp-items="@Model.Input.Rolelist" class="form-control">
-                                        <option disabled selected>-- Chọn vai trò --</option>
-                                    </select>
-                                    <span asp-validation-for="Input.Role" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>

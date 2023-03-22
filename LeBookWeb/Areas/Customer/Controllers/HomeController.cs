@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using LeBook.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -25,9 +26,22 @@ namespace LeBook.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Book> books = _unitOfWork.Book.Get();
+            CHomeViewModel viewModel = new() 
+            { 
+                NewBook = _unitOfWork.Book.GetNewBook(),
+                BestSeller = _unitOfWork.Book.Get(),
+                HotDeal = _unitOfWork.Book.Get(),
+                NewManga = _unitOfWork.Book.Get(),
+                NewLightNovel = _unitOfWork.Book.Get(),
+                TopManga = _unitOfWork.Book.Get(),
+                Cate1 = _unitOfWork.Book.Get(),
+                Cate2 = _unitOfWork.Book.Get(),
+                Cate3 = _unitOfWork.Book.Get()
+            };
 
-            return View(books);
+            //IEnumerable<Book> books = _unitOfWork.Book.Get();
+
+            return View(viewModel);
         }
 
         public IActionResult Details(int bookId)

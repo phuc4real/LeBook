@@ -1,261 +1,394 @@
-﻿    @model IEnumerable<Book>
+﻿@model CHomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<main class="home">
-    <div class="navbar-banner">
-        <div class="banner-content">
-            15% Off eBooks and Audiobooks
-            <span class="code-phrase">
-                With Code:
-                <span class="code">SNOWFALL</span>
-            </span>
-        </div>
-    </div>
-    <div class="navbar-sale">
-        <div class="content-sale">
-            A Sale for the Pages: 50% Off Thousands of Hardcover Books & Morer
-            Deals
-        </div>
-    </div>
-    <div class="slide-banner owl-carousel owl-theme">
-        <div class="banner-item">
-            <img src="~/images/25556_A2_NightWhereverWeGo_01-03.jpg" alt="" />
-        </div>
-        <div class="banner-item">
-            <img src="~/images/25556_A2_NightWhereverWeGo_01-03.jpg" alt="" />
-        </div>
-        <div class="banner-item">
-            <img src="~/images/25556_A2_NightWhereverWeGo_01-03.jpg" alt="" />
-        </div>
-    </div>
-
-    <div class="book-outstanding">
-        <div class="container">
-            <div class="title-book">
-                <p>Barnes & Noble Exclusives</p>
-            </div>
-            <div class="col-total">
-                <div class="col-left">
-                    <div class="book-content">
-                        <div class="outstanding-img">
-                            <a href="">
-                                <img src="~/images/book1.webp" alt="" />
-                                <p>Age of Vice (B&N Exclusive Edition)</p>
-                            </a>
-                            <div class="product-contributor">
-                                <a href="">Deepti Kapoor</a>
-                            </div>
-                            <div class="printCopy">
-                                <p>
-                                    This is the age of vice, where money, pleasure, and power
-                                    are everything, and the family ties that bind can also
-                                    kill.
-                                    <br />
-                                    An intoxicating novel of gangsters and lovers, false
-                                    friendships, forbidden romance, and the consequences of
-                                    corruption.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="row">
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="book-content col-md-3 col-4">
-                            <div class="book-img">
-                                <a href="" class="title-book">
-                                    <img src="~/images/book3.webp" alt="" />
-                                    <p>Và Rồi, Tháng 9 Không Có Cậu Đã Tới</p>
-                                </a>
-                                <div class="product-contributor">
-                                    <a href="">Natsuki Amasawa</a>
-                                </div>
-                                <div class="rating">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="overlay"></div>
-</main>
-
-<div class="list-book container mt-5 mb-5">
-    <div class="title-list d-flex justify-content-between mb-3">
-        <h2 class="category">Trending Now</h2>
-        <a href="products.html" class="see-all">See all</a>
-    </div>
-
-    <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        @foreach (var item in Model)
-        {
-            <div class="product-shelf">
-                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
-                  <div class="quick-add">
-                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
-                  </div>
-            </div>
-        }
-    </div>
-</div>
-
-<div class="list-book container mt-5 mb-5">
-    <div class="title-list d-flex justify-content-between mb-3">
-        <h2 class="category">New & Coming Soon in YA</h2>
-        <a href="addCart.html" class="see-all">See all</a>
-    </div>
-
-    <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        @foreach (var item in Model)
-        {
-            <div class="product-shelf">
-                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
-                <div class="quick-add">
-                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-<div class="list-book container mt-5 mb-5">
-    <div class="title-list d-flex justify-content-between mb-3">
-        <h2 class="category">Manga, Manhua & More</h2>
-        <a href="addCart.html" class="see-all">See all</a>
-    </div>
-
-    <div class="product-shelf-grid owl-carousel owl-theme owl-product">
-        @foreach (var item in Model)
-        {
-            <div class="product-shelf">
-                <img src="@Url.Content(item.ImgUrl)" alt="@item.Title" />
-                <div class="quick-add">
-                    <a asp-action="Details" asp-route-bookId="@item.Id">Mua ngay</a>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
 @section Scripts {
-        <script>
-            $('.owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: true,
-                dots: true,
-                smartSpeed: 700,
-                navText: [prevIcon, nextIcon],
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                },
-            })
-        </script>
+    <script src="~/js/chscript.js"></script> 
 }
+
+<main class="page">
+    <div class="top-banner container">
+        <div class="top-banner-container">
+            <div class="banner owl-carousel owl-banner owl-theme">
+                <div class="image-banner">
+                    <a href="">
+                        <img class="lazyOwl" src="~/images/banner/banner1.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="image-banner">
+                    <a href="">
+                        <img class="lazyOwl" src="~/images/banner/banner2.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="image-banner">
+                    <a href="">
+                        <img class="lazyOwl" src="~/images/banner/banner3.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="image-banner">
+                    <a href="">
+                        <img class="lazyOwl" src="~/images/banner/banner4.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="image-banner">
+                    <a href="">
+                        <img class="lazyOwl" src="~/images/banner/banner5.jpg" alt="" />
+                    </a>
+                </div>
+            </div>
+            <div class="banner-right">
+                <div>
+                    <a href="">
+                        <img src="~/images/banner/banner6.jpg" alt="" />
+                    </a>
+                </div>
+                <div>
+                    <a href="">
+                        <img src="~/images/banner/banner7.jpg" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+       
+        <div class="category-slider">
+            <div class="tabslider-header">
+                <h5>XU HƯỚNG</h5>
+                <div class="tab-title">
+                    <ul class="girdslider owl-filter-bar">
+                        <li class="girdslider-item active" data-owl-filter=".sachmoi">
+                            Sách mới
+                        </li>
+                        <li class="girdslider-item" data-owl-filter=".banchay">
+                            Bán chạy
+                        </li>
+                        <li class="girdslider-item" data-owl-filter=".giamgia">
+                            Giảm giá sốc
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tab-container-content">
+                            <ul class="slider-book owl-carousel owl-product-2">
+                                @foreach (var item in Model.NewBook)
+                                {
+                                    <li class="slider-item sachmoi">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title</a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
+                                @foreach (var item in Model.BestSeller)
+                                {
+                                    <li class="slider-item banchay">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
+                                @foreach (var item in Model.HotDeal)
+                                {
+                                    <li class="slider-item giamgia">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-slider">
+            <div class="tabslider-header">
+                <div class="tab-title">
+                    <ul class="girdslider owl-filter-bar-2">
+                        <li class="girdslider-item-2 active"
+                            data-owl-filter-2=".mangamoi">
+                            Manga Mới
+                        </li>
+                        <li class="girdslider-item-2" data-owl-filter-2=".topmanga">
+                            Top Manga
+                        </li>
+                        <li class="girdslider-item-2"
+                            data-owl-filter-2=".lightnovelmoi">
+                            Light Novel Mới
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tab-container-content">
+                            <ul class="slider-book owl-carousel owl-product-3">
+                                @foreach (var item in Model.NewManga)
+                                {
+                                    <li class="slider-item mangamoi">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in Model.TopManga)
+                                {
+                                    <li class="slider-item topmanga">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in Model.NewLightNovel)
+                                {
+                                    <li class="slider-item lightnovelmoi">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-slider">
+            <div class="tabslider-header">
+                <div class="tab-title">
+                    <ul class="girdslider owl-filter-bar-3">
+                        <li class="girdslider-item-3 active" data-owl-filter-3=".sachtl"> Sách Tâm lý - Kỹ năng sống </li>
+                        <li class="girdslider-item-3" data-owl-filter-3=".sachkt"> Sách Kinh tế </li>
+                        <li class="girdslider-item-3" data-owl-filter-3=".sachvh"> Sách Văn học </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tab-container-content">
+                            <ul class="slider-book owl-carousel owl-product-4">
+                                @foreach (var item in Model.Cate1)
+                                {
+                                    <li class="slider-item sachtl">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in Model.Cate2)
+                                {
+                                    <li class="slider-item sachkt">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                @foreach (var item in Model.Cate3)
+                                {
+                                    <li class="slider-item sachvh">
+                                        <div class="slider-content">
+                                            <div class="image-container">
+                                                <a href="">
+                                                    <div class="product-image-silder">
+                                                        <img class="lazyOwl" src="@item.ImgUrl" alt="" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <h2 class="product-name-slider">
+                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                </h2>
+                                                <div class="price-label">
+                                                    <p class="special-price">
+                                                        <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                        <span class="discount-percent">-0%</span>
+                                                    </p>
+                                                    <p class="old-price">
+                                                        <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
