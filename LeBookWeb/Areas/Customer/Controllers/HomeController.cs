@@ -56,7 +56,7 @@ namespace LeBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult Details(ShoppingCart cart)
+        public IActionResult Details(ShoppingCart cart,string? returnurl)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -73,8 +73,12 @@ namespace LeBook.Controllers
                 _unitOfWork.ShoppingCart.IncrementCount(cartDB, cart.Count);
             }
             _unitOfWork.Save();
-            _notifyService.Success("Đã thêm sản phẩm vào giỏ hàng");
-            return RedirectToAction(nameof(Index));
+
+            if (returnurl != null) {
+                _notifyService.Success("Đã thêm sản phẩm vào giỏ hàng");
+                return RedirectToAction("Index");
+            }
+            else return RedirectToAction("Index", "Cart");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

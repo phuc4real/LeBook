@@ -25,26 +25,31 @@ namespace LeBookWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.CountErr = TempData["CountErr"] as string;
-            TempData.Remove("CountErr");
+            if(TempData["CountErr"]!= null) 
+            {
+                ViewBag.CountErr = TempData["CountErr"] as string;
+                TempData.Remove("CountErr");
+            }
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             cartViewModel = new CartViewModel()
             {
-                ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value)
+                ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, false),
+                CartTotal = 0
             };
 
             foreach (var cart in cartViewModel.ListCart)
             {
                 cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
-                cartViewModel.CartTotal += cart.ItemTotal;
+                if(cart.toBuy) cartViewModel.CartTotal += cart.ItemTotal;
             }
 
             return View(cartViewModel);
         }
 
+        [HttpPost]
         public IActionResult CheckOut()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -54,7 +59,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
             CheckoutViewModel viewModel = new CheckoutViewModel()
             {
                 Address = _unitOfWork.UserAddress.Get(claim.Value),
-                ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value),
+                ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, true),
             };
 
             foreach (var cart in viewModel.ListCart)
@@ -67,7 +72,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
         }
 
         [HttpPost]
-        public IActionResult CheckOut(CheckoutViewModel viewModel)
+        public IActionResult Payment(CheckoutViewModel viewModel)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -106,5 +111,31 @@ namespace LeBookWeb.Areas.Customer.Controllers
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
+
+        #region API
+
+        [HttpPost]
+        public IActionResult ToBuy(string cartId)
+        {
+            bool res = _unitOfWork.ShoppingCart.ToBuy(int.Parse(cartId));
+            _unitOfWork.Save();
+            return Json(res);
+        }
+
+        public IActionResult TotalPrice()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            double cartTotal = 0;
+            IEnumerable<ShoppingCart> ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, true);
+
+            foreach (var cart in ListCart)
+            {
+                cartTotal += cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
+            }
+
+            return Json(cartTotal);
+        }
+        #endregion
     }
 }

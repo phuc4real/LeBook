@@ -16,7 +16,7 @@ $('.owl-banner').owlCarousel({
     },
 })
 
-var owl = $('.owl-product-2').owlCarousel({
+const Options = {
     loop: false,
     dots: false,
     nav: true,
@@ -34,74 +34,28 @@ var owl = $('.owl-product-2').owlCarousel({
             items: 5,
         },
     },
-})
+}
 
-var owl3 = $('.owl-product-3').owlCarousel({
-    loop: false,
-    dots: false,
-    nav: true,
-    lazyLoad: true,
-    margin: 10,
-    navText: [prevIcon, nextIcon],
-    responsive: {
-        0: {
-            items: 1,
-        },
-        600: {
-            items: 3,
-        },
-        900: {
-            items: 5,
-        },
-    },
-})
-
-var owl4 = $('.owl-product-4').owlCarousel({
-    loop: false,
-    dots: false,
-    nav: true,
-    lazyLoad: true,
-    margin: 10,
-    navText: [prevIcon, nextIcon],
-    responsive: {
-        0: {
-            items: 1,
-        },
-        600: {
-            items: 3,
-        },
-        900: {
-            items: 5,
-        },
-    },
-})
+const owl2 = $('.owl-product-2').owlCarousel(Options);
+const owl3 = $('.owl-product-3').owlCarousel(Options);
+const owl4 = $('.owl-product-4').owlCarousel(Options);
 
 $("document").ready(function () {
-    owl.owlcarousel2_filter('.sachmoi');
+    owl2.owlcarousel2_filter('.sachmoi');
     owl3.owlcarousel2_filter('.mangamoi');
     owl4.owlcarousel2_filter('.sachtl');
 });
 
-$('.owl-filter-bar').on('click', '.girdslider-item', function () {
-    const $item = $(this)
-    $item.addClass('active').siblings().removeClass('active')
-    const filter = $item.data('owl-filter')
+function handleFilterClick($bar, $carousel, girdslider, filterAttr) {
+    $bar.on('click', girdslider, function () {
+        const $item = $(this);
+        $item.addClass('active').siblings().removeClass('active');
+        const filter = $item.data(filterAttr);
 
-    owl.owlcarousel2_filter(filter)
-})
+        $carousel.owlcarousel2_filter(filter);
+    });
+}
 
-$('.owl-filter-bar-2').on('click', '.girdslider-item-2', function () {
-    const $item = $(this)
-    $item.addClass('active').siblings().removeClass('active')
-    const filter = $item.data('owl-filter-2')
-
-    owl3.owlcarousel2_filter(filter)
-})
-
-$('.owl-filter-bar-3').on('click', '.girdslider-item-3', function () {
-    const $item = $(this)
-    $item.addClass('active').siblings().removeClass('active')
-    const filter = $item.data('owl-filter-3')
-
-    owl4.owlcarousel2_filter(filter)
-})
+handleFilterClick($('.owl-filter-bar'), owl2, '.girdslider-item','owl-filter');
+handleFilterClick($('.owl-filter-bar-2'), owl3, '.girdslider-item-2', 'owl-filter-2');
+handleFilterClick($('.owl-filter-bar-3'), owl4, '.girdslider-item-3', 'owl-filter-3');

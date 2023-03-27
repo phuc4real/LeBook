@@ -19,7 +19,7 @@ namespace LeBook.Models
         public Book Book { get; set; }
         [Range(0, 10, ErrorMessage = "Mua tối đa 10 sản phẩm")]
         public int Count { get; set; }
-
+        public bool toBuy { get; set; } = true;
         public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]

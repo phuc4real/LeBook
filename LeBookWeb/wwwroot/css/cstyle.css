@@ -1337,21 +1337,18 @@ input:focus {
 
 .button-cart {
     margin-top: 10px;
-    width: 100%;
 }
 
-    .button-cart a {
-        text-align: center;
+    .button-cart button {
+        width: 100%;
         border: none;
         padding: 10px 15px;
         border-radius: 8px;
         background: #c92127;
         color: #fff;
-        text-decoration: none;
-        display: block;
     }
 
-        .button-cart a span {
+        .button-cart button span {
             font-size: 18px;
             text-transform: uppercase;
             font-weight: 600;

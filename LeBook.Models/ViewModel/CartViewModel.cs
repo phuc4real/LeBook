@@ -11,7 +11,7 @@ namespace LeBook.Models.ViewModel
     {
         public IEnumerable<ShoppingCart> ListCart { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:#,###.##đ}")]
+        [DisplayFormat(DataFormatString = "{0:#,###.##₫}")]
         public double CartTotal { get; set; }
     }
 }

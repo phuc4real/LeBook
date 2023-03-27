@@ -31,3 +31,9 @@ zoom.addEventListener('mousemove', (e) => {
   y = (offsetY / zoomer.offsetHeight) * 100
   zoomer.style.backgroundPosition = x + '% ' + y + '%'
 })
+
+const returnUrl = document.getElementById('returnurl');
+
+function setReturn() {
+    returnUrl.value = "add";
+}

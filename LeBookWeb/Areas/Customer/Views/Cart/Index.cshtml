@@ -4,151 +4,157 @@
     ViewData["Title"] = "Giỏ hàng";
 }
 
+@section Scripts {
+    <script src="~/js/cart.js"></script>
+}
+
 <section id="cart-container">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="header-cart-item d-flex mt-5">
-                    <div class="checkbox-all-product">
-                        <input type="checkbox" id="select-all" />
+        <form asp-action="CheckOut" method="post">
+            <div class="row">
+                <div class="col-sm-8" id="cart-content">
+                    <div class="header-cart-item d-flex mt-5">
+                        <div class="checkbox-all-product">
+                            <input type="checkbox" name="SelectAll" id="select-all" />
+                        </div>
+                        <div>
+                            <p>
+                                Chọn tất cả ( <span class="number-items-checkbox"></span> sản
+                                phẩm )
+                            </p>
+                        </div>
+                        <div>
+                            <p>Số lượng</p>
+                        </div>
+                        <div>
+                            <p>Thành Tiền</p>
+                        </div>
+                        <div></div>
                     </div>
-                    <div>
-                        <p>
-                            Chọn tất cả ( <span class="number-items-checkbox"></span> sản
-                            phẩm )
-                        </p>
-                    </div>
-                    <div>
-                        <p>Số lượng</p>
-                    </div>
-                    <div>
-                        <p>Thành Tiền</p>
-                    </div>
-                    <div></div>
-                </div>
-                @if (ViewBag.CountErr != null)
-                {
-                    <div class="alert alert-danger">
-                        <span>@ViewBag.CountErr</span>
-                    </div>
-                }
-                <div class="product-cart">
-                    @foreach(var item in Model.ListCart)
+                    @if (ViewBag.CountErr != null)
                     {
-                        <div class="item-product-cart">
-                            <div class="checked-product-cart">
-                                <input type="checkbox" name="" id="" class="checkbox-add-cart" />
-                            </div>
-                            <div class="image-product-cart">
-                                <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-bookId="@item.BookId">
-                                    <img src="@item.Book.ImgUrl" alt="@item.Book.Title" />
-                                </a>
-                            </div>
-                            <div class="group-product-info">
-                                <div class="info-product-cart">
-                                    <h2 class="product-name-full">
-                                        <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-bookId="@item.BookId">
-                                            @item.Book.Title
-                                        </a>
-                                    </h2>
-                                    <div class="cart-price">
-                                        <p>@Html.DisplayFor(modelItem => item.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)</p>
-                                    </div>
-                                </div>
-                                <div class="number-product-cart">
-                                    <div class="quantity">
-                                        <a asp-action="minus" asp-route-cartId="@item.Id" class="minus pt-2">
-                                            <i class="fa-solid fa-minus"></i>
-                                        </a>
-                                        <input class="form-control-plaintext text-center" asp-for="@item.Count">
-                                        <a asp-action="plus" asp-route-cartId="@item.Id" class="plus pt-2">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </a>
-                                    </div>
-                                    <div class="cart-price-total">
-                                        <span class="cart-total">
-                                            <span class="price">@Html.DisplayFor(modelItem => item.ItemTotal)</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="remove-cart">
-                                <a asp-action="remove" asp-route-cartId="@item.Id" class="btn-remove-cart">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            </div>
+                        <div class="alert alert-danger">
+                            <span>@ViewBag.CountErr</span>
                         </div>
                     }
-                    <div class="border-product"></div>
+                    <div class="product-cart">
+                        @foreach (var item in Model.ListCart)
+                        {
+                            <div class="item-product-cart">
+                                <div class="checked-product-cart">
+                                    <input type="checkbox" asp-for="@item.toBuy" data-cartid="@item.Id" class="checkbox-add-cart" />
+                                </div>
+                                <div class="image-product-cart">
+                                    <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-bookId="@item.BookId">
+                                        <img src="@item.Book.ImgUrl" alt="@item.Book.Title" />
+                                    </a>
+                                </div>
+                                <div class="group-product-info">
+                                    <div class="info-product-cart">
+                                        <h2 class="product-name-full">
+                                            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-bookId="@item.BookId">
+                                                @item.Book.Title
+                                            </a>
+                                        </h2>
+                                        <div class="cart-price">
+                                            <p>@Html.DisplayFor(modelItem => item.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)</p>
+                                        </div>
+                                    </div>
+                                    <div class="number-product-cart">
+                                        <div class="quantity">
+                                            <a asp-action="minus" asp-route-cartId="@item.Id" class="minus pt-2">
+                                                <i class="fa-solid fa-minus"></i>
+                                            </a>
+                                            <input class="form-control-plaintext text-center" asp-for="@item.Count">
+                                            <a asp-action="plus" asp-route-cartId="@item.Id" class="plus pt-2">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </a>
+                                        </div>
+                                        <div class="cart-price-total">
+                                            <span class="cart-total">
+                                                <span class="price">@Html.DisplayFor(modelItem => item.ItemTotal)</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="remove-cart">
+                                    <a asp-action="remove" asp-route-cartId="@item.Id" class="btn-remove-cart">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        <div class="border-product"></div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="coupon-code mt-5">
+                        <div class="coupon-code-title">
+                            <div class="title-left">
+                                <span>
+                                    <img src="~/assets/svg/ico_coupon.svg" alt="" />
+                                </span>
+                                <span>Khuyến Mãi</span>
+                            </div>
+                            <div class="title-right">
+                                <span>Xem thêm</span>
+                                <span>
+                                    <img src="~/assets/svg/ico_seemore_blue.svg" alt="" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="coupon-code-item mt-3">
+                            <div class="item-content">
+                                <div class="coupon-code-title">
+                                    <div class="title-left">MÃ GIẢM 20K</div>
+                                    <div class="title-right">
+                                        <a href="">Chi tiết</a>
+                                    </div>
+                                </div>
+                                <div class="item-content-description">
+                                    Cho đơn hàng từ 250K - Dành Cho Tủ Sách Kinh Tế & Tâm Lý -
+                                    Kỹ Năng
+                                </div>
+                                <div class="add-coupon-code d-flex justify-content-between align-items-center">
+                                    <div class="item-progress-bar">
+                                        <div class="item-progress">
+                                            <hr style="width: 0%" />
+                                        </div>
+                                        <div class="item-minmax">
+                                            <span>Mua thêm 250.000đ để nhận mã</span>
+                                            <span>250.000đ</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button">
+                                            <span>Dùng Mã</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        <div class="total-cart-page">
+                            <div class="title-cart-page-left">Thành Tiền</div>
+                            <div class="title-cart-page-right">
+                                <span class="price" id="total-price" >@(Model.CartTotal != 0 ? Html.DisplayFor(Model => Model.CartTotal) : "0 ₫")</span>
+                            </div>
+                        </div>
+                        <div class="final-total-price mt-3">
+                            <div class="final-total-price-left">Tổng Số Tiền (gồm VAT)</div>
+                            <div class="final-total-price-right">
+                                <span class="final-price">@(Model.CartTotal != 0 ? Html.DisplayFor(Model => Model.CartTotal) : "0 ₫")</span>
+                            </div>
+                        </div>
+                        <div class="button-cart">
+                            <button type="submit">
+                                <span>Thanh Toán</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="coupon-code mt-5">
-                    <div class="coupon-code-title">
-                        <div class="title-left">
-                            <span>
-                                <img src="~/assets/svg/ico_coupon.svg" alt="" />
-                            </span>
-                            <span>Khuyến Mãi</span>
-                        </div>
-                        <div class="title-right">
-                            <span>Xem thêm</span>
-                            <span>
-                                <img src="~/assets/svg/ico_seemore_blue.svg" alt="" />
-                            </span>
-                        </div>
-                    </div>
-                    <div class="coupon-code-item mt-3">
-                        <div class="item-content">
-                            <div class="coupon-code-title">
-                                <div class="title-left">MÃ GIẢM 20K</div>
-                                <div class="title-right">
-                                    <a href="">Chi tiết</a>
-                                </div>
-                            </div>
-                            <div class="item-content-description">
-                                Cho đơn hàng từ 250K - Dành Cho Tủ Sách Kinh Tế & Tâm Lý -
-                                Kỹ Năng
-                            </div>
-                            <div class="add-coupon-code d-flex justify-content-between align-items-center">
-                                <div class="item-progress-bar">
-                                    <div class="item-progress">
-                                        <hr style="width: 0%" />
-                                    </div>
-                                    <div class="item-minmax">
-                                        <span>Mua thêm 250.000đ để nhận mã</span>
-                                        <span>250.000đ</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="button">
-                                        <span>Dùng Mã</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="total-price">
-                    <div class="total-cart-page">
-                        <div class="title-cart-page-left">Thành Tiền</div>
-                        <div class="title-cart-page-right">
-                            <span class="price">@Html.DisplayFor(Model => Model.CartTotal)</span>
-                        </div>
-                    </div>
-                    <div class="final-total-price mt-3">
-                        <div class="final-total-price-left">Tổng Số Tiền (gồm VAT)</div>
-                        <div class="final-total-price-right">
-                            <span class="final-price">@Html.DisplayFor(Model => Model.CartTotal)</span>
-                        </div>
-                    </div>
-                    <div class="button-cart">
-                        <a asp-action="CheckOut" id="checkout">
-                            <span>Thanh Toán</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </section>

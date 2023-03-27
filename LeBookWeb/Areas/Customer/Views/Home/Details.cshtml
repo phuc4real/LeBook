@@ -4,8 +4,17 @@
     ViewData["Title"] = "Thông tin chi tiết";
 }
 
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/details.js"></script>
+}
+
 <form method="post" class="add-cart">
     <input asp-for="BookId" hidden/>
+    <input type="text" name="returnurl" id="returnurl" hidden />
     <div class="add-card">
         <div class="container">
             <div class="row add-card-container">
@@ -58,12 +67,12 @@
                         </div>
                         <span asp-validation-for="Count" class="ps-2 text-danger"></span>
                     </div>
-                    <div class="btn-groups mt-4">
-                        <button type="submit" class="add-card">
+                    <div class="btn-groups mt-4" id="button-container">
+                        <button type="submit" onclick="setReturn()" class="add-card">
                             <i class="fa-solid fa-cart-shopping"></i>
                             <span>Thêm vào giỏ hàng</span>
                         </button>
-                        <button type="submit" class="buy-now">
+                        <button type="submit" id="buynow" class="buy-now">
                             <i class="fa-solid fa-wallet"></i>
                             <span>Mua ngay</span>
                         </button>
@@ -123,10 +132,3 @@
         </div>
     </div>
 </form>
-
-@section Scripts {
-     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-     <script src="~/js/zoom.js"></script>
-}
