@@ -2,12 +2,14 @@ const prevIcon = '<i class="fa-solid fa-chevron-left"></i>'
 const nextIcon = '<i class="fa-solid fa-chevron-right"></i>'
 
 $('.owl-banner').owlCarousel({
-    loop: false,
+    loop: true,
     margin: 10,
     nav: true,
     dots: true,
     lazyLoad: true,
-    smartSpeed: 700,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
     navText: [prevIcon, nextIcon],
     responsive: {
         0: {

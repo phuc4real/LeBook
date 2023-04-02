@@ -13,6 +13,9 @@ namespace LeBook.Models
     public class UserAddress
     {
         public int Id { get; set; }
+
+        [DisplayName("Tên người nhận")]
+        public string? Name { get; set; }
         [DisplayName("Số điện thoại giao hàng")]
         public string Contact { get; set; }
         [DisplayName("Địa chỉ")]

@@ -60,6 +60,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
             {
                 Address = _unitOfWork.UserAddress.Get(claim.Value),
                 ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, true),
+                Order = new()
             };
 
             foreach (var cart in viewModel.ListCart)
@@ -68,16 +69,30 @@ namespace LeBookWeb.Areas.Customer.Controllers
                 viewModel.CartTotal += cart.ItemTotal;
             }
 
+            viewModel.Order.OrderTotal = viewModel.CartTotal + 30000;
+
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Payment(CheckoutViewModel viewModel)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (viewModel.Order.PaymentType == "cod")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                viewModel.Order.UserId = claim.Value;
+                List<UserAddress> addresses = new List<UserAddress>();
+                addresses.Add(_unitOfWork.UserAddress.GetFirtOrDefault(x => x.Id == viewModel.Order.AddressId));
+                viewModel.Address = addresses;
 
-            return Json(viewModel);
+                return View("CheckOut", viewModel);
+            }
+            else if (viewModel.Order.PaymentType == "vnpay")
+            {
+                return RedirectToAction("Index");
+            }
+            else return RedirectToAction("Index");
         }
 
         public IActionResult Plus(int cartId) 

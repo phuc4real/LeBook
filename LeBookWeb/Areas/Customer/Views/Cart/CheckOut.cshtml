@@ -5,27 +5,32 @@
 }
 @section Scripts{
     <script src="~/js/paymentmethod.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
     <div class="payment-container">
         <div class="container">
         <form action="Payment" method="post">
-            <input asp-for="OrderTotal" value="@Model.CartTotal" hidden />
+            <input asp-for="Order.OrderTotal" value="@Model.CartTotal" hidden />
             <div class="row">
                 <div class="payment-address">
                     <div class="payment-title">Địa chỉ giao hàng</div>
 
                     <div class="payment-content">
                         <ul class="address-list">
+                            <span asp-validation-for="Order.AddressId" class="text-danger ms-3 p-2"></span>
                             @foreach (var address in Model.Address)
                             {
                                 <li class="address-item method d-flex justify-content-between mt-2">
                                     @{
-                                        string item = address.User.Name + " | " + address.Street + "," + address.Ward + "," + address.District + "," + address.Province + " | " + address.Contact;
+                                        string item = address.Name + " | " + address.Street + "," + address.Ward + "," + address.District + "," + address.Province + " | " + address.Contact;
 
                                     }
-                                    @item.ToString()    
-                                    <input type="radio" asp-for="AddressId" id="@address.Id" value="@address.Id" class="checkout-option">
+                                    @item.ToString()
+
+                                    <input type="radio" asp-for="Order.AddressId" id="@address.Id" value="@address.Id" class="checkout-option">
                                     <span class="radiomark-big"></span>
                                     <a class="text-decoration-none text-black" asp-controller="Address" asp-action="Edit" asp-route-id="@address.Id">
                                         <span>Sửa</span>
@@ -50,7 +55,7 @@
                         <ul class="address-list">
                             <li class="address-item" style="font-weight: 600">
                                 Giao hàng tiêu chuẩn: 30.000 đ
-                                <input type="radio" class="checkout-option" asp-for="ShippingType" value="ghtc" checked>
+                                <input type="radio" class="checkout-option" asp-for="Order.ShippingType" value="ghtc" checked>
                                 <span class="radiomark-big"></span>
                             </li>
                         </ul>
@@ -61,6 +66,7 @@
                     <div class="payment-title">Phương thức thanh toán</div>
                     <div class="payment-content">
                         <ul class="address-list">
+                            <span asp-validation-for="Order.PaymentType" class="text-danger ms-3 p-2"></span>
                             <li class="address-item method d-flex align-center justify-center" style="font-weight: 600">
                                 <div style="
                       background: url(/assets/svg/ico_vnpay.svg) no-repeat
@@ -68,7 +74,7 @@
                       width: 40px;
                     "></div>
                                 <div class="payment-name">VNPay</div>
-                                <input type="radio" class="checkout-option" asp-for="PaymentType" id="vnpay" value="vnpay">
+                                <input type="radio" class="checkout-option" asp-for="Order.PaymentType" id="vnpay" value="vnpay">
                                 <span class="radiomark-big"></span>
                             </li>
                         </ul>
@@ -84,7 +90,7 @@
                                 <div class="payment-name">
                                     Thanh toán bằng tiền mặt khi nhận hàng
                                 </div>
-                                <input type="radio" class="checkout-option" asp-for="PaymentType" id="cashondelivery" value="cod">
+                                <input type="radio" class="checkout-option" asp-for="Order.PaymentType" id="cashondelivery" value="cod">
                                 <span class="radiomark-big"></span>
                             </li>
                         </ul>
@@ -133,7 +139,7 @@
                                 </div>
                                 <div class="total-grand-total">
                                     <div>Tổng Số Tiền (gồm VAT):</div>
-                                    <div>@Html.DisplayFor(Model => Model.CartTotal)</div>
+                                    <div>@Html.DisplayFor(Model => Model.Order.OrderTotal)</div>
                                 </div>
                                 <div>
                                     <div>

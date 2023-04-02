@@ -27,7 +27,7 @@ namespace LeBook.DataAccess.Repository
 
         public void Update(UserAddress address)
         {
-            _context.Update(address);
+            _context.UserAddresses.Update(address);
         }
     }
 }

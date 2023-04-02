@@ -20,4 +20,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<ShoppingCart> ShoppingCarts { get; set;}
     public DbSet<UserAddress> UserAddresses { get; set; }
     public DbSet<Banner> Banners { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
+
 }

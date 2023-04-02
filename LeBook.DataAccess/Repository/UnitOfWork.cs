@@ -16,11 +16,13 @@ namespace LeBook.DataAccess.Repository
 
             Age = new AgeRepository(_context);
             Book = new BookRepository(_context);
+            Order = new OrderRepository(_context);
             Price = new PriceRepository(_context);
             Company = new CompanyRepository(_context);
             Category = new CategoryRepository(_context);
             CoverType = new CoverTypeRepository(_context);
             UserAddress = new UserAddressRepository(_context);
+            OrderDetail = new OrderDetailRepository(_context);
             ShoppingCart = new ShoppingCartRepository(_context);
             ApplicationUser = new ApplicationUserRepository(_context);
         }
@@ -28,6 +30,8 @@ namespace LeBook.DataAccess.Repository
         public IAgeRepository Age { get; private set; }
 
         public IBookRepository Book { get; private set; }
+
+        public IOrderRepository Order { get; private set; }
 
         public IPriceReposittory Price { get; private set; }
 
@@ -38,6 +42,8 @@ namespace LeBook.DataAccess.Repository
         public ICoverTypeRepository CoverType { get; private set; }
 
         public IUserAddressRepository UserAddress { get; private set; }
+
+        public IOrderDetailRepository OrderDetail { get; private set; }
 
         public IShoppingCartRepository ShoppingCart { get; private set; }
 

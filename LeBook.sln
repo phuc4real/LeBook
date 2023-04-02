@@ -5,11 +5,11 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeBookWeb", "LeBookWeb\LeBookWeb.csproj", "{E7632A82-0E50-4621-AFF4-CC8B7F647088}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeBook.DataAccess", "LeBook.DataAccess\LeBook.DataAccess.csproj", "{1E5A0D7A-E0A2-44E2-9576-A0AC4089EEF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeBook.DataAccess", "LeBook.DataAccess\LeBook.DataAccess.csproj", "{1E5A0D7A-E0A2-44E2-9576-A0AC4089EEF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeBook.Models", "LeBook.Models\LeBook.Models.csproj", "{92ABA409-34BA-4B12-97D6-E983DC4AD8A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeBook.Models", "LeBook.Models\LeBook.Models.csproj", "{92ABA409-34BA-4B12-97D6-E983DC4AD8A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeBook.Utility", "LeBook.Utility\LeBook.Utility.csproj", "{24A5E605-E925-45CD-8A2F-76A72267381C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeBook.Utility", "LeBook.Utility\LeBook.Utility.csproj", "{24A5E605-E925-45CD-8A2F-76A72267381C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

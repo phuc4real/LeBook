@@ -12,6 +12,8 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         IBookRepository Book { get; }
 
+        IOrderRepository Order { get; }
+
         IPriceReposittory Price { get; }
 
         ICompanyRepository Company { get; }
@@ -21,6 +23,8 @@ namespace LeBook.DataAccess.Repository.IRepository
         ICoverTypeRepository CoverType { get; }
 
         IUserAddressRepository UserAddress { get; }
+
+        IOrderDetailRepository OrderDetail { get; }
 
         IShoppingCartRepository ShoppingCart { get; }
 

@@ -43,7 +43,7 @@ namespace LeBook.DataAccess.Repository
 
         public void Update(Age age)
         {
-            _context.Update(age);
+            _context.Ages.Update(age);
         }
     }
 }
