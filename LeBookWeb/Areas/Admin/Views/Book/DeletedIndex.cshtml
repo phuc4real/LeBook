@@ -108,10 +108,13 @@
                                     @Html.DisplayFor(modelItem => item.DeletedAt)
                                 </td>
                                 <td>
-                                    <a href="#" onclick="return submitRestore(event,'@item.Id','Sách')">Phục hồi</a>
-                                    <form asp-action="Restore" id="Restore+@item.Id">
-                                        <input type="hidden" value="@item.Id" name="id" id="id" />
-                                    </form>
+                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                    {
+                                        <a href="#" onclick="return submitRestore(event,'@item.Id','Sách')">Phục hồi</a>
+                                        <form asp-action="Restore" id="Restore+@item.Id">
+                                            <input type="hidden" value="@item.Id" name="id" id="id" />
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }

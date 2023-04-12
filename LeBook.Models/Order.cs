@@ -31,7 +31,8 @@ namespace LeBook.Models
         [DisplayName("Hình thức giao hàng")]
         public string? ShippingType { get; set; }
 
-        [DisplayName("Thời gian giao hàng")]
+        [DisplayName("Thời gian giao hàng dự kiến")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime ShippingDate { get; set; }
 
         [DisplayName("Mã vận chuyển")]
@@ -59,13 +60,13 @@ namespace LeBook.Models
 
         [Required(ErrorMessage = "Chưa chọn địa chỉ giao hàng")]
         public int AddressId { get; set; }
-        [ForeignKey("AdressId")]
+        [ForeignKey("AddressId")]
         [ValidateNever]
         public virtual UserAddress? ShippingAdress { get; set; }
 
-        public string UserId { get; set; }
+        [DisplayName("Người đặt hàng")]
+        public string? UserId { get; set; }
         [ForeignKey("UserId")]
-        [JsonIgnore]
-        public ApplicationUser User { get; set; }
+        public ApplicationUser? User { get; set; }
     }
 }

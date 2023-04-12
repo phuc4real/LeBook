@@ -7,13 +7,16 @@ namespace LeBook.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Tên thể loại được bỏ trống!")]
+        [Required(ErrorMessage = "Tên thể loại không được bỏ trống!")]
         [DisplayName("Thể loại")]
         public string? Name { get; set; }
-        [Required(ErrorMessage = "STT được bỏ trống!")]
+        [Required(ErrorMessage = "STT không được bỏ trống!")]
         [DisplayName("Số thứ tự")]
         [Range(0, int.MaxValue, ErrorMessage ="STT không hợp lệ")]
         public int DisplayOrder { get; set; }
+        [Required(ErrorMessage = "Mức độ không được bỏ trống!")]
+        [DisplayName("Mức độ")]
+        public int Level { get; set; }
         [DisplayName("Ngày tạo")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [DisplayName("Ngày chỉnh sửa")]

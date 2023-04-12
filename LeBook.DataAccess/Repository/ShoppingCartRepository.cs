@@ -27,15 +27,14 @@ namespace LeBook.DataAccess.Repository
         public IEnumerable<ShoppingCart> GetCart(string ApplicationUserId, bool buy)
         {
             IQueryable<ShoppingCart> carts = _context.ShoppingCarts.Where(c => c.ApplicationUserId == ApplicationUserId);
-            if (buy) { carts = carts.Where(carts => carts.toBuy == true ); }
+            if (buy) { carts = carts.Where(carts => carts.toBuy == true); }
             carts = carts.Include(c => c.Book).ThenInclude(b => b.Price);
             return carts.ToList();
         }
 
         public ShoppingCart GetCartById(int cartId)
         {
-            ShoppingCart cart = _context.ShoppingCarts.FirstOrDefault(c => c.Id == cartId);
-            return cart;
+            return _context.ShoppingCarts.First(c => c.Id == cartId);
         }
 
         public int IncrementCount(ShoppingCart shoppingCart, int value)
@@ -46,9 +45,8 @@ namespace LeBook.DataAccess.Repository
 
         public bool ToBuy(int cartId)
         {
-            ShoppingCart cart = _context.ShoppingCarts.FirstOrDefault(c => c.Id == cartId);
+            ShoppingCart cart = _context.ShoppingCarts.First(c => c.Id == cartId);
             cart.toBuy = !cart.toBuy;
-
             return cart.toBuy;
         }
     }

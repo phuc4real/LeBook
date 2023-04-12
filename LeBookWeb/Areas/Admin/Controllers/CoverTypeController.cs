@@ -9,9 +9,11 @@ using LeBook.DataAccess;
 using LeBook.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LeBook.Areas.Admin.Controllers
 {
+    [Authorize("canView")]
     [Area("Admin")]
     public class CoverTypeController : Controller
     {
@@ -27,7 +29,7 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/CoverType
         public IActionResult Index()
         {
-              return View(_unitOfWork.CoverType.Get());
+              return View(_unitOfWork.CoverType.Get(x=>x.IsDeleted==false));
         }
 
         // GET: Admin/CoverType/Create
@@ -59,7 +61,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var coverType =  _unitOfWork.CoverType.GetFirtOrDefault(x => x.Id == id);
+            var coverType =  _unitOfWork.CoverType.FirstOrDefault(x => x.Id == id);
             if (coverType == null || coverType.IsDeleted)
             {
                 return NotFound();
@@ -109,7 +111,7 @@ namespace LeBook.Areas.Admin.Controllers
             {
                 return Problem("Bảng loại bìa trống.");
             }
-            var coverType = _unitOfWork.CoverType.GetFirtOrDefault(x => x.Id == id);
+            var coverType = _unitOfWork.CoverType.FirstOrDefault(x => x.Id == id);
             if (coverType != null && !coverType.IsDeleted)
             {
                 coverType.IsDeleted = true;
@@ -124,7 +126,7 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/CoverType/DeletedIndex
         public IActionResult DeletedIndex()
         {
-            return View(_unitOfWork.CoverType.GetDeleted());
+            return View(_unitOfWork.CoverType.Get(x=>x.IsDeleted == true));
         }
 
         // POST: Admin/CoverType/Restore
@@ -137,7 +139,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var coverType = _unitOfWork.CoverType.GetFirtOrDefault(x => x.Id == id);
+            var coverType = _unitOfWork.CoverType.FirstOrDefault(x => x.Id == id);
             if (coverType != null && coverType.IsDeleted)
             {
                 coverType.IsDeleted = false;

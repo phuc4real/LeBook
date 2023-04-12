@@ -9,9 +9,11 @@ using LeBook.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess;
 using LeBook.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LeBook.Areas.Admin.Controllers
 {
+    [Authorize("canView")]
     [Area("Admin")]
     public class AgeController : Controller
     {
@@ -26,11 +28,11 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Age
         public IActionResult Index()
         {
-              return View( _unitOfWork.Age.Get());
+              return View( _unitOfWork.Age.Get(x=> x.IsDeleted == false));
         }
 
         // GET: Admin/Age/Create
-        public IActionResult Create()
+        public  IActionResult Create()
         {
             return View();
         }
@@ -58,7 +60,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var age =  _unitOfWork.Age.GetFirtOrDefault(x => x.Id == id);
+            var age =  _unitOfWork.Age.FirstOrDefault(x => x.Id == id);
             if (age == null || age.IsDeleted)
             {
                 return NotFound();
@@ -110,7 +112,7 @@ namespace LeBook.Areas.Admin.Controllers
             {
                 return Problem("Bảng độ tuổi trống");
             }
-            var age =  _unitOfWork.Age.GetFirtOrDefault(x => x.Id == id);
+            var age =  _unitOfWork.Age.FirstOrDefault(x => x.Id == id);
             if (age != null && !age.IsDeleted)
             {
                 _unitOfWork.Age.SoftDelete(age);
@@ -124,7 +126,7 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Age/DeletedIndex
         public IActionResult DeletedIndex()
         {
-            return View( _unitOfWork.Age.GetDeleted());
+            return View( _unitOfWork.Age.Get(x=>x.IsDeleted == true));
         }
 
         // POST: Admin/Age/Restore/5
@@ -137,7 +139,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var age =  _unitOfWork.Age.GetFirtOrDefault(x => x.Id == id);
+            var age =  _unitOfWork.Age.FirstOrDefault(x => x.Id == id);
             if (age != null && age.IsDeleted)
             {
                 _unitOfWork.Age.Restore(age);

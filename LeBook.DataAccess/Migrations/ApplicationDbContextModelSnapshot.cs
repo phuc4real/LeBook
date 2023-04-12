@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LeBook.Migrations
+namespace LeBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -101,7 +101,10 @@ namespace LeBook.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Category1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Category2Id")
                         .HasColumnType("int");
 
                     b.Property<int>("CoverTypeId")
@@ -152,7 +155,9 @@ namespace LeBook.Migrations
 
                     b.HasIndex("AgeId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("Category1Id");
+
+                    b.HasIndex("Category2Id");
 
                     b.HasIndex("CoverTypeId");
 
@@ -181,6 +186,9 @@ namespace LeBook.Migrations
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -284,9 +292,6 @@ namespace LeBook.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AdressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Carrier")
                         .HasColumnType("nvarchar(max)");
 
@@ -334,7 +339,7 @@ namespace LeBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdressId");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("UserId");
 
@@ -712,9 +717,15 @@ namespace LeBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LeBook.Models.Category", "Category")
+                    b.HasOne("LeBook.Models.Category", "Category1")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("Category1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LeBook.Models.Category", "Category2")
+                        .WithMany()
+                        .HasForeignKey("Category2Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -726,7 +737,9 @@ namespace LeBook.Migrations
 
                     b.Navigation("Age");
 
-                    b.Navigation("Category");
+                    b.Navigation("Category1");
+
+                    b.Navigation("Category2");
 
                     b.Navigation("CoverType");
                 });
@@ -735,7 +748,9 @@ namespace LeBook.Migrations
                 {
                     b.HasOne("LeBook.Models.UserAddress", "ShippingAdress")
                         .WithMany()
-                        .HasForeignKey("AdressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LeBook.Models.ApplicationUser", "User")
                         .WithMany()

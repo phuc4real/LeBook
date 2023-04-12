@@ -1,5 +1,6 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,6 @@ namespace LeBook.DataAccess.Repository
         public CompanyRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
-        }
-
-        public IEnumerable<Company> Get()
-        {
-            IQueryable<Company> values = _context.Companies.Where(c => c.IsDeleted == false);
-            return values.ToList();
-        }
-
-        public IEnumerable<Company> GetDeleted()
-        {
-            IQueryable<Company> values = _context.Companies.Where(c => c.IsDeleted == true);
-            return values.ToList();
         }
 
         public void Restore(Company company)

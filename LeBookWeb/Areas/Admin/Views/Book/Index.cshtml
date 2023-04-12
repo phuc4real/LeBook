@@ -15,11 +15,15 @@
                             Danh sách sản phẩm @if (ViewBag.BookBy != null) { @ViewBag.BookBy}
                         </h1>
                     </div>
+
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" asp-action="Upsert">
-                            <i class="me-1" data-feather="plus"></i>
-                            Thêm sách
-                        </a>
+                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                        {
+                            <a class="btn btn-sm btn-light text-primary" asp-action="Upsert">
+                                <i class="me-1" data-feather="plus"></i>
+                                Thêm sách
+                            </a>
+                        }
                         <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
                             <i class="me-1" data-feather="trash-2"></i>
                             Đã xoá
@@ -49,7 +53,10 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CategoryId)
+                                @Html.DisplayNameFor(model => model.Category1Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category2Id)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CoverTypeId)
@@ -81,7 +88,10 @@
                                 @Html.DisplayNameFor(model => model.Author)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CategoryId)
+                                @Html.DisplayNameFor(model => model.Category1Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category2Id)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CoverTypeId)
@@ -115,7 +125,10 @@
                                     @Html.DisplayFor(modelItem => item.Author)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                    @Html.DisplayFor(modelItem => item.Category1.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category2.Name)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CoverType.Name)
@@ -130,12 +143,15 @@
                                     @Html.DisplayFor(modelItem => item.InStock)
                                 </td>
                                 <td>
-                                    <a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a> |
-                                    <a asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a> |
-                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Sách')">Xoá</a>
-                                    <form asp-action="Delete" id="Delete+@item.Id">
-                                        <input type="hidden" value="@item.Id" name="id" id="id" />
-                                    </form>
+                                    <a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
+                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                    {
+                                        <text>|</text> <a asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a> 
+                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Sách')">Xoá</a>
+                                        <form asp-action="Delete" id="Delete+@item.Id">
+                                            <input type="hidden" value="@item.Id" name="id" id="id" />
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }

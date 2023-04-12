@@ -19,7 +19,9 @@ namespace LeBook.Models.ViewModel
         [DisplayFormat(DataFormatString = "{0:#,###.## vnđ}")]
         public double itemPrice { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public IEnumerable<SelectListItem> Category1List { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> Category2List { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> CoverTypeList { get; set; }
         [ValidateNever]

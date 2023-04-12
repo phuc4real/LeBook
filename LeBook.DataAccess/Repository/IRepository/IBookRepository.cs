@@ -15,15 +15,13 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         void Restore(Book book);
 
+        void UpdateBookQuantity(Book book,int quantity);
+
         Book GetFirst(int? id);
-
-        IEnumerable<Book> Get();
-
-        IEnumerable<Book> GetDeleted();
 
         IEnumerable<Book> Get10(String key);
 
-        IEnumerable<Book> FindByCategory(int CategoryId);
+        IEnumerable<Book> FindByCategory(int CategoryId, int level);
 
         IEnumerable<Book> FindByCoverType(int CoverTypeId);
 

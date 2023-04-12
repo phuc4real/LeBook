@@ -14,9 +14,5 @@ namespace LeBook.DataAccess.Repository.IRepository
         void SoftDelete(Age age);
 
         void Restore(Age age);
-
-        IEnumerable<Age> Get();
-
-        IEnumerable<Age> GetDeleted();
     }
 }

@@ -1,0 +1,58 @@
+﻿@model UserWithRoles
+
+@{
+    ViewData["Title"] = "Chỉnh sửa vai trò";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="plus"></i></div>
+                            Chỉnh sửa vai trò
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                            <i class="me-1" data-feather="corner-up-left"></i>
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-5">
+                    <form asp-action="UpdateUserRole" asp-route-id="@Model.UserId">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <label class="control-label m-2">Quyền sử dụng</label>
+                        <div class="row ms-3">
+                            @for (int i = 0; i < Model.UserRoles.Count(); i++)
+                            {
+                                <div class="form-group mt-2 col">
+                                    <input type="hidden" asp-for="@Model.UserRoles[i].RoleName" type="hidden" />
+                                    @Model.UserRoles[i].RoleName
+                                    <input type="checkbox" asp-for="@Model.UserRoles[i].Selected" class="form-check-input" />
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

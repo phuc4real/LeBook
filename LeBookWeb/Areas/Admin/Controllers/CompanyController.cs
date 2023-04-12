@@ -1,11 +1,13 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeBookWeb.Areas.Admin.Controllers
 {
+    [Authorize("canView")]
     [Area("Admin")]
     public class CompanyController : Controller
     {
@@ -20,7 +22,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
         // GET: Admin/Company
         public IActionResult Index()
         {
-            return View( _unitOfWork.Company.Get());
+            return View( _unitOfWork.Company.Get(x=>x.IsDeleted == false));
         }
         // GET: Admin/Company/Create
         public IActionResult Create()
@@ -52,7 +54,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
                 return base.NotFound();
             }
 
-            var company = _unitOfWork.Company.GetFirtOrDefault(x => x.Id == id);
+            var company = _unitOfWork.Company.FirstOrDefault(x => x.Id == id);
             if (company == null || company.IsDeleted)
             {
                 return NotFound();
@@ -104,7 +106,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
             {
                 return base.Problem("Bảng nhà cung cấp trống.");
             }
-            var company = _unitOfWork.Company.GetFirtOrDefault(x => x.Id == id);
+            var company = _unitOfWork.Company.FirstOrDefault(x => x.Id == id);
             if (company != null && !company.IsDeleted)
             {
                 _unitOfWork.Company.SoftDelete(company);
@@ -118,7 +120,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
         // GET: Admin/Company/DeletedIndex
         public IActionResult DeletedIndex()
         {
-            return View(_unitOfWork.Company.GetDeleted());
+            return View( _unitOfWork.Company.Get(x=> x.IsDeleted == true));
         }
 
         // POST: Admin/Company/Restore/5
@@ -131,7 +133,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
                 return base.NotFound();
             }
 
-            var company = _unitOfWork.Company.GetFirtOrDefault(x => x.Id == id);
+            var company = _unitOfWork.Company.FirstOrDefault(x => x.Id == id);
             if (company != null && company.IsDeleted)
             {
                 _unitOfWork.Company.Restore(company);

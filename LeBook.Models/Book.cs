@@ -16,22 +16,22 @@ namespace LeBook.Models
         public int Id { get; set; }
         [DisplayName("Tên sách")]
         [Required(ErrorMessage = "Tên sách không được bỏ trống!")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [DisplayName("ISBN")]
         [Required(ErrorMessage = "ISBN không được bỏ trống!")]
-        public string ISBN { get; set; }
+        public string? ISBN { get; set; }
         [DisplayName("Mô tả nội dung")]
         [Required(ErrorMessage = "Mô tả nội dung không được bỏ trống!")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [DisplayName("Hình ảnh")]
         [ValidateNever]
-        public string ImgUrl { get; set; }
+        public string? ImgUrl { get; set; }
         [DisplayName("Tác giả")]
         [Required(ErrorMessage = "Tác giả không được bỏ trống!")]
-        public string Author { get; set; }
+        public string? Author { get; set; }
         [DisplayName("Nhà XB")]
         [Required(ErrorMessage = "Nhà XB không được bỏ trống!")]
-        public string Publisher { get; set; }
+        public string? Publisher { get; set; }
         [DisplayName("Năm XB")]
         [Required(ErrorMessage = "Năm XB không được bỏ trống!")]
         [DataType(DataType.Date)]
@@ -43,27 +43,33 @@ namespace LeBook.Models
         public int InStock { get; set; }
         [DisplayName("Đã bán")]
         public int Sold { get; set; }
-        [DisplayName("Thể loại")]
-        [Required(ErrorMessage = "Thể loại chưa được chọn!")]
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
+        [DisplayName("Thể loại 1")]
+        public int Category1Id { get; set; }
+        [ForeignKey("Category1Id")]
         [ValidateNever]
-        public Category Category { get; set; }
+        [DisplayName("Thể loại 1")]
+        public Category? Category1 { get; set; }
+        [DisplayName("Thể loại 2")]
+        public int Category2Id { get; set; }
+        [ForeignKey("Category2Id")]
+        [ValidateNever]
+        [DisplayName("Thể loại 2")]
+        public Category? Category2 { get; set; }
         [DisplayName("Loại bìa")]
         [Required(ErrorMessage = "Loại bìa chưa được chọn!")]
         public int CoverTypeId { get; set; }
         [ForeignKey("CoverTypeId")]
         [ValidateNever]
-        public CoverType CoverType { get; set; }
+        public CoverType? CoverType { get; set; }
         [DisplayName("Phân loại độ tuổi")]
         [Required(ErrorMessage = "Phân loại độ tuổi chưa được chọn!")]
         public int AgeId { get; set; }
         [ForeignKey("AgeId")]
         [ValidateNever]
-        public Age Age { get; set; }
+        public Age? Age { get; set; }
         [DisplayName("Giá bán")]
         [ValidateNever]
-        public virtual ICollection<Price> Price { get; set; }
+        public virtual ICollection<Price>? Price { get; set; }
         [DisplayName("Ngày tạo")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [DisplayName("Ngày chỉnh sửa")]

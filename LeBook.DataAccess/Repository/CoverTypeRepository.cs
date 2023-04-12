@@ -1,5 +1,6 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +15,6 @@ namespace LeBook.DataAccess.Repository
         public CoverTypeRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
-        }
-
-        public IEnumerable<CoverType> Get()
-        {
-            IQueryable<CoverType> values = _context.CoverTypes.Where(c => c.IsDeleted == false);
-            return values.ToList();
-        }
-
-        public IEnumerable<CoverType> GetDeleted()
-        {
-            IQueryable<CoverType> values = _context.CoverTypes.Where(c => c.IsDeleted == true);
-            return values.ToList();
         }
 
         public void Restore(CoverType coverType)

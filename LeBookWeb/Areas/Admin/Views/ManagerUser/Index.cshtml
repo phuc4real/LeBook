@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model IEnumerable<UserWithRoles>
 
 @{
     ViewData["Title"] = "Danh sách người dùng";
@@ -15,16 +15,6 @@
                             Danh sách người dùng
                         </h1>
                     </div>
-                    <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" asp-action="Create">
-                            <i class="me-1" data-feather="plus"></i>
-                            Thêm người dùng
-                        </a>
-                        <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
-                            <i class="me-1" data-feather="trash-2"></i>
-                            Đã bị khoá
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -37,7 +27,7 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.User.Name)
                             </th>
                             <th>
                                 Địa chỉ Email
@@ -46,21 +36,24 @@
                                 Số điện thoại
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DoB)
+                                @Html.DisplayNameFor(model => model.User.DoB)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedAt)
+                                @Html.DisplayNameFor(model => model.User.CreatedAt)
                             </th>
-                            <th>
-                                Tình trạng
-                            </th>
+                            @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Roles)
+                                </th>
+                            }
                             <th></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.User.Name)
                             </th>
                             <th>
                                 Địa chỉ Email
@@ -69,14 +62,17 @@
                                 Số điện thoại
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.DoB)
+                                @Html.DisplayNameFor(model => model.User.DoB)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedAt)
+                                @Html.DisplayNameFor(model => model.User.CreatedAt)
                             </th>
-                            <th>
-                                Tình trạng
-                            </th>
+                            @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Roles)
+                                </th>
+                            }
                             <th></th>
                         </tr>
                     </tfoot>
@@ -85,38 +81,36 @@
                         {
                             <tr>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @Html.DisplayFor(modelItem => item.User.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Email)
+                                    @Html.DisplayFor(modelItem => item.User.Email)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    @Html.DisplayFor(modelItem => item.User.PhoneNumber)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.DoB)
+                                    @Html.DisplayFor(modelItem => item.User.DoB)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                    @Html.DisplayFor(modelItem => item.User.CreatedAt)
                                 </th>
-                                <th>
-                                    @if (item.LockoutEnd != null)
-                                    {
-                                        <p>Đang bị khoá</p>
-                                    }
-                                    else
-                                    {
-                                        <p>Bình thường</p>
-                                    }
-                                </th>
+                                @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
+                                {
+                                    <th>
+                                        @foreach (var role in item.Roles)
+                                        {
+                                            @Html.DisplayFor(r => role)
+                                            <br />
+                                        }
+                                    </th>
+                                }
                                 <td>
-                                    <a asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.Id">Tìm hoá đơn</a> |
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a> |
-                                    <a asp-action="Lock" asp-route-id="@item.Id">Khoá tài khoản</a> |
-                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Nhà cung cấp')">Xoá</a>
-                                    <form asp-action="Delete" id="Delete+@item.Id">
-                                        <input type="hidden" value="@item.Id" name="id" id="id" />
-                                    </form>
+                                    <a asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.User.Id">Tìm hoá đơn</a>
+                                    @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
+                                    {
+                                        <text> | </text> <a asp-controller="ManagerRole" asp-action="UserRoles" asp-route-id="@item.User.Id">Chỉnh sửa vai trò</a>
+                                    }
                                 </td>
                             </tr>
                         }

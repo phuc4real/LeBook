@@ -1,5 +1,6 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,6 @@ namespace LeBook.DataAccess.Repository
         {
             category.IsDeleted = true;
             category.DeletedAt = DateTime.Now;
-        }
-
-        public IEnumerable<Category> Get()
-        {
-            IQueryable<Category> values = _context.Categories.Where(c => c.IsDeleted == false);
-            return values.ToList();
-        }
-
-        public IEnumerable<Category> GetDeleted()
-        {
-            IQueryable<Category> values = _context.Categories.Where(c => c.IsDeleted == true);
-            return values.ToList();
         }
 
         public void Restore(Category category)

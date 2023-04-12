@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model IEnumerable<Order>
 
 @{
-    ViewData["Title"] = "Danh sách người dùng";
+    ViewData["Title"] = "Danh sách đơn hàng";
 }
 
 <main>
@@ -12,14 +12,8 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Danh sách người dùng
+                            Danh sách đơn hàng
                         </h1>
-                    </div>
-                    <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" asp-area="Identity" asp-page="/Account/Register">
-                            <i class="me-1" data-feather="plus"></i>
-                            Thêm người dùng
-                        </a>
                     </div>
                 </div>
             </div>
@@ -33,25 +27,25 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                Địa chỉ Email
-                            </th>
-                            <th>
-                                Số điện thoại
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DoB)
-                            </th>
-                            <th>
-                                Vai trò
+                                @Html.DisplayNameFor(model => model.UserId)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                Tình trạng
+                                @Html.DisplayNameFor(model => model.OrderTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentStatus)
                             </th>
                             <th></th>
                         </tr>
@@ -59,25 +53,25 @@
                     <tfoot>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Name)
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                Địa chỉ Email
-                            </th>
-                            <th>
-                                Số điện thoại
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DoB)
-                            </th>
-                            <th>
-                                Vai trò
+                                @Html.DisplayNameFor(model => model.UserId)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CreatedAt)
                             </th>
                             <th>
-                                Tình trạng
+                                @Html.DisplayNameFor(model => model.OrderTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentStatus)
                             </th>
                             <th></th>
                         </tr>
@@ -87,38 +81,36 @@
                         {
                             <tr>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @Html.DisplayFor(model => item.Id)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.Email)
+                                    @Html.DisplayFor(model => item.User.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    @Html.DisplayFor(model => item.CreatedAt)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.DoB)
+                                    @Html.DisplayFor(model => item.OrderTotal)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                                    @Html.DisplayFor(model => item.OrderStatus)
                                 </th>
                                 <th>
-                                    @if(item.LockoutEnd != null)
-                                    {
-                                        <p>Đang bị khoá</p>
-                                    }
-                                    else
-                                    {
-                                        <p>Bình thường</p>
-                                    }
+                                    @Html.DisplayFor(model => item.PaymentType)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.PaymentStatus)
                                 </th>
                                 <td>
-                                    <a asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.Id">Tìm hoá đơn</a> |
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a> |
-                                    <a asp-action="Lock" asp-route-id="@item.Id">Khoá tài khoản</a> |
-                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Nhà cung cấp')">Xoá</a>
-                                    <form asp-action="Delete" id="Delete+@item.Id">
-                                        <input type="hidden" value="@item.Id" name="id" id="id" />
-                                    </form>
+                                    <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@item.Id">Chi tiết hoá đơn</a>
+                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                    {
+                                        <text>|</text> <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a>
+                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Đơn đặt hàng')">Xoá</a>
+                                        <form asp-action="Delete" id="Delete+@item.Id">
+                                            <input type="hidden" value="@item.Id" name="id" id="id" />
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -128,3 +120,4 @@
         </div>
     </div>
 </main>
+

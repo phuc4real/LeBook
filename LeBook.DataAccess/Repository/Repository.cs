@@ -22,20 +22,34 @@ namespace LeBook.DataAccess.Repository
 
         public void Add(T item)
         {
-            dbSet.Add(item);
+           dbSet.Add(item);
         }
 
-        public T GetFirtOrDefault(Expression<Func<T, bool>> filter)
+        public T FirstOrDefault(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> values = dbSet;
             values = values.Where(filter);
+#pragma warning disable CS8603 // Possible null reference return.
             return values.FirstOrDefault();
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> Get(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
-            IQueryable<T> values = dbSet;
-            return values.ToList();
+            IQueryable<T> query = dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.ToList();
         }
 
         public void Remove(T item)

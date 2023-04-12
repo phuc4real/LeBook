@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using LeBook.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using LeBook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +20,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("LeBookConnection")
     ));
 
-builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddDefaultTokenProviders()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddAuthorization(builder =>
+{
+    builder.AddPolicy("canView", policy => policy.RequireAuthenticatedUser().RequireRole(Roles.Employee, Roles.Manager, Roles.Admin));
+    builder.AddPolicy("canAction", policy => policy.RequireRole(Roles.Manager, Roles.Admin));
+    builder.AddPolicy("AdminOnly", policy => policy.RequireRole(Roles.Admin));
+});
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

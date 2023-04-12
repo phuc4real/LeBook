@@ -21,7 +21,7 @@ namespace LeBook.DataAccess.Repository
 
         private IQueryable<Book> AddProperty(IQueryable<Book> values)
         {
-            return values.Include(c => c.Price).Include(c => c.Category).Include(c => c.CoverType).Include(c => c.Age);
+            return values.Include(c => c.Price).Include(c => c.Category1).Include(c => c.Category2).Include(c => c.CoverType).Include(c => c.Age);
         }
 
         public IEnumerable<Book> FindByAge(int AgeId)
@@ -31,9 +31,17 @@ namespace LeBook.DataAccess.Repository
             return values.ToList();
         }
 
-        public IEnumerable<Book> FindByCategory(int CategoryId)
+        public IEnumerable<Book> FindByCategory(int CategoryId, int level)
         {
-            IQueryable<Book> values = _context.Books.Where(c => c.CategoryId == CategoryId);
+            IQueryable<Book> values = _context.Books;
+            if (level == 1)
+            {
+                values = values.Where(c => c.Category1Id == CategoryId);
+            }
+            else if (level == 2) 
+            {
+                values = values.Where(c => c.Category2Id == CategoryId);
+            }
             values = AddProperty(values);
             return values.ToList();
         }
@@ -45,25 +53,11 @@ namespace LeBook.DataAccess.Repository
             return values.ToList();
         }
 
-        public IEnumerable<Book> Get()
-        {
-            IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false);
-            values = AddProperty(values);
-            return values.ToList();
-        }
-
-        public IEnumerable<Book> GetDeleted()
-        {
-            IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == true);
-            values = AddProperty(values);
-            return values.ToList();
-        }
-
         public Book GetFirst(int? id)
         {
             IQueryable<Book> books = _context.Books.Where(c => c.Id == id);
             books = AddProperty(books);
-            Book book = books.FirstOrDefault(c => c.Id == id);
+            Book book = books.First(c => c.Id == id);
             return book;
         }
 
@@ -92,7 +86,8 @@ namespace LeBook.DataAccess.Repository
                 _book.PublicationDate = book.PublicationDate;
                 _book.InStock = book.InStock;
                 _book.Sold = book.Sold;
-                _book.CategoryId = book.CategoryId;
+                _book.Category1Id = book.Category1Id;
+                _book.Category2Id = book.Category2Id;
                 _book.CoverTypeId = book.CoverTypeId;
                 _book.AgeId = book.AgeId;
                 _book.LastUpdatedAt = DateTime.Now;
@@ -103,7 +98,7 @@ namespace LeBook.DataAccess.Repository
             }
         }
 
-        public IEnumerable<Book> Get10(string key)
+        public  IEnumerable<Book> Get10(string key)
         {
             IQueryable<Book> values = _context.Books.Where(c => c.IsDeleted == false).Include(c => c.Price);
             switch (key)
@@ -112,34 +107,45 @@ namespace LeBook.DataAccess.Repository
                     values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
                     break;
                 case "bestseller":
-                    //loc hoa don
+                    var topSellingBooks = _context.Books.Where(book => !book.IsDeleted)
+                        .Join(_context.OrderDetails, book => book.Id, details => details.BookId,(book, details) => new { Book = book, OrderDetail = details })
+                        .AsEnumerable().GroupBy(x => x.Book).Select(bookGroup => new { Book = bookGroup.Key, TotalSales = bookGroup.Sum(x => x.OrderDetail.Quantity) })
+                        .OrderByDescending(x => x.TotalSales).ToList();
+                    var topsellerId = topSellingBooks.Select(x=> x.Book.Id);
+                    values = values.Where(x => topsellerId.Contains(x.Id));
                     break;
                 case "hotdeal":
                     //Loc khuyen mai
                     break;
                 case "newmanga":
-                    values = values.Where(c => c.Category.Id == 6);
+                    values = values.Where(c => c.Category1.Id == 6);
                     values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
                     break;
                 case "topmanga":
-                    values = values.Where(c => c.Category.Id == 6);
+                    values = values.Where(c => c.Category1.Id == 6);
                     //Loc top
                     break;
                 case "newlightnovel":
-                    values = values.Where(c => c.Category.Id == 22);
+                    values = values.Where(c => c.Category1.Id == 22);
                     values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
                     break;
                 case "cate1":
-                    values = values.Where(c => c.Category.Id == 5);
+                    values = values.Where(c => c.Category1.Id == 5);
                     break;
                 case "cate2":
-                    values = values.Where(c => c.Category.Id == 2);
+                    values = values.Where(c => c.Category1.Id == 2);
                     break;
                 case "cate3":
-                    values = values.Where(c => c.Category.Id == 1);
+                    values = values.Where(c => c.Category1.Id == 1);
                     break;
             }
             return values.Take(10).ToList();
+        }
+
+        public void UpdateBookQuantity(Book book, int quantity)
+        {
+            book.InStock -= quantity;
+            book.Sold += quantity;
         }
     }
 }

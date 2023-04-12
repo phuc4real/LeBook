@@ -16,10 +16,13 @@
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" asp-action="Create">
-                            <i class="me-1" data-feather="plus"></i>
-                            Thêm độ tuổi
-                        </a>
+                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                        {
+                            <a class="btn btn-sm btn-light text-primary" asp-action="Create">
+                                <i class="me-1" data-feather="plus"></i>
+                                Thêm độ tuổi
+                            </a>
+                        }
                         <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
                             <i class="me-1" data-feather="trash-2"></i>
                             Đã xoá
@@ -85,12 +88,15 @@
                                     @Html.DisplayFor(modelItem => item.LastUpdatedAt)
                                 </td>
                                 <td>
-                                    <a asp-controller="Book" asp-action="BookByAge" asp-route-id="@item.Id" >Tìm sách</a> |
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a> |
-                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Độ tuổi')">Xoá</a>
-                                    <form asp-action="Delete" id="Delete+@item.Id">
-                                        <input type="hidden" value="@item.Id" name="id" id="id" />
-                                    </form>
+                                    <a asp-controller="Book" asp-action="BookByAge" asp-route-id="@item.Id" >Tìm sách</a>
+                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                    {
+                                        <text>|</text><a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a>
+                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Độ tuổi')">Xoá</a>
+                                        <form asp-action="Delete" id="Delete+@item.Id">
+                                            <input type="hidden" value="@item.Id" name="id" id="id" />
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }

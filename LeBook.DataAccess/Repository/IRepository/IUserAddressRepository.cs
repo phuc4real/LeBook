@@ -9,9 +9,8 @@ namespace LeBook.DataAccess.Repository.IRepository
 {
     public interface IUserAddressRepository : IRepository<UserAddress>
     {
+        IEnumerable<UserAddress> GetAdress(string ApplicationUserId);
         void Update(UserAddress address);
-
-        IEnumerable<UserAddress> Get(string ApplicationUserId);
     }
     
 }

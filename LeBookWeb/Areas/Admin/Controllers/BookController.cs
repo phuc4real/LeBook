@@ -11,9 +11,12 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models.ViewModel;
 using LeBook.DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace LeBook.Areas.Admin.Controllers
 {
+    [Authorize("canView")]
     [Area("Admin")]
     public class BookController : Controller
     {
@@ -31,7 +34,7 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Book
         public IActionResult Index()
         {
-            return View( _unitOfWork.Book.Get());
+            return View( _unitOfWork.Book.Get(x=>x.IsDeleted == false,includeProperties: "Price,Category1,Category2,CoverType,Age"));
         }
         
         // GET: Admin/Book/Upsert/5
@@ -40,25 +43,28 @@ namespace LeBook.Areas.Admin.Controllers
             BookViewModel bookView = new()
             {
                 Book = _unitOfWork.Book.GetFirst(id),
-                CategoryList = _unitOfWork.Category.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
-                CoverTypeList = _unitOfWork.CoverType.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
-                AgeList = _unitOfWork.Age.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                Category1List = _unitOfWork.Category.Get(x => x.IsDeleted == false && x.Level == 1).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                Category2List = _unitOfWork.Category.Get(x => x.IsDeleted == false && x.Level == 2).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                CoverTypeList = _unitOfWork.CoverType.Get(x => x.IsDeleted == false).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                AgeList = _unitOfWork.Age.Get(x => x.IsDeleted == false).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
             };
 
-            bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice;
+            bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice;
 
             return View(bookView);
         }
-
+        [Authorize("canAction")]
         // GET: Admin/Book/Upsert/5
-        public IActionResult Upsert(int? id)
+        public  IActionResult Upsert(int? id)
         {
             BookViewModel bookView = new()
             {
                 Book = new(),
-                CategoryList = _unitOfWork.Category.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
-                CoverTypeList = _unitOfWork.CoverType.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
-                AgeList = _unitOfWork.Age.Get().Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+
+                Category1List = _unitOfWork.Category.Get(x => x.IsDeleted == false && x.Level == 1).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                Category2List = _unitOfWork.Category.Get(x => x.IsDeleted == false && x.Level == 2).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                CoverTypeList = _unitOfWork.CoverType.Get(x => x.IsDeleted == false).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
+                AgeList = _unitOfWork.Age.Get(x => x.IsDeleted == false).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }),
             };
              
             if (id == null || id == 0 )
@@ -72,7 +78,7 @@ namespace LeBook.Areas.Admin.Controllers
                 bookView.Book = _unitOfWork.Book.GetFirst(id);
                 if (bookView.Book.Price.Count > 0 )
                 {
-                    bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice;
+                    bookView.itemPrice = bookView.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice;
                 }
                 else
                 {
@@ -86,6 +92,7 @@ namespace LeBook.Areas.Admin.Controllers
         // POST: Admin/Book/Upsert/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Upsert(BookViewModel bookView, IFormFile? file)
         {
 
@@ -148,8 +155,9 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Book/BookByCategory/1
         public IActionResult BookByCategory(int id)
         {
-            IEnumerable<Book> books = _unitOfWork.Book.FindByCategory(id);
-            ViewBag.BookBy = "theo thể loại: " + _unitOfWork.Category.GetFirtOrDefault(x => x.Id == id).Name;
+            var cate = _unitOfWork.Category.FirstOrDefault(x => x.Id == id);
+            IEnumerable<Book> books = _unitOfWork.Book.FindByCategory(id, cate.Level);
+            ViewBag.BookBy = "theo thể loại: " + cate.Name;
             return View("Index", books);
         }
 
@@ -157,7 +165,8 @@ namespace LeBook.Areas.Admin.Controllers
         public IActionResult BookByCoverType(int id)
         {
             IEnumerable<Book> books = _unitOfWork.Book.FindByCoverType(id);
-            ViewBag.BookBy = "theo loại bìa: " + _unitOfWork.CoverType.GetFirtOrDefault(x => x.Id == id).Name;
+            var coverType = _unitOfWork.CoverType.FirstOrDefault(x => x.Id == id);
+            ViewBag.BookBy = "theo loại bìa: " + coverType.Name;
             return View("Index", books);
         }
 
@@ -165,20 +174,22 @@ namespace LeBook.Areas.Admin.Controllers
         public IActionResult BookByAge(int id)
         {
             IEnumerable<Book> books = _unitOfWork.Book.FindByAge(id);
-            ViewBag.BookBy = "theo độ tuổi: " + _unitOfWork.Age.GetFirtOrDefault(x => x.Id == id).Name;
+            var age = _unitOfWork.Age.FirstOrDefault(x => x.Id == id);
+            ViewBag.BookBy = "theo độ tuổi: " + age.Name;
             return View("Index", books);
         }
 
         // POST: Admin/Book/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Delete(int id)
         {
             if (_unitOfWork.Book == null)
             {
                 return base.Problem("Bảng sách trống.");
             }
-            var book = _unitOfWork.Book.GetFirtOrDefault(x => x.Id == id);
+            var book = _unitOfWork.Book.FirstOrDefault(x => x.Id == id);
             if (book != null && !book.IsDeleted)
             {
                 _unitOfWork.Book.SoftDelete(book);
@@ -192,12 +203,13 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Book/DeletedIndex
         public IActionResult DeletedIndex()
         {
-            return View( _unitOfWork.Book.GetDeleted());
+            return View(_unitOfWork.Book.Get(x=>x.IsDeleted==true));
         }
 
         // POST: Admin/Book/Restore/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Restore(int? id)
         {
             if (id == null || _unitOfWork.Book == null)
@@ -205,7 +217,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return base.NotFound();
             }
 
-            var book = _unitOfWork.Book.GetFirtOrDefault(x => x.Id == id);
+            var book = _unitOfWork.Book.FirstOrDefault(x => x.Id == id);
             if (book != null && book.IsDeleted)
             {
                 _unitOfWork.Book.Restore(book);

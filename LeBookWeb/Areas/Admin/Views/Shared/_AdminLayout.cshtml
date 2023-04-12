@@ -21,11 +21,13 @@
     <div id="layoutSidenav">
         @await Html.PartialAsync("_LayoutSidePartial.cshtml")
         <div id="layoutSidenav_content">
-            @RenderBody()
+            <div>
+                @RenderBody()
+            </div>
             <footer class="footer-admin mt-auto footer-light">
                 <div class="container-xl px-4">
                     <div class="row">
-                    <div class="col-md-6 small">Bản quyền &copy; LeBook 2023</div>
+                        <div class="col-md-6 small">Bản quyền &copy; LeBook 2023</div>
                         <div class="col-md-6 text-md-end small">
                             <a href="#!">Chính sách bảo mật</a>
                             &middot;
@@ -50,6 +52,6 @@
 
     <script src="~/_framework/aspnetcore-browser-refresh.js"></script>
     @await Component.InvokeAsync("Notyf")
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>

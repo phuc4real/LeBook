@@ -9,9 +9,9 @@ namespace LeBook.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
-        T GetFirtOrDefault(Expression<Func<T, bool>> filter);
+        T FirstOrDefault(Expression<Func<T, bool>> filter);
 
-        IEnumerable<T> GetAll();
+        IEnumerable<T> Get(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 
         bool Any(Expression<Func<T, bool>> filter);
 

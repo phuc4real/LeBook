@@ -27,7 +27,7 @@ namespace LeBook.Models
         public string? PhoneNumber { get; set; }
         [DisplayName("Địa chỉ mail")]
         public string? Email { get; set; }
-        [Required(ErrorMessage = "STT được bỏ trống!")]
+        [Required(ErrorMessage = "STT không được bỏ trống!")]
         [DisplayName("Số thứ tự")]
         [Range(0, int.MaxValue, ErrorMessage = "STT không hợp lệ")]
         public int DisplayOrder { get; set; }

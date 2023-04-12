@@ -14,9 +14,5 @@ namespace LeBook.DataAccess.Repository.IRepository
         void SoftDelete(CoverType coverType);
 
         void Restore(CoverType coverType);
-
-        IEnumerable<CoverType> Get();
-
-        IEnumerable<CoverType> GetDeleted();
     }
 }

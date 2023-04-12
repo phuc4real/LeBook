@@ -18,7 +18,8 @@ namespace LeBook.DataAccess.Repository
         {
             _context = context;
         }
-        public IEnumerable<UserAddress> Get(string ApplicationUserId)
+
+        public IEnumerable<UserAddress> GetAdress(string ApplicationUserId)
         {
             IQueryable<UserAddress> userAddresses = _context.UserAddresses.Where(c => c.UserId == ApplicationUserId);
             userAddresses = userAddresses.Include(c => c.User);

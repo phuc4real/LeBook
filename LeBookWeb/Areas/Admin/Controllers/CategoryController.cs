@@ -9,9 +9,11 @@ using LeBook.DataAccess;
 using LeBook.Models;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LeBook.Areas.Admin.Controllers
 {
+    [Authorize("canView")]
     [Area("Admin")]
     public class CategoryController : Controller
     {
@@ -27,10 +29,11 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Category
         public IActionResult Index()
         {
-            return View( _unitOfWork.Category.Get());
+            return View(_unitOfWork.Category.Get(x => x.IsDeleted == false));
         }
 
         // GET: Admin/Category/Create
+        [Authorize("canAction")]
         public IActionResult Create()
         {
             return View();
@@ -39,6 +42,7 @@ namespace LeBook.Areas.Admin.Controllers
         // POST: Admin/Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Create(Category category)
         {
             if (ModelState.IsValid)
@@ -53,14 +57,15 @@ namespace LeBook.Areas.Admin.Controllers
         }
 
         // GET: Admin/Category/Edit/5
-        public IActionResult Edit(int? id)
+        [Authorize("canAction")]
+        public  IActionResult Edit(int? id)
         {
             if (id == null || _unitOfWork.Category == null)
             {
                 return base.NotFound();
             }
 
-            var category = _unitOfWork.Category.GetFirtOrDefault(x => x.Id == id);
+            var category = _unitOfWork.Category.FirstOrDefault(x => x.Id == id);
             if (category == null || category.IsDeleted)
             {
                 return NotFound();
@@ -71,6 +76,7 @@ namespace LeBook.Areas.Admin.Controllers
         // POST: Admin/Category/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Edit(int id, Category category)
         {
             if (id != category.Id || category.IsDeleted)
@@ -106,13 +112,14 @@ namespace LeBook.Areas.Admin.Controllers
         // POST: Admin/Category/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Delete(int id)
         {
             if (_unitOfWork.Category == null)
             {
                 return base.Problem("Bảng thể loại trống.");
             }
-            var category = _unitOfWork.Category.GetFirtOrDefault(x => x.Id == id);
+            var category = _unitOfWork.Category.FirstOrDefault(x => x.Id == id);
             if (category != null && !category.IsDeleted)
             {
                 _unitOfWork.Category.SoftDelete(category);
@@ -126,12 +133,13 @@ namespace LeBook.Areas.Admin.Controllers
         // GET: Admin/Category/DeletedIndex
         public IActionResult DeletedIndex()
         {
-            return View( _unitOfWork.Category.GetDeleted());
+            return View( _unitOfWork.Category.Get(x => x.IsDeleted == true));
         }
 
         // POST: Admin/Category/Restore/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("canAction")]
         public IActionResult Restore(int? id)
         {
             if (id == null || _unitOfWork.Category == null)
@@ -139,7 +147,7 @@ namespace LeBook.Areas.Admin.Controllers
                 return base.NotFound();
             }
 
-            var category = _unitOfWork.Category.GetFirtOrDefault(x => x.Id == id);
+            var category = _unitOfWork.Category.FirstOrDefault(x => x.Id == id);
             if (category != null && category.IsDeleted)
             {
                 _unitOfWork.Category.Restore(category);

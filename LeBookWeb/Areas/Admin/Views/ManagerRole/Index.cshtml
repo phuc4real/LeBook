@@ -1,0 +1,95 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Danh sách vai trò";
+    var i = 0;
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            Danh sách vai trò
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-primary" data-bs-toggle="collapse" href="#addRoleDiv">
+                            <i class="me-1" data-feather="plus"></i>
+                            Thêm vai trò
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="collapse" id="addRoleDiv">
+            <div class="card card-body">
+                <form method="post" asp-action="Add">
+                    <div class="row">
+                        <div class="form-group mt-2 col-1">
+                            <p>Tên vai trò</p>
+                        </div>
+                        <div class="form-group mt-2 col-3">
+                            <input name="roleName" id="roleName" class="form-control" />
+                        </div>
+                        <div class="form-group mt-2 col">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã vai trò</th>
+                            <th>Tên vai trò</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã vai trò</th>
+                            <th>Tên vai trò</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <th>
+                                    @i.ToString()
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </th>
+                                <td>
+                                    <a asp-controller="ManagerPermisson" asp-action="RolehasPermisson" asp-route-id="@item.Id">Quyền sử dụng</a> |
+                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Vai trò')">Xoá</a>
+                                    <form asp-action="Delete" id="Delete+@item.Id">
+                                        <input type="hidden" value="@item.Id" name="id" id="id" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

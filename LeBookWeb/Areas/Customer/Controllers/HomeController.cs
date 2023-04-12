@@ -56,13 +56,13 @@ namespace LeBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult Details(ShoppingCart cart,string? returnurl)
+        public  IActionResult Details(ShoppingCart cart,string? returnurl)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             cart.ApplicationUserId = claim.Value;
 
-            ShoppingCart cartDB = _unitOfWork.ShoppingCart.GetFirtOrDefault(c => c.BookId ==  cart.BookId && c.ApplicationUserId == claim.Value);
+            ShoppingCart cartDB = _unitOfWork.ShoppingCart.FirstOrDefault(c => c.BookId ==  cart.BookId && c.ApplicationUserId == claim.Value);
 
             if (cartDB == null)
             {

@@ -4,6 +4,7 @@ using LeBook.Models;
 using LeBook.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Claims;
 
 namespace LeBookWeb.Areas.Customer.Controllers
@@ -25,7 +26,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            if(TempData["CountErr"]!= null) 
+            if (TempData["CountErr"] != null)
             {
                 ViewBag.CountErr = TempData["CountErr"] as string;
                 TempData.Remove("CountErr");
@@ -43,7 +44,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
             foreach (var cart in cartViewModel.ListCart)
             {
                 cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
-                if(cart.toBuy) cartViewModel.CartTotal += cart.ItemTotal;
+                if (cart.toBuy) cartViewModel.CartTotal += cart.ItemTotal;
             }
 
             return View(cartViewModel);
@@ -55,17 +56,18 @@ namespace LeBookWeb.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
+            var a = _unitOfWork.UserAddress.GetAdress(claim.Value);
 
             CheckoutViewModel viewModel = new CheckoutViewModel()
             {
-                Address = _unitOfWork.UserAddress.Get(claim.Value),
+                Address = _unitOfWork.UserAddress.GetAdress(claim.Value),
                 ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, true),
-                Order = new()
+                Order = new(),
             };
 
             foreach (var cart in viewModel.ListCart)
             {
-                cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
+                cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
                 viewModel.CartTotal += cart.ItemTotal;
             }
 
@@ -77,25 +79,77 @@ namespace LeBookWeb.Areas.Customer.Controllers
         [HttpPost]
         public IActionResult Payment(CheckoutViewModel viewModel)
         {
-            if (viewModel.Order.PaymentType == "cod")
-            {
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                viewModel.Order.UserId = claim.Value;
-                List<UserAddress> addresses = new List<UserAddress>();
-                addresses.Add(_unitOfWork.UserAddress.GetFirtOrDefault(x => x.Id == viewModel.Order.AddressId));
-                viewModel.Address = addresses;
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-                return View("CheckOut", viewModel);
+            Order order = viewModel.Order;
+            order.OrderTotal = order.OrderTotal + 30000;
+            order.UserId = claim.Value;
+            order.ShippingDate = DateTime.Now.AddDays(7);
+            order.OrderStatus = "Đã đặt hàng";
+            order.PaymentStatus = "Chưa thanh toán";
+            _unitOfWork.Order.Add(order);
+
+            IEnumerable<ShoppingCart> carts = _unitOfWork.ShoppingCart.GetCart(claim.Value, true);
+
+            foreach (var cart in carts) {
+                OrderDetail detail = new()
+                {
+                    Quantity = cart.Count,
+                    Order = order,
+                    Book = cart.Book,
+                    Price = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice,
+                    Total = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count,
+
+                };
+                _unitOfWork.Book.UpdateBookQuantity(cart.Book, cart.Count);
+                _unitOfWork.ShoppingCart.Remove(cart);
+                _unitOfWork.OrderDetail.Add(detail);
             }
-            else if (viewModel.Order.PaymentType == "vnpay")
+
+            _unitOfWork.Save();
+
+            if (order.PaymentType == "cod")
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Order", new { orderId = order.Id });
+            }
+            else if (order.PaymentType == "vnpay")
+            {
+                return RedirectToAction("Order", new { orderId = order.Id });
             }
             else return RedirectToAction("Index");
         }
 
-        public IActionResult Plus(int cartId) 
+        public IActionResult Order(int orderId)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            Order order = _unitOfWork.Order.FirstOrDefault(x=> x.Id==orderId);
+
+            if (order.UserId == claim.Value) 
+            {
+                List<UserAddress> addresses = new()
+                {
+                    _unitOfWork.UserAddress.FirstOrDefault(x => x.Id == order.AddressId)
+                };
+
+                CheckoutViewModel viewModel = new CheckoutViewModel()
+                {
+                    Address = addresses,
+                    OrderDetail = _unitOfWork.OrderDetail.Get(x=>x.OrderId == orderId, includeProperties: "Book"),
+                    Order = order
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public  IActionResult Plus(int cartId) 
         {
             var cart = _unitOfWork.ShoppingCart.GetCartById(cartId);
             if (cart.Count >= 10)
@@ -111,7 +165,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
         public IActionResult Minus(int cartId)
         {
             var cart = _unitOfWork.ShoppingCart.GetCartById(cartId);
-            if(cart.Count <=1) 
+            if (cart.Count <=1) 
                 _unitOfWork.ShoppingCart.Remove(cart);
             else 
                 _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
@@ -146,7 +200,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
 
             foreach (var cart in ListCart)
             {
-                cartTotal += cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
+                cartTotal += cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
             }
 
             return Json(cartTotal);

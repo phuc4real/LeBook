@@ -7,10 +7,10 @@ namespace LeBook.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Tên loại bìa được bỏ trống!")]
+        [Required(ErrorMessage = "Tên loại bìa không được bỏ trống!")]
         [DisplayName("Loại bìa")]
         public string? Name { get; set; }
-        [Required(ErrorMessage = "STT được bỏ trống!")]
+        [Required(ErrorMessage = "STT không được bỏ trống!")]
         [Range(0, int.MaxValue, ErrorMessage = "STT không hợp lệ")]
         [DisplayName("Số thứ tự")]
         public int DisplayOrder { get; set; }

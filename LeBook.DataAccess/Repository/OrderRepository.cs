@@ -1,5 +1,6 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace LeBook.DataAccess.Repository
 
         public void UpdateStatus(int orderId, string orderStatus, string? paymentStatus = null)
         {
-            Order order = _context.Orders.FirstOrDefault(c => c.Id == orderId);
+            Order order =  _context.Orders.First(c => c.Id == orderId);
             if (order != null)
             {
                 order.OrderStatus = orderStatus;

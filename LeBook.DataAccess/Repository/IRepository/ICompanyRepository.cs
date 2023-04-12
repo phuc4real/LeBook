@@ -14,9 +14,5 @@ namespace LeBook.DataAccess.Repository.IRepository
         void SoftDelete(Company company);
 
         void Restore(Company company);
-
-        IEnumerable<Company> Get();
-
-        IEnumerable<Company> GetDeleted();
     }
 }

@@ -24,7 +24,6 @@ namespace LeBook.DataAccess.Repository
             UserAddress = new UserAddressRepository(_context);
             OrderDetail = new OrderDetailRepository(_context);
             ShoppingCart = new ShoppingCartRepository(_context);
-            ApplicationUser = new ApplicationUserRepository(_context);
         }
 
         public IAgeRepository Age { get; private set; }
@@ -46,8 +45,6 @@ namespace LeBook.DataAccess.Repository
         public IOrderDetailRepository OrderDetail { get; private set; }
 
         public IShoppingCartRepository ShoppingCart { get; private set; }
-
-        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         public void Save()
         {

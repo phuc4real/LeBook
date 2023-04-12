@@ -17,6 +17,8 @@ namespace LeBook.Models.ViewModel
 
         public IEnumerable<ShoppingCart> ListCart { get; set; }
 
+        public IEnumerable<OrderDetail> OrderDetail { get; set; }
+
         public Order Order { get; set; }
     }
 }
