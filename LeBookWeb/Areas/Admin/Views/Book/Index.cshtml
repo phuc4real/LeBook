@@ -70,6 +70,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.InStock)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Sold)
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -104,6 +107,9 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.InStock)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Sold)
                             </th>
                             <th></th>
                         </tr>
@@ -141,6 +147,9 @@
                                 </th>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.InStock)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sold)
                                 </td>
                                 <td>
                                     <a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>

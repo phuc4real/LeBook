@@ -152,31 +152,47 @@ namespace LeBook.Areas.Admin.Controllers
             return View(bookView);
         }
 
-        // GET: Admin/Book/BookByCategory/1
-        public IActionResult BookByCategory(int id)
-        {
-            var cate = _unitOfWork.Category.FirstOrDefault(x => x.Id == id);
-            IEnumerable<Book> books = _unitOfWork.Book.FindByCategory(id, cate.Level);
-            ViewBag.BookBy = "theo thể loại: " + cate.Name;
-            return View("Index", books);
-        }
 
-        // GET: Admin/Book/BookByCoverType/1
-        public IActionResult BookByCoverType(int id)
+        // GET: Admin/Book/List/1?bookby=cate
+        public IActionResult List(string bookby, int? Id)
         {
-            IEnumerable<Book> books = _unitOfWork.Book.FindByCoverType(id);
-            var coverType = _unitOfWork.CoverType.FirstOrDefault(x => x.Id == id);
-            ViewBag.BookBy = "theo loại bìa: " + coverType.Name;
-            return View("Index", books);
-        }
+            IEnumerable<Book> booklist = _unitOfWork.Book.Get(x => x.IsDeleted == false, includeProperties: "Price,Category1,Category2,CoverType,Age");
 
-        // GET: Admin/Book/BookByAge/1
-        public IActionResult BookByAge(int id)
-        {
-            IEnumerable<Book> books = _unitOfWork.Book.FindByAge(id);
-            var age = _unitOfWork.Age.FirstOrDefault(x => x.Id == id);
-            ViewBag.BookBy = "theo độ tuổi: " + age.Name;
-            return View("Index", books);
+            if (Id == null)
+            {
+                switch (bookby)
+                {
+                    case "sell":
+                        booklist = booklist.OrderByDescending(x => x.Sold); ViewBag.BookBy = "theo số lượng bán"; break;
+                    case "stock":
+                        booklist = booklist.OrderByDescending(x => x.InStock); ViewBag.BookBy = "theo số lượng tồn"; break;
+                }
+            }
+            else
+            {
+                switch (bookby)
+                {
+                    case "cate":
+                        var cate = _unitOfWork.Category.FirstOrDefault(x => x.Id == Id);
+                        ViewBag.BookBy = "theo thể loại: " + cate.Name;
+                        booklist = _unitOfWork.Book.FindByCategory(cate.Id, cate.Level);
+                        break;
+                    case "covertype":
+                        var coverType = _unitOfWork.CoverType.FirstOrDefault(x => x.Id == Id);
+                        ViewBag.BookBy = "theo loại bìa: " + coverType.Name;
+                        booklist = _unitOfWork.Book.FindByCoverType(coverType.Id);
+                        break;
+                    case "age":
+                        var age = _unitOfWork.Age.FirstOrDefault(x => x.Id == Id);
+                        ViewBag.BookBy = "theo độ tuổi: " + age.Name;
+                        booklist = _unitOfWork.Book.FindByAge(age.Id);
+                        break;
+                    default:
+                        return NotFound();
+                }
+            }
+
+            return View("Index", booklist);
         }
 
         // POST: Admin/Book/Delete/5

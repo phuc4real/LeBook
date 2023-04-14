@@ -88,7 +88,7 @@
                                     @Html.DisplayFor(modelItem => item.LastUpdatedAt)
                                 </td>
                                 <td>
-                                    <a asp-controller="Book" asp-action="BookByAge" asp-route-id="@item.Id" >Tìm sách</a>
+                                    <a asp-controller="Book" asp-action="List" asp-route-bookby="age" asp-route-Id="@item.Id">Tìm sách</a>
                                     @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
                                     {
                                         <text>|</text><a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a>
