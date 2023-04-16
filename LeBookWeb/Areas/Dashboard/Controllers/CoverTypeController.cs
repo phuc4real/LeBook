@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LeBook.Areas.Admin.Controllers
 {
     [Authorize("canView")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class CoverTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

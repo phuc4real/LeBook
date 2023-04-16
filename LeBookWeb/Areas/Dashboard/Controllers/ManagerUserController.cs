@@ -16,7 +16,7 @@ using System.Security.Claims;
 namespace LeBookWeb.Areas.Admin.Controllers
 {
     [Authorize("canView")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class ManagerUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

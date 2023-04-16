@@ -131,7 +131,7 @@ async function getMonthRevenue() {
     let year = d.getFullYear();
     let month = d.getMonth() + 1;
 
-    const apiUrl = "/Admin/Order/MonthRevenue?Year=" + year + "&Month=" + month;
+    const apiUrl = "/Dashboard/Order/MonthRevenue?Year=" + year + "&Month=" + month;
     const response = await fetch(apiUrl)
     const areaChatData = await response.json()
 

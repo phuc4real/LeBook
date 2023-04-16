@@ -1,0 +1,226 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Thống kê";
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="~/js/chart-area.js"></script>
+    <script src="~/js/chart-bar.js"></script>
+    <script src="~/js/order-table.js"></script>
+}
+<main>
+    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+        <div class="container-xl px-4">
+            <div class="page-header-content pt-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto mt-4">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="activity"></i></div>
+                            Thống kê
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-xl px-4 mt-n10">
+        <div class="row">
+            <div class="col-xxl-4 col-xl-6 mb-4">
+                <div class="card card-header-actions h-100">
+                    <div class="card-header">
+                        Đơn đặt hàng
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline timeline-xs">
+                            @foreach (var item in Model.newOrders)
+                            {
+                                <div class="timeline-item">
+                                    <div class="timeline-item-marker">
+                                        <div class="timeline-item-marker-text">@item.Time</div>
+                                        <div class="timeline-item-marker-indicator bg-green"></div>
+                                    </div>
+                                    <div class="timeline-item-content">
+                                        Có đơn đặt hàng mới!
+                                        <a class="fw-bold text-dark" asp-controller="Order" asp-action="Detail" asp-route-id="@item.OrderId">Đơn #@item.OrderId</a>
+                                        đặt hàng thành công!
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-xl-6 mb-4">
+                <div class="card card-header-actions h-100">
+                    <div class="card-header">Sản phẩm bán chạy</div>
+                    <div class="card-body">
+                        
+                        @foreach (var item in Model.sellBook)
+                        {
+                            <div class="row">
+                                <div class="col-md-2 p-1">
+                                    <img width="50" height="50" src="@Url.Content(item.Img)" alt="@item.Title" />
+                                </div>
+                                <div class="col">
+                                    <h4 class="small">
+                                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@item.Id" class="text-black">@item.Title</a>
+                                    </h4>
+                                    <h4 class="small">
+                                        Đã bán
+                                        <span class="float-end fw-bold">@item.Quantity</span>
+
+                                    </h4>
+                                </div>
+                                <hr>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer position-relative">
+                        <div class="d-flex align-items-center justify-content-between small text-body">
+                            <a class="stretched-link text-body" asp-controller="Book" asp-action="List" asp-route-bookby="sell">Danh sách sản phẩm bán chạy</a>
+                            <i class="fas fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-xl-6 mb-4">
+                <div class="card card-header-actions h-100">
+                    <div class="card-header">Sản phẩm tồn kho</div>
+                    <div class="card-body">
+                        @foreach (var item in Model.stockBook)
+                        {
+                            <div class="row">
+                                <div class="col-md-2 p-1">
+                                    <img width="50" height="50" src="@Url.Content(item.Img)" alt="@item.Title" />
+                                </div>
+                                <div class="col">
+                                    <h4 class="small">
+                                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@item.Id" class="text-black">@item.Title</a>
+                                    </h4>
+                                    <h4 class="small">
+                                        Tồn kho
+                                        <span class="float-end fw-bold">@item.Quantity</span>
+
+                                    </h4>
+                                </div>
+                                <hr>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="card-footer position-relative">
+                        <div class="d-flex align-items-center justify-content-between small text-body">
+                            <a class="stretched-link text-body" asp-controller="Book" asp-action="List" asp-route-bookby="stock">Danh sách sản phẩm bán chạy</a>
+                            <i class="fas fa-angle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Example Colored Cards for Dashboard Demo-->
+        <div class="row">
+            <div class="col-lg-6 col-xl-3 mb-4">
+                <div class="card bg-info text-white h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="me-3">
+                                <div class="text-white-75 small">Doanh thu tháng</div>
+                                <div class="text-lg fw-bold">@Model.MonthRevenue.ToString("#,###.##đ")</div>
+                            </div>
+                            <i class="feather-xl text-white-50" data-feather="calendar"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between small">
+                        <a class="text-white stretched-link" href="#!">Chi tiết</a>
+                        <div class="text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-3 mb-4">
+                <div class="card bg-primary text-white h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="me-3">
+                                <div class="text-white-75 small">Doanh thu năm</div>
+                                <div class="text-lg fw-bold">@Model.YearRevenue.ToString("#,###.##đ")</div>
+                            </div>
+                            <i class="feather-xl text-white-50" data-feather="dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between small">
+                        <a class="text-white stretched-link" href="#!">Chi tiết</a>
+                        <div class="text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-3 mb-4">
+                <div class="card bg-success text-white h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="me-3">
+                                <div class="text-white-75 small">Đơn hàng thành công</div>
+                                <div class="text-lg fw-bold">@Model.SuccessOrder</div>
+                            </div>
+                            <i class="feather-xl text-white-50" data-feather="check-square"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between small">
+                        <a class="text-white stretched-link" href="#!">Chi tiết</a>
+                        <div class="text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-3 mb-4">
+                <div class="card bg-warning text-white h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="me-3">
+                                <div class="text-white-75 small">Đơn hàng đang chờ</div>
+                                <div class="text-lg fw-bold">@Model.WaitingOrder</div>
+                            </div>
+                            <i class="feather-xl text-white-50" data-feather="message-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex align-items-center justify-content-between small">
+                        <a class="text-white stretched-link" href="#!">Chi tiết</a>
+                        <div class="text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Example Charts for Dashboard Demo-->
+        <div class="row">
+            <div class="col-xl-6 mb-4">
+                <div class="card card-header-actions h-100">
+                    <div class="card-header">
+                        Doanh thu hằng ngày
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 mb-4">
+                <div class="card card-header-actions h-100">
+                    <div class="card-header">
+                        Doanh thu theo tháng
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar"><canvas id="myBarChart" width="100%" height="30"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Example DataTable for Dashboard Demo-->
+        <div class="card mb-4">
+            <div class="card-header">Đơn hàng mới</div>
+            <div class="card-body">
+                <table class="orderTables"></table>
+            </div>
+        </div>
+    </div>
+</main>

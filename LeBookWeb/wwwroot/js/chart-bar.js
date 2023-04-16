@@ -124,7 +124,7 @@ async function getYearRevenue() {
     const d = new Date();
     let year = d.getFullYear();
 
-    const apiUrl = "/Admin/Order/YearRevenue?Year=" + year;
+    const apiUrl = "/Dashboard/Order/YearRevenue?Year=" + year;
     const response = await fetch(apiUrl)
     const areaChatData = await response.json()
 

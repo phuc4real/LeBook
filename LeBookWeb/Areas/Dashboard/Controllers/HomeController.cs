@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LeBook.Areas.Admin.Controllers
 {
-    //[Authorize("canView")]
-    [Area("Admin")]
+    [Authorize("canView")]
+    [Area("Dashboard")]
     public class HomeController : Controller
     {
 

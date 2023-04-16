@@ -37,19 +37,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Admin\Views\Book\Index.cshtml">
+    <Content Update="Areas\Dashboard\Views\Book\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\Book\DeletedIndex.cshtml" />
     <_ContentIncludedByDefault Remove="wwwroot\js\paymentmethod.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Admin\Views\Book\DeletedIndex.cshtml" />
+    <UpToDateCheckInput Remove="Areas\Dashboard\Views\Book\DeletedIndex.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

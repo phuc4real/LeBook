@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LeBookWeb.Areas.Admin.Controllers
 {
     [Authorize("canView")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class CompanyController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

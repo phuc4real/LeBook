@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using LeBook.DataAccess.Repository.IRepository;
 using LeBook.Models.ViewModel;
+using LeBook.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LeBookWeb.Areas.Admin.Controllers
 {
     [Authorize("canView")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -23,11 +24,11 @@ namespace LeBookWeb.Areas.Admin.Controllers
         // GET: Order
         public IActionResult Index()
         {
-            return View( _unitOfWork.Order.Get(x=> x.OrderStatus !="Đã xác nhận"));
+            return View( _unitOfWork.Order.Get(x=> x.OrderStatus !="Đã xác nhận", includeProperties: "User"));
         }
 
         // GET: Order/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Detail(int id)
         {
             return View();
         }
@@ -129,6 +130,37 @@ namespace LeBookWeb.Areas.Admin.Controllers
             }
 
             return Ok(listRevenue);
+        }
+
+        public IActionResult OrderList()
+        {
+            var orders = _unitOfWork.Order.Get(x => x.OrderStatus != "Đã xác nhận", includeProperties: "User").OrderByDescending(x=> x.CreatedAt);
+
+            List<OrderViewModel> models = new List<OrderViewModel>();
+            foreach (var order in orders)
+            {
+                OrderViewModel item = new()
+                {
+                    Id = order.Id,
+                    Username = order.User.Name,
+                    CreatedAt = order.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss"),
+                    OrderTotal = order.OrderTotal.ToString("#,###.##đ"),
+                    OrderStatus = order.OrderStatus,
+                    PaymentType = order.PaymentType,
+                    PaymentStatus = order.PaymentStatus,
+                    Action = "<a href=\"/Dashboard/Order/Detail/" + order.Id + "\">Chi tiết hoá đơn</a>",
+                };
+
+                    //if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Manager)) {
+                    //item.Action += "| <a href=\"/Dashboard/Order/Edit/" + order.Id + "\">Cập nhật</a>\r\n| " +
+                    //    "<a href=\"#\" onclick=\"return submitDelete(event,'"+order.Id+"','Đơn đặt hàng')\">Xoá</a>\r\n" +
+                    //    "<form id=\"Delete+" + order.Id + "\" action=\"/Dashboard/Order/Delete\" method=\"post\">\r\n" +
+                    //    "<input type=\"hidden\" value=\"" + order.Id + "\" name=\"id\" id=\"id\"></form>";
+                    //}
+
+                models.Add(item);
+            }
+            return Ok(models);
         }
 
         #endregion

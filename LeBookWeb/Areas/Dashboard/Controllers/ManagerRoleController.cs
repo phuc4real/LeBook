@@ -12,7 +12,7 @@ using System.Data;
 namespace LeBookWeb.Areas.Admin.Controllers
 {
     [Authorize("AdminOnly")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class ManagerRoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

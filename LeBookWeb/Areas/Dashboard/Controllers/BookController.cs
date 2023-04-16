@@ -17,7 +17,7 @@ using System.Data;
 namespace LeBook.Areas.Admin.Controllers
 {
     [Authorize("canView")]
-    [Area("Admin")]
+    [Area("Dashboard")]
     public class BookController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
