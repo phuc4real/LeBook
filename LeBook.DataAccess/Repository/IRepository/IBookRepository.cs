@@ -17,7 +17,7 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         void UpdateBookQuantity(Book book,int quantity, bool cancel =false);
 
-        void AddBookStock(int bookID, int quantity);
+        void AddBookStock(Book book, int quantity);
 
         Book GetFirst(int? id);
 

@@ -85,12 +85,14 @@ namespace LeBookWeb.Areas.Admin.Controllers
                     Purchase = purchaseOrder
                 };
 
-                _unitOfWork.Book.AddBookStock(item.BookId, item.Quantity);
+                var book = _unitOfWork.Book.GetFirst(item.BookId);
+                _unitOfWork.Book.AddBookStock(book, item.Quantity);
                 _unitOfWork.PurchaseDetail.Add(purchaseDetail);
             }
 
             _unitOfWork.Save();
             ClearSesson();
+            _notifyService.Success("Thêm đơn nhập hàng thành công!");
             return RedirectToAction("Index");
         }
 

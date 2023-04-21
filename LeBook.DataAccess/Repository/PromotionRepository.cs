@@ -18,6 +18,18 @@ namespace LeBook.DataAccess.Repository
             _context = context;
         }
 
+        public void Restore(Promotion promotion)
+        {
+            promotion.IsDeleted = false;
+            promotion.LastUpdatedAt = DateTime.Now;
+        }
+
+        public void SoftDelete(Promotion promotion)
+        {
+            promotion.IsDeleted = true;
+            promotion.DeletedAt = DateTime.Now;
+        }
+
         public void Update(Promotion promotion)
         {
             _context.Promotion.Update(promotion);

@@ -10,5 +10,9 @@ namespace LeBook.DataAccess.Repository.IRepository
     public interface IPromotionRepository : IRepository<Promotion>
     {
         void Update(Promotion promotion);
+
+        void SoftDelete(Promotion promotion);
+
+        void Restore(Promotion promotion);
     }
 }

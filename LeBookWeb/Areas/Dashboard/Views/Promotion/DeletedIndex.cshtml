@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Promotion>
 
 @{
-    ViewData["Title"] = "Danh sách khuyến mãi";
+    ViewData["Title"] = "Danh sách khuyến mãi đã xoá";
 }
 
 <main>
@@ -12,20 +12,13 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><i data-feather="list"></i></div>
-                            Danh sách khuyến mãi
+                            Danh sách khuyến mãi đã xoá
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
-                        {
-                            <a class="btn btn-sm btn-light text-primary" asp-action="Upsert">
-                                <i class="me-1" data-feather="plus"></i>
-                                Thêm khuyến mãi
-                            </a>
-                        }
-                        <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
-                            <i class="me-1" data-feather="trash-2"></i>
-                            Đã xoá
+                        <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                            <i class="me-1" data-feather="corner-up-left"></i>
+                            Trở về
                         </a>
                     </div>
                 </div>
@@ -116,12 +109,10 @@
                                 </th>
                                 <td>
                                     <div class="d-flex flex-row">
-                                        <a class="btn btn-outline-primary btn-sm me-1" asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
                                         @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
                                         {
-                                            <a class="btn btn-outline-primary btn-sm me-1" asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a>
-                                            <a class="btn btn-outline-danger btn-sm" href="#" onclick="return submitDelete(event,'@item.Id','Khuyến mãi')">Xoá</a>
-                                            <form asp-action="Delete" id="Delete+@item.Id">
+                                            <a class="btn btn-outline-success btn-sm" href="#" onclick="return submitRestore(event,'@item.Id','Khuyến mãi')">Phục hồi</a>
+                                            <form asp-action="Restore" id="Restore+@item.Id">
                                                 <input type="hidden" value="@item.Id" name="id" id="id" />
                                             </form>
                                         }

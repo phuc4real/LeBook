@@ -1,0 +1,145 @@
+﻿@model Promotion
+
+@{
+    ViewData["Title"] = "Thêm Khuyến mãi";
+}
+@section Scripts {
+    <script src="/js/Promotion.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Chưa thêm ảnh banner khuyến mãi!',
+                })
+                return false
+            }
+            return true
+        }
+        document.getElementById('uploadBox').onchange = function () {
+            var src = URL.createObjectURL(this.files[0])
+            document.getElementById('image').src = src
+        }
+    </script>
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            @(Model.Id != 0 ? "Chỉnh sửa thông tin" : "Thêm khuyến mãi")
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <div class="col-12 col-xl-auto mb-3">
+                            <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                                <i class="me-1" data-feather="corner-up-left"></i>
+                                Trở về
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Upsert" enctype="multipart/form-data">
+                    <input asp-for="PromotionBanner" hidden />
+                    <div class="row">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group mt-2 col-md-3">
+                            @if (Model.PromotionBanner != null)
+                            {
+                                <img id="image" src="@Url.Content(Model.PromotionBanner)" style="width: 380px; padding: 8px;" />
+                            }
+                            else
+                            {
+
+                                <img id="image" src="~/assets/img/noImg.png" style="width: 380px; padding: 8px;" />
+                            }
+                        </div>
+                        <div class="mt-2 col-md-9">
+                            <div class="row">
+                                <div class="form-group mt-2 col-md-4">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-8">
+                                    <label asp-for="Description" class="control-label"></label>
+                                    <input asp-for="Description" class="form-control" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-4">
+                                    <label asp-for="Percent" class="control-label"></label>
+                                    <input asp-for="Percent" class="form-control" />
+                                    <span asp-validation-for="Percent" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-4">
+                                    <label asp-for="StartedDate" class="control-label"></label>
+                                    <input asp-for="StartedDate" type="date" class="form-control" />
+                                    <span asp-validation-for="StartedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-4">
+                                    <label asp-for="EndedDate" class="control-label"></label>
+                                    <input asp-for="EndedDate" type="date" class="form-control" />
+                                    <span asp-validation-for="EndedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-4">
+                                    <label class="control-label">Chọn sách</label>
+                                    <input id="book" name="book" list="bookdata" class="form-control" />
+                                    <datalist id="bookdata"></datalist>
+                                </div>
+                                <div class="form-group mt-3 col-md-2">
+                                     <div class="mt-4">
+                                        <button type="button" class="btn btn-secondary btn-sm" id="addBook">+</button>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-2 col-md-3">
+                            <input type="file" id="uploadBox" name="file" class="form-control" />
+                        </div>     
+                    </div>
+                    <div class="row mt-2">
+                        <h5 class="mt-3">Sản phẩm khuyến mãi</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên sách</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablebody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="form-group mt-3">
+                            @if (Model.Id != 0)
+                            {
+                                <input type="submit" value="Sửa thông tin" class="btn btn-primary" />
+                            }
+                            else
+                            {
+                                <input type="submit" onclick="return ValidateInput()" value="Thêm khuyến mãi" class="btn btn-primary" />
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+

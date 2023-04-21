@@ -156,14 +156,9 @@ namespace LeBook.DataAccess.Repository
             }
         }
 
-        public void AddBookStock(int bookID, int quantity)
+        public void AddBookStock(Book book, int quantity)
         {
-            Book book = _context.Books.FirstOrDefault(c => c.Id == bookID);
-
-            if (book == null)
-            {
-                book.InStock += quantity;
-            }
+            book.InStock += quantity;
         }
     }
 }

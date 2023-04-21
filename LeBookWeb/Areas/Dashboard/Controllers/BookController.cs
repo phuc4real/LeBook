@@ -237,7 +237,7 @@ namespace LeBook.Areas.Admin.Controllers
             if (book != null && book.IsDeleted)
             {
                 _unitOfWork.Book.Restore(book);
-                _notifyService.Success("Đã phục hồi thể loại");
+                _notifyService.Success("Đã phục hồi sách");
             }
 
             _unitOfWork.Save();
