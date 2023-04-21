@@ -82,7 +82,7 @@ async function areaChart() {
                         maxTicksLimit: 5,
                         padding: 10,
                         callback: function (value, index, values) {
-                            return number_format(value) +" đ";
+                            return number_format(value) + " đ";
                         }
                     },
                     gridLines: {

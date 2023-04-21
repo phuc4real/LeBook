@@ -1,4 +1,4 @@
-using AspNetCoreHero.ToastNotification;
+﻿using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using LeBook.DataAccess;
 using LeBook.DataAccess.Repository;
@@ -26,6 +26,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddDefaultTokenPro
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(cfg => { 
+    cfg.Cookie.Name = "Lebook"; 
+    cfg.IdleTimeout = new TimeSpan(0, 60, 0);
+});
 
 builder.Services.AddAuthorization(builder =>
 {
@@ -59,6 +65,8 @@ app.UseAuthentication();;
 app.UseAuthorization();
 
 app.UseNotyf();
+
+app.UseSession();
 
 app.MapRazorPages();
 

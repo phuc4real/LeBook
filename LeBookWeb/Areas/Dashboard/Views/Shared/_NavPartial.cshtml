@@ -2,7 +2,7 @@
     <!-- Sidenav Toggle Button-->
     <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle"><i data-feather="menu"></i></button>
     <!-- Navbar Brand-->
-    <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="/Admin">Hệ thống quản lý</a>
+    <a class="navbar-brand pe-3 ps-4 ps-lg-2" asp-area="Dashboard" asp-controller="Home" action="Index">Hệ thống quản lý</a>
     <ul class="navbar-nav align-items-center ms-auto">
         <!-- User Dropdown-->
         @if (SignInManager.IsSignedIn(User))

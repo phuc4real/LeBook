@@ -1,7 +1,153 @@
-﻿
+﻿@model DetailOrderViewModel
 @{
     ViewData["Title"] = "Thông tin đơn hàng";
 }
 
-<h1>Detail</h1>
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="plus"></i></div>
+                            Thông tin đơn hàng
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        @if (Model.Order.OrderStatus == "Đã hoàn thành")
+                        {
+                            <a class="btn btn-sm btn-light text-black" asp-action="Completed">
+                                <i class="me-1" data-feather="corner-up-left"></i>
+                                Trở về
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                                <i class="me-1" data-feather="corner-up-left"></i>
+                                Trở về
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.Id" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.Id)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.CreatedAt" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.CreatedAt)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.OrderTotal" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.OrderTotal)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.OrderStatus" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.OrderStatus)</div>
+                    </div>
 
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.ShippingType" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.ShippingType)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.TrackingNumber" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.TrackingNumber)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.Carrier" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.Carrier)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.ShippingDate" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.ShippingDate)</div>
+                    </div>
+
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.PaymentType" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.PaymentType)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.PaymentStatus" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.PaymentStatus)</div>
+                    </div>
+
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.PaymentDate" class="control-label fw-bolder fs-5"></label>
+                        @if (Model.Order.PaymentStatus == "Chưa thanh toán")
+                        {
+                            <div class="form-control-plaintext">Chưa thanh toán</div>
+                        }
+                        else if (Model.Order.PaymentType == "cod")
+                        {
+                            <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.PaymentDateCOD)</div>
+                        }
+                        else
+                        {
+                            <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.PaymentDate)</div>
+                        }
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="Order.TransactionId" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.TransactionId)</div>
+                    </div>
+
+
+                    <div class="form-group mt-2 col-md-3">
+                        <label class="control-label fw-bolder fs-5">Người đặt hàng</label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.Order.User.Name)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="ShippingAddress.Name" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.ShippingAddress.Name)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="ShippingAddress.Contact" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Html.DisplayFor(Model => Model.ShippingAddress.Contact)</div>
+                    </div>
+                    <div class="form-group mt-2 col-md-3">
+                        <label asp-for="ShippingAddress.Street" class="control-label fw-bolder fs-5"></label>
+                        <div class="form-control-plaintext">@Model.ShippingAddress.Street, @Model.ShippingAddress.Ward, @Model.ShippingAddress.District, @Model.ShippingAddress.Province</div>
+                    </div>
+                </div>
+                <div class="row border-3 border-top">
+                    <h4 class="mt-3 font-monospace">Chi tiết đơn hàng</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên sách</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.orderDetails)
+                            {
+                                <tr>
+                                    <td>@item.Book.Title</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@Html.DisplayFor(Modelitem => item.Price)</td>
+                                    <td>@Html.DisplayFor(Modelitem => item.Total)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="4">Phí giao hàng: 30,000đ</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

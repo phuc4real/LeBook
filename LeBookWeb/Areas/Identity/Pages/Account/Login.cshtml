@@ -22,7 +22,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row mb-3">
+@*                    <div class="row mb-3">
                         @{
                             if ((Model.ExternalLogins?.Count ?? 0) == 0)
                             {
@@ -49,7 +49,7 @@
                                 </form>
                             }
                         }
-                    </div>
+                    </div>*@
                     <form class="login-content" id="account" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="input-box">
@@ -77,14 +77,14 @@
                         </div>
                         <div>
                             <p>
-                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Quên mật khẩu?</a>
                             </p>
                             <p>
                                 
                             </p>
-                            <p>
+@*                            <p>
                                 <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                            </p>
+                            </p>*@
                         </div>
                     </form>
                 </div>

@@ -40,12 +40,46 @@
                                 <div class="timeline-item">
                                     <div class="timeline-item-marker">
                                         <div class="timeline-item-marker-text">@item.Time</div>
-                                        <div class="timeline-item-marker-indicator bg-green"></div>
+                                        @switch (item.OrderStatus)
+                                        {
+                                            case "Đã đặt hàng":
+                                                <div class="timeline-item-marker-indicator bg-green"></div>
+                                                break;
+                                            case "Đã xác nhận":
+                                                <div class="timeline-item-marker-indicator bg-primary"></div>
+                                                break;
+                                            case "Đang xử lý":
+                                                <div class="timeline-item-marker-indicator bg-green"></div>
+                                                break;
+                                            case "Đã hoàn thành":
+                                                <div class="timeline-item-marker-indicator bg-success"></div>
+                                                break;
+                                            case "Đã bị huỷ":
+                                                <div class="timeline-item-marker-indicator bg-warning"></div>
+                                                break;
+                                        }
                                     </div>
                                     <div class="timeline-item-content">
-                                        Có đơn đặt hàng mới!
+                                        Thông báo mới!
                                         <a class="fw-bold text-dark" asp-controller="Order" asp-action="Detail" asp-route-id="@item.OrderId">Đơn #@item.OrderId</a>
-                                        đặt hàng thành công!
+                                        @switch (item.OrderStatus)
+                                        {
+                                            case "Đã đặt hàng":
+                                                <text>đặt hàng thành công!</text>
+                                                break;
+                                            case "Đã xác nhận":
+                                                <text>đã được xác nhận!</text>
+                                                break;
+                                            case "Đang xử lý":
+                                                <text>đang được xử lý!</text>
+                                                break;
+                                            case "Đã hoàn thành":
+                                                <text>đã hoàn thành!</text>
+                                                break;
+                                            case "Đã bị huỷ":
+                                                <text>đã bị huỷ!</text>
+                                                break;
+                                        }
                                     </div>
                                 </div>
                             }

@@ -42,7 +42,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
                 await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
             }
             _notifyService.Success("Thêm vai trò thành công");
-            return RedirectToAction("Roles");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -57,7 +57,7 @@ namespace LeBookWeb.Areas.Admin.Controllers
             }
 
             _notifyService.Success("Xoá vai trò thành công");
-            return RedirectToAction("Roles");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

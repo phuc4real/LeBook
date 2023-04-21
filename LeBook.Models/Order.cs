@@ -20,6 +20,8 @@ namespace LeBook.Models
         [DisplayName("Ngày lập")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+
         [DisplayName("Tổng thành tiền")]
         [DisplayFormat(DataFormatString = "{0:#,###.##đ}")]
         public double OrderTotal { get; set; }
@@ -55,18 +57,20 @@ namespace LeBook.Models
         public DateTime PaymentDateCOD { get; set; }
 
         public string? SesstionId { get; set; }
-
+        [DisplayName("Mã giao dịch")]
         public string? TransactionId { get; set; }
 
         [Required(ErrorMessage = "Chưa chọn địa chỉ giao hàng")]
         public int AddressId { get; set; }
         [ForeignKey("AddressId")]
         [ValidateNever]
+        [JsonIgnore]
         public virtual UserAddress? ShippingAdress { get; set; }
 
         [DisplayName("Người đặt hàng")]
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
+        [JsonIgnore]
         public ApplicationUser? User { get; set; }
     }
 }

@@ -258,6 +258,26 @@ namespace LeBook.Areas.Admin.Controllers
 
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult BookList()
+        {
+            var books = _unitOfWork.Book.Get();
+            var list = books.Select(x => new { x.Id, x.Title }).ToList();
+            return Json(list);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult BookIdbyName()
+        {
+            var books = _unitOfWork.Book.Get();
+            var list = books.Select(x => new { x.Id, x.Title }).ToList();
+            return Json(list);
+
+        }
+
         public IActionResult GetBookWithPrice(int id)
         {
             var bookList = _unitOfWork.Book.GetFirst(id);

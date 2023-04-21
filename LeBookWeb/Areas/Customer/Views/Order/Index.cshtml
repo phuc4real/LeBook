@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section StyleSheets{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.2.0/dist/style.css" />
+}
+
+@section Scripts{
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.2.0/dist/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.2.0/dist/umd/simple-datatables.min.js"></script>
+    <script src="~/js/UserOrder.js"></script>
+}
+
+<main>
+    <div class="payment-container">
+        <div class="container">
+                <div class="card mb-4">
+                    <div class="card-header">Danh sách đơn hàng</div>
+                    <div class="card-body">
+                        <table class="orderTables"></table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</main>
+

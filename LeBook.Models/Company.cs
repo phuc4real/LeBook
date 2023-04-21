@@ -15,6 +15,8 @@ namespace LeBook.Models
         [Required]
         [DisplayName("Tên nhà cung cấp")]
         public string Name { get; set; }
+        [DisplayName("Tổng số lượng nhập")]
+        public int TotalPurchase { get; set; }
         [DisplayName("Địa chỉ")]
         public string? Address { get; set; }
         [DisplayName("Xã/Phường")]

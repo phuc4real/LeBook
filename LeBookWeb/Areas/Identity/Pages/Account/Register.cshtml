@@ -21,7 +21,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row mb-3">
+@*                    <div class="row mb-3">
                         @{
                             if ((Model.ExternalLogins?.Count ?? 0) == 0)
                             {
@@ -48,7 +48,7 @@
                                 </form>
                             }
                         }
-                    </div>
+                    </div>*@
                     <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="register-content">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row">

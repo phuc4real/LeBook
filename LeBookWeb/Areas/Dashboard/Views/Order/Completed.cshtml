@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Danh sách đơn hàng đã hoàn thành";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            Danh sách đơn hàng
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentDate)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PaymentDate)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(model => item.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.User.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.CreatedAt)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.OrderTotal)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.PaymentType)
+                                </th>
+                                <th>
+                                    @if (item.PaymentType == "cod")
+                                    {
+                                        @Html.DisplayFor(model => item.PaymentDateCOD)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(model => item.PaymentDate)
+                                    }
+
+                                </th>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm" asp-controller="Order" asp-action="Detail" asp-route-id="@item.Id">Chi tiết hoá đơn</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+

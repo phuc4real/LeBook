@@ -125,15 +125,17 @@
                                     @Html.DisplayFor(modelItem => item.Province)
                                 </th>
                                 <td>
-                                    <a asp-controller="Invoice" asp-action="FindByCompany" asp-route-id="@item.Id">Đơn nhập hàng</a>
-                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
-                                    {
-                                        <text>|</text> <a asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a>
-                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Nhà cung cấp')">Xoá</a>
-                                        <form asp-action="Delete" id="Delete+@item.Id">
-                                            <input type="hidden" value="@item.Id" name="id" id="id" />
-                                        </form>
-                                    }
+                                    <div class="d-flex flex-row">
+                                        <a class="btn btn-outline-primary btn-sm me-1" asp-controller="PurchaseOrder" asp-action="Find" asp-route-id="@item.Id">Đơn nhập hàng</a>
+                                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                        {
+                                            <a class="btn btn-outline-primary btn-sm me-1" asp-action="Edit" asp-route-id="@item.Id">Chỉnh sửa</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="#" onclick="return submitDelete(event,'@item.Id','Nhà cung cấp')">Xoá</a>
+                                            <form asp-action="Delete" id="Delete+@item.Id">
+                                                <input type="hidden" value="@item.Id" name="id" id="id" />
+                                            </form>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         }

@@ -4,6 +4,33 @@
     ViewData["Title"] = "Danh sách đơn hàng";
 }
 
+
+@section Scripts{
+    <script>
+        function cancelOrder(e, id) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Xác nhận',
+                text: "Huỷ đơn hàng #" + id + " ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xác nhận!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Đã huỷ đơn!',
+                        'Đơn #'+id + ' đã được huỷ.',
+                        'success'
+                    ).then((result) => document.getElementById("Cancel+" + id).submit())
+                }
+            })
+        }
+    </script>
+}
+
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -93,24 +120,47 @@
                                     @Html.DisplayFor(model => item.OrderTotal)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(model => item.OrderStatus)
+                                    @switch (item.OrderStatus)
+                                    {
+                                        case "Đã đặt hàng":
+                                            <div class="badge bg-info rounded-pill">@item.OrderStatus</div> 
+                                            break;
+                                        case "Đã xác nhận":
+                                            <div class="badge bg-primary rounded-pill">@item.OrderStatus</div> 
+                                            break;
+                                        case "Đang xử lý":
+                                            <div class="badge bg-green rounded-pill">@item.OrderStatus</div>
+                                            break;
+                                        case "Đã hoàn thành":
+                                            <div class="badge bg-success rounded-pill">@item.OrderStatus</div>
+                                            break;
+                                        case "Đã bị huỷ":
+                                            <div class="badge bg-danger rounded-pill">@item.OrderStatus</div>
+                                            break;
+                                    }
                                 </th>
                                 <th>
                                     @Html.DisplayFor(model => item.PaymentType)
                                 </th>
                                 <th>
-                                    @Html.DisplayFor(model => item.PaymentStatus)
+                                    @if(item.PaymentStatus == "Chưa thanh toán")
+                                    {
+                                        <div class="badge bg-warning rounded-pill">@item.PaymentStatus</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge bg-success rounded-pill">@item.PaymentStatus</div>
+                                    }
                                 </th>
                                 <td>
-                                    <a asp-controller="Order" asp-action="OrderDetails" asp-route-id="@item.Id">Chi tiết hoá đơn</a>
-                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
-                                    {
-                                        <text>|</text> <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a>
-                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Đơn đặt hàng')">Xoá</a>
-                                        <form asp-action="Delete" id="Delete+@item.Id">
+                                    <div class="d-flex flex-row">
+                                        <a class="btn btn-outline-primary btn-sm" asp-controller="Order" asp-action="Detail" asp-route-id="@item.Id">Chi tiết hoá đơn</a>
+                                        <a class="btn btn-outline-primary btn-sm ms-1 me-1" asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a>
+                                        <a class="btn btn-outline-danger btn-sm" href="#" onclick="return cancelOrder(event,'@item.Id')">Huỷ đơn</a>
+                                        <form asp-action="CancelOrder" id="Cancel+@item.Id">
                                             <input type="hidden" value="@item.Id" name="id" id="id" />
                                         </form>
-                                    }
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -120,4 +170,3 @@
         </div>
     </div>
 </main>
-

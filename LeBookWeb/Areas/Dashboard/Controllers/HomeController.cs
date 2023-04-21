@@ -31,20 +31,21 @@ namespace LeBook.Areas.Admin.Controllers
                 WaitingOrder = 0,
             };
 
-            var orders = _unitOfWork.Order.Get().OrderByDescending(x => x.CreatedAt);
+            var orders = _unitOfWork.Order.Get().OrderByDescending(x => x.LastUpdatedAt);
             var i = 1;
             foreach (var order in orders)
             {
                 if (order.CreatedAt.Year == DateTime.Now.Year) model.YearRevenue += order.OrderTotal;
                 if (order.CreatedAt.Month == DateTime.Now.Month) model.MonthRevenue += order.OrderTotal;
-                if (order.OrderStatus == "Giao hàng thành công") model.SuccessOrder++;
+                if (order.OrderStatus == "Đã hoàn thành") model.SuccessOrder++;
                 if (order.OrderStatus == "Đã đặt hàng") model.WaitingOrder++;
-                if (i <= 7)
+                if (i <= 8)
                 {
                     NewOrder newOrder = new()
                     {
                         OrderId = order.Id,
-                        Time = TimeElapsed(order.CreatedAt),
+                        OrderStatus = order.OrderStatus,
+                        Time = TimeElapsed(order.LastUpdatedAt),
                     };
                     model.newOrders.Add(newOrder);
                 }

@@ -36,7 +36,7 @@
                 <div class="collapse" id="collapseOrders" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavAppsMenu">
                         <a class="nav-link" asp-controller="Order" asp-action="Index">Đơn đặt hàng</a>
-                        <a class="nav-link" asp-controller="Order" asp-action="Completed">Hoá đơn bán hàng</a>
+                        <a class="nav-link" asp-controller="Order" asp-action="Completed">Đơn đã hoàn thành</a>
                     </nav>
                 </div>
 
@@ -50,13 +50,17 @@
                         <a class="nav-link" asp-controller="Company" asp-action="Index">Danh sách nhà cung cấp</a>
                         @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
                         {
-                            <a class="nav-link" href="#">Đơn nhập hàng</a>
+                            <a class="nav-link" asp-controller="PurchaseOrder" asp-action="Index">Đơn nhập hàng</a>
                         }
                     </nav>
                 </div>
+                <a class="nav-link" asp-controller="Promotion" asp-action="Index">
+                    <div class="nav-link-icon"><i data-feather="gift"></i></div>
+                    Quản lý khuyến mãi
+                </a>
 
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
-                    <div class="nav-link-icon"><i data-feather="layers"></i></div>
+                    <div class="nav-link-icon"><i data-feather="users"></i></div>
                     Quản lý người dùng
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -66,15 +70,11 @@
                         @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
                         {
                             <a class="nav-link" asp-controller="ManagerRole" asp-action="Index">Vai trò</a>
-                            <a class="nav-link" asp-controller="ManagerPermisson" asp-action="Index">Quyền truy cập</a>
                         }
 
                     </nav>
                 </div>
-                <a class="nav-link" href="/Admin">
-                    <div class="nav-link-icon"><i data-feather="gift"></i></div>
-                    Quản lý khuyến mãi
-                </a>
+
             </div>
         </div>
         <!-- Sidenav Footer-->

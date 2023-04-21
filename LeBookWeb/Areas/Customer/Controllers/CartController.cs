@@ -88,6 +88,7 @@ namespace LeBookWeb.Areas.Customer.Controllers
             order.ShippingDate = DateTime.Now.AddDays(7);
             order.OrderStatus = "Đã đặt hàng";
             order.PaymentStatus = "Chưa thanh toán";
+
             _unitOfWork.Order.Add(order);
 
             IEnumerable<ShoppingCart> carts = _unitOfWork.ShoppingCart.GetCart(claim.Value, true);

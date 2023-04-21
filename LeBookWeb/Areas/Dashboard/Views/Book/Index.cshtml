@@ -152,15 +152,17 @@
                                     @Html.DisplayFor(modelItem => item.Sold)
                                 </td>
                                 <td>
-                                    <a asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
-                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
-                                    {
-                                        <text>|</text> <a asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a> 
-                                        <text>|</text> <a href="#" onclick="return submitDelete(event,'@item.Id','Sách')">Xoá</a>
-                                        <form asp-action="Delete" id="Delete+@item.Id">
-                                            <input type="hidden" value="@item.Id" name="id" id="id" />
-                                        </form>
-                                    }
+                                    <div class="d-flex flex-row">
+                                        <a class="btn btn-outline-primary btn-sm" asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
+                                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                        {
+                                            <a class="btn btn-outline-primary btn-sm ms-1 me-1" asp-action="Upsert" asp-route-id="@item.Id">Chỉnh sửa</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="#" onclick="return submitDelete(event,'@item.Id','Sách')">Xoá</a>
+                                            <form asp-action="Delete" id="Delete+@item.Id">
+                                                <input type="hidden" value="@item.Id" name="id" id="id" />
+                                            </form>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         }

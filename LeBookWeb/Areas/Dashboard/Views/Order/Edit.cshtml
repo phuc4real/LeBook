@@ -1,0 +1,62 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "Cập nhật tình trạng đơn hàng";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="plus"></i></div>
+                            Cập nhật tình trạng đơn hàng
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        <a class="btn btn-sm btn-light text-black" asp-action="Index">
+                            <i class="me-1" data-feather="corner-up-left"></i>
+                            Trở về
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group mt-2">
+                                <label asp-for="OrderStatus" class="control-label"></label>
+                                <select asp-for="OrderStatus" class="form-select m-2">
+                                    <option>Đã đặt hàng</option>
+                                    <option>Đã xác nhận</option>
+                                    <option>Đang xử lý</option>
+                                    <option>Đã hoàn thành</option>
+                                </select>
+
+                                <span asp-validation-for="OrderStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="submit" value="Chỉnh sửa" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

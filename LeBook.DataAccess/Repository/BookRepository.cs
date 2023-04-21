@@ -142,10 +142,28 @@ namespace LeBook.DataAccess.Repository
             return values.Take(10).ToList();
         }
 
-        public void UpdateBookQuantity(Book book, int quantity)
+        public void UpdateBookQuantity(Book book, int quantity, bool cancel = false)
         {
-            book.InStock -= quantity;
-            book.Sold += quantity;
+            if (cancel)
+            {
+                book.InStock += quantity;
+                book.Sold -= quantity;
+            }
+            else
+            {
+                book.InStock -= quantity;
+                book.Sold += quantity;
+            }
+        }
+
+        public void AddBookStock(int bookID, int quantity)
+        {
+            Book book = _context.Books.FirstOrDefault(c => c.Id == bookID);
+
+            if (book == null)
+            {
+                book.InStock += quantity;
+            }
         }
     }
 }

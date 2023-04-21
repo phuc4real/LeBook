@@ -106,11 +106,13 @@
                                     </th>
                                 }
                                 <td>
-                                    <a asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.User.Id">Tìm hoá đơn</a>
-                                    @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
-                                    {
-                                        <text> | </text> <a asp-controller="ManagerRole" asp-action="UserRoles" asp-route-id="@item.User.Id">Chỉnh sửa vai trò</a>
-                                    }
+                                    <div class="d-flex flex-row">
+                                        <a class="btn btn-outline-primary btn-sm me-1" asp-controller="Order" asp-action="OrderByUserId" asp-route-id="@item.User.Id">Tìm hoá đơn</a>
+                                        @if ((AuthorizationService.AuthorizeAsync(User, "AdminOnly")).Result.Succeeded)
+                                        {
+                                            <a class="btn btn-outline-primary btn-sm" asp-controller="ManagerRole" asp-action="UserRoles" asp-route-id="@item.User.Id">Chỉnh sửa vai trò</a>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         }

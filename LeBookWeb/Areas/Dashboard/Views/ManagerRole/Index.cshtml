@@ -79,8 +79,7 @@
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </th>
                                 <td>
-                                    <a asp-controller="ManagerPermisson" asp-action="RolehasPermisson" asp-route-id="@item.Id">Quyền sử dụng</a> |
-                                    <a href="#" onclick="return submitDelete(event,'@item.Id','Vai trò')">Xoá</a>
+                                    <a class="btn btn-outline-danger btn-sm" href="#" onclick="return submitDelete(event,'@item.Id','Vai trò')">Xoá</a>
                                     <form asp-action="Delete" id="Delete+@item.Id">
                                         <input type="hidden" value="@item.Id" name="id" id="id" />
                                     </form>

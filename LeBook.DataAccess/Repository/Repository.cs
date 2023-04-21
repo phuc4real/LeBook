@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace LeBook.DataAccess.Repository
 {
@@ -25,10 +26,17 @@ namespace LeBook.DataAccess.Repository
            dbSet.Add(item);
         }
 
-        public T FirstOrDefault(Expression<Func<T, bool>> filter)
+        public T FirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> values = dbSet;
             values = values.Where(filter);
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    values = values.Include(includeProp);
+                }
+            }
 #pragma warning disable CS8603 // Possible null reference return.
             return values.FirstOrDefault();
 #pragma warning restore CS8603 // Possible null reference return.

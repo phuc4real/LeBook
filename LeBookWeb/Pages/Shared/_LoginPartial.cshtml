@@ -12,9 +12,13 @@
     </a>
     <div class="account-dropdown">
         <div>
-                <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" type="button" class="account-dropdown-item">
-
+            <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" type="button" class="account-dropdown-item">
                     <p><i class="fa-solid fa-user-large"></i> Thông tin tài khoản</p>
+            </a>
+        </div>
+        <div>
+                <a id="manage" asp-area="Customer" asp-controller="Order" asp-action="Index" type="button" class="account-dropdown-item">
+                    <p><i class="fa-solid fa-cart-flatbed"></i> Đơn đặt hàng</p>
             </a>
         </div>
         <div>

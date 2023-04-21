@@ -19,8 +19,10 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Company> Companies { get; set; }
     public DbSet<ShoppingCart> ShoppingCarts { get; set;}
     public DbSet<UserAddress> UserAddresses { get; set; }
-    public DbSet<Banner> Banners { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
-
+    public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+    public DbSet<PurchaseDetail> PurchaseDetails { get; set;}
+    public DbSet<Promotion> Promotion { get; set; }
+    public DbSet<PromotionDetail> PromotionDetails { get; set; }
 }

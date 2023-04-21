@@ -90,13 +90,15 @@
                                     @Html.DisplayFor(modelItem => item.DeletedAt)
                                 </td>
                                 <td>
-                                    @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
-                                    {
-                                        <a href="#" onclick="return submitRestore(event,'@item.Id','Thể loại')">Phục hồi</a>
-                                        <form asp-action="Restore" id="Restore+@item.Id">
-                                            <input type="hidden" value="@item.Id" name="id" id="id" />
-                                        </form>
-                                    }
+                                    <div class="d-flex flex-row">
+                                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                                        {
+                                            <a class="btn btn-outline-success btn-sm" href="#" onclick="return submitRestore(event,'@item.Id','Thể loại')">Phục hồi</a>
+                                            <form asp-action="Restore" id="Restore+@item.Id">
+                                                <input type="hidden" value="@item.Id" name="id" id="id" />
+                                            </form>
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         }

@@ -20,6 +20,7 @@ namespace LeBook.Models.ViewModel
     public class NewOrder
     {
         public int OrderId { get; set; }
+        public string OrderStatus { get; set; }
         public string Time { get; set; }
     }
 

@@ -28,6 +28,14 @@ namespace LeBook.DataAccess.Repository.IRepository
 
         IShoppingCartRepository ShoppingCart { get; }
 
+        IPurchaseOrderRepository PurchaseOrder { get; }
+
+        IPurchaseDetailRepository PurchaseDetail { get; }
+
+        IPromotionRepository Promotion { get; }
+
+        IPromotionDetailRepository PromotionDetail { get; }
+
         void Save();
     }
 }

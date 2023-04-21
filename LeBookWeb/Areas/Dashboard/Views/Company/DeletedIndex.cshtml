@@ -92,7 +92,7 @@
                                 <td>
                                     @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
                                     {
-                                        <a href="#" onclick="return submitRestore(event,'@item.Id','Nhà cung cấp')">Phục hồi</a>
+                                        <a class="btn btn-outline-success btn-sm" href="#" onclick="return submitRestore(event,'@item.Id','Nhà cung cấp')">Phục hồi</a>
                                         <form asp-action="Restore" id="Restore+@item.Id">
                                             <input type="hidden" value="@item.Id" name="id" id="id" />
                                         </form>

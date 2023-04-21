@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeBook.Models.ViewModel
 {
-    public class Revenue
+    public class ItemModel
     {
         public string Name { get; set; }
         public double Value { get; set; }

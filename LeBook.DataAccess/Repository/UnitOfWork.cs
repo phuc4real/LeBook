@@ -1,4 +1,5 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
+using LeBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace LeBook.DataAccess.Repository
             UserAddress = new UserAddressRepository(_context);
             OrderDetail = new OrderDetailRepository(_context);
             ShoppingCart = new ShoppingCartRepository(_context);
+            PurchaseOrder = new PurchaseOrderRepository(_context);
+            PurchaseDetail = new PurchaseDetailRepository(_context);
+            Promotion = new PromotionRepository(_context);
+            PromotionDetail = new PromotionDetailRepository(_context);
         }
 
         public IAgeRepository Age { get; private set; }
@@ -45,6 +50,14 @@ namespace LeBook.DataAccess.Repository
         public IOrderDetailRepository OrderDetail { get; private set; }
 
         public IShoppingCartRepository ShoppingCart { get; private set; }
+
+        public IPurchaseOrderRepository PurchaseOrder { get; private set; }
+
+        public IPurchaseDetailRepository PurchaseDetail { get; private set; }
+
+        public IPromotionRepository Promotion { get; private set; }
+
+        public IPromotionDetailRepository PromotionDetail { get; private set; }
 
         public void Save()
         {

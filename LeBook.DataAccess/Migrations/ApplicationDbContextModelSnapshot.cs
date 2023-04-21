@@ -54,38 +54,6 @@ namespace LeBook.DataAccess.Migrations
                     b.ToTable("Ages");
                 });
 
-            modelBuilder.Entity("LeBook.Models.Banner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("bannerUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("sideBanner")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banners");
-                });
-
             modelBuilder.Entity("LeBook.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -125,7 +93,6 @@ namespace LeBook.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InStock")
@@ -241,6 +208,9 @@ namespace LeBook.DataAccess.Migrations
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TotalPurchase")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ward")
                         .HasColumnType("nvarchar(max)");
 
@@ -298,6 +268,9 @@ namespace LeBook.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
 
@@ -334,7 +307,6 @@ namespace LeBook.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -412,6 +384,124 @@ namespace LeBook.DataAccess.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("Prices");
+                });
+
+            modelBuilder.Entity("LeBook.Models.Promotion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Percent")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PromotionBanner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Promotion");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PromotionDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PromotionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("PromotionId");
+
+                    b.ToTable("PromotionDetails");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PurchaseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.ToTable("PurchaseDetails");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PurchaseOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("PurchaseTotal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PurchaseOrders");
                 });
 
             modelBuilder.Entity("LeBook.Models.ShoppingCart", b =>
@@ -754,9 +844,7 @@ namespace LeBook.DataAccess.Migrations
 
                     b.HasOne("LeBook.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("ShippingAdress");
 
@@ -791,6 +879,61 @@ namespace LeBook.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PromotionDetail", b =>
+                {
+                    b.HasOne("LeBook.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LeBook.Models.Promotion", "Promotion")
+                        .WithMany()
+                        .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Promotion");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PurchaseDetail", b =>
+                {
+                    b.HasOne("LeBook.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LeBook.Models.PurchaseOrder", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("LeBook.Models.PurchaseOrder", b =>
+                {
+                    b.HasOne("LeBook.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LeBook.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LeBook.Models.ShoppingCart", b =>

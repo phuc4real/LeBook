@@ -4,6 +4,14 @@
     ViewData["Title"] = "Thông tin chi tiết sách";
 }
 
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="~/js/book-chart.js"></script>
+    <script>
+        areaChart(@Model.Book.Id)
+    </script>
+}
+
 <main>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
         <div class="container-fluid px-4">
@@ -37,7 +45,10 @@
                         <div class="mt-2 col d-flex justify-content-center">
                             <img width="240" src="@Url.Content(Model.Book.ImgUrl)" alt="@Model.Book.Title" />
                         </div>
-
+                        <div class="m-1">
+                            <label class="fw-bolder fs-5">Số lượng bán trong 30 ngày qua</label>
+                            <div class="chart-area"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                        </div>
                     </div>
                     <div class="col-md-9">
                         <div class="row">
@@ -106,22 +117,3 @@
         </div>
     </div>
 </main>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        function ValidateInput() {
-            if (document.getElementById("uploadBox").value == "") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Ảnh bìa chưa được thêm!',
-                })
-                return false
-            }
-            return true
-        }
-    </script>
-}

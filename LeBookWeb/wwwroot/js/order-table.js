@@ -1,5 +1,4 @@
 ﻿const apiUrl = "/Dashboard/Order/OrderList";
-/*const apiUrl = "https://fiduswriter.github.io/simple-datatables/demos/18-fetch-api/demo.json";*/
 
 fetch(apiUrl).then(
     response => response.json()

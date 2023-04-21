@@ -1,0 +1,112 @@
+﻿@model IEnumerable<PurchaseOrder>
+
+@{
+    ViewData["Title"] = "Danh sách đơn nhập";
+}
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid px-4">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><i data-feather="list"></i></div>
+                            Danh sách đơn hàng
+                        </h1>
+                    </div>
+                    <div class="col-12 col-xl-auto mb-3">
+                        @if ((AuthorizationService.AuthorizeAsync(User, "canAction")).Result.Succeeded)
+                        {
+                            <a class="btn btn-sm btn-light text-primary" asp-action="Create">
+                                <i class="me-1" data-feather="plus"></i>
+                                Nhập hàng
+                            </a>
+                        }
+                        <a class="btn btn-sm btn-light text-danger" asp-action="DeletedIndex">
+                            <i class="me-1" data-feather="trash-2"></i>
+                            Đã xoá
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main page content-->
+    <div class="container-fluid px-4">
+        <div class="card">
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PurchaseTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyId)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedAt)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PurchaseTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyId)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(model => item.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.User.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.CreatedAt)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.PurchaseTotal)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(model => item.Company.Name)
+                                </th>
+                                <td>
+                                    <div class="d-flex flex-row">
+                                        <a class="btn btn-outline-primary btn-sm" asp-action="Detail" asp-route-id="@item.Id">Chi tiết đơn nhập</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
