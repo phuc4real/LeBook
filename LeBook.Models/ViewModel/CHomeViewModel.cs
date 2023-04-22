@@ -8,10 +8,8 @@ namespace LeBook.Models.ViewModel
 {
     public class CHomeViewModel
     {
-        //Banner to x5
-
-        //Banner nho x2
-
+        public IEnumerable<Promotion> PromotionCarousel { get; set; }
+        public IEnumerable<Promotion> Promotion { get; set; }
         public IEnumerable<Book> BestSeller { get; set; }
         public IEnumerable<Book> NewBook { get; set; }
         public IEnumerable<Book> HotDeal { get; set; }

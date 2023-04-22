@@ -115,7 +115,12 @@ namespace LeBook.DataAccess.Repository
                     values = values.Where(x => topsellerId.Contains(x.Id));
                     break;
                 case "hotdeal":
-                    //Loc khuyen mai
+                    var query = _context.PromotionDetails
+                        .Join(_context.Books, detail => detail.BookId, book => book.Id, (detail, book) => new { PromotionDetail = detail, Book = book })
+                        .Join(_context.Promotion, detail => detail.PromotionDetail.PromotionId, promo => promo.Id, (detail, promo) => new { PromotionDetail = detail.PromotionDetail, Book = detail.Book , Promotion = promo })
+                        .OrderByDescending(x=>x.Promotion.Percent).ToList();
+                    var querytoId = query.Select(x => x.Book.Id);
+                    values = values.Where(x => querytoId.Contains(x.Id));
                     break;
                 case "newmanga":
                     values = values.Where(c => c.Category1.Id == 6);
@@ -130,13 +135,13 @@ namespace LeBook.DataAccess.Repository
                     values = values.OrderByDescending(c => c.CreatedAt.Date).ThenBy(c => c.CreatedAt.TimeOfDay);
                     break;
                 case "cate1":
-                    values = values.Where(c => c.Category1.Id == 5);
+                    values = values.Where(c => c.Category2.Id == 4);
                     break;
                 case "cate2":
-                    values = values.Where(c => c.Category1.Id == 2);
+                    values = values.Where(c => c.Category2.Id == 2);
                     break;
                 case "cate3":
-                    values = values.Where(c => c.Category1.Id == 1);
+                    values = values.Where(c => c.Category2.Id == 1);
                     break;
             }
             return values.Take(10).ToList();

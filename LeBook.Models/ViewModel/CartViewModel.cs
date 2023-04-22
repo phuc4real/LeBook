@@ -13,5 +13,6 @@ namespace LeBook.Models.ViewModel
 
         [DisplayFormat(DataFormatString = "{0:#,###.##₫}")]
         public double CartTotal { get; set; }
+        public IEnumerable<Promotion> Promotions { get; set; }
     }
 }

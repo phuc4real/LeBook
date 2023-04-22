@@ -13,21 +13,20 @@ namespace LeBook.Controllers
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        private readonly ILogger<HomeController> _logger;
         public INotyfService _notifyService { get; }
 
-        public HomeController(IUnitOfWork unitOfWork, INotyfService notifyService, ILogger<HomeController> logger)
+        public HomeController(IUnitOfWork unitOfWork, INotyfService notifyService)
         {
             _unitOfWork = unitOfWork;
             _notifyService = notifyService;
-            _logger = logger;
         }
 
         public IActionResult Index()
         {
             CHomeViewModel viewModel = new() 
             { 
+                Promotion = _unitOfWork.Promotion.Get(x=>x.IsDeleted == false).OrderByDescending(x=>x.CreatedAt).Take(2),
+                PromotionCarousel = _unitOfWork.Promotion.Get(x => x.IsDeleted == false).OrderByDescending(x => x.CreatedAt).Take(5),
                 NewBook = _unitOfWork.Book.Get10("new"),
                 BestSeller = _unitOfWork.Book.Get10("bestseller"),
                 HotDeal = _unitOfWork.Book.Get10("hotdeal"),
@@ -42,49 +41,6 @@ namespace LeBook.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Details(int bookId)
-        {
-            ShoppingCart cart = new()
-            {
-                Book = _unitOfWork.Book.GetFirst(bookId),
-                BookId= bookId,
-                Count = 1
-            };
-           
-            return View(cart);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public  IActionResult Details(ShoppingCart cart,string? returnurl)
-        {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            cart.ApplicationUserId = claim.Value;
 
-            ShoppingCart cartDB = _unitOfWork.ShoppingCart.FirstOrDefault(c => c.BookId ==  cart.BookId && c.ApplicationUserId == claim.Value);
-
-            if (cartDB == null)
-            {
-                _unitOfWork.ShoppingCart.Add(cart);
-            }
-            else
-            {
-                _unitOfWork.ShoppingCart.IncrementCount(cartDB, cart.Count);
-            }
-            _unitOfWork.Save();
-
-            if (returnurl != null) {
-                _notifyService.Success("Đã thêm sản phẩm vào giỏ hàng");
-                return RedirectToAction("Index");
-            }
-            else return RedirectToAction("Index", "Cart");
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

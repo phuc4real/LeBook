@@ -80,3 +80,14 @@ function updateTotal() {
         }
     });
 }
+
+function applyCode() {
+    $.ajax({
+        url: 'Cart/SaleOff',
+        success: function (data) {
+            $('#saleoff').text(money.format(data.sale));
+            $('.final-price').text(money.format(data.cartTotal));
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", applyCode);

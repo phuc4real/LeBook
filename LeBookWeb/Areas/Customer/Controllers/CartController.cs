@@ -41,11 +41,19 @@ namespace LeBookWeb.Areas.Customer.Controllers
                 CartTotal = 0
             };
 
+            List<Promotion> ListPromo = new List<Promotion>();
+
             foreach (var cart in cartViewModel.ListCart)
             {
                 cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice * cart.Count;
                 if (cart.toBuy) cartViewModel.CartTotal += cart.ItemTotal;
+                var PromoDetail = _unitOfWork.PromotionDetail.Get(x => x.BookId == cart.BookId, includeProperties: "Promotion");
+                foreach (var item in PromoDetail)
+                {
+                    ListPromo.Add(item.Promotion);
+                }
             }
+            cartViewModel.Promotions = ListPromo;
 
             return View(cartViewModel);
         }
@@ -67,10 +75,18 @@ namespace LeBookWeb.Areas.Customer.Controllers
 
             foreach (var cart in viewModel.ListCart)
             {
+                cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice = GetPrice(cart.BookId);
                 cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
-                viewModel.CartTotal += cart.ItemTotal;
-            }
 
+                //var PromoDetail = _unitOfWork.PromotionDetail.Get(x => x.BookId == cart.BookId, includeProperties: "Promotion");
+                //foreach (var item in PromoDetail)
+                //{
+                //    cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice *= item.Promotion.Percent / 100;
+                //    cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
+                //}
+                viewModel.CartTotal += cart.ItemTotal;
+
+            }
             viewModel.Order.OrderTotal = viewModel.CartTotal + 30000;
 
             return View(viewModel);
@@ -94,13 +110,14 @@ namespace LeBookWeb.Areas.Customer.Controllers
             IEnumerable<ShoppingCart> carts = _unitOfWork.ShoppingCart.GetCart(claim.Value, true);
 
             foreach (var cart in carts) {
+
                 OrderDetail detail = new()
                 {
                     Quantity = cart.Count,
                     Order = order,
                     Book = cart.Book,
-                    Price = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice,
-                    Total = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count,
+                    Price = GetPrice(cart.BookId),
+                    Total = GetPrice(cart.BookId) * cart.Count,
 
                 };
                 _unitOfWork.Book.UpdateBookQuantity(cart.Book, cart.Count);
@@ -182,6 +199,28 @@ namespace LeBookWeb.Areas.Customer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public double GetPrice(int bookid)
+        {
+
+            double res = 0;
+            var PromoDetails = _unitOfWork.PromotionDetail.Get(x => x.BookId == bookid, includeProperties: "Promotion");
+            var PromoDetail = PromoDetails.OrderByDescending(x=>x.Promotion.Percent).FirstOrDefault();
+
+            var book = _unitOfWork.Book.GetFirst(bookid);
+            if (PromoDetail != null)
+            {
+                res = book.Price.OrderByDescending(p => p.Id).First().ItemPrice * PromoDetail.Promotion.Percent / 100;
+            }
+            else
+            {
+                res = book.Price.OrderByDescending(p => p.Id).First().ItemPrice;
+            }
+            return res;
+        }
+
+
+
         #region API
 
         [HttpPost]
@@ -205,6 +244,28 @@ namespace LeBookWeb.Areas.Customer.Controllers
             }
 
             return Json(cartTotal);
+        }
+
+        [HttpGet]
+        public IActionResult SaleOff()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            var ListCart = _unitOfWork.ShoppingCart.GetCart(claim.Value, false);
+
+            double CartTotal = 0;
+            double Sale = 0;
+
+            foreach (var cart in ListCart)
+            {
+                cart.ItemTotal = GetPrice(cart.BookId) * cart.Count;
+                Sale += ((cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count) - cart.ItemTotal);
+                CartTotal += cart.ItemTotal;
+
+            }
+
+            return Ok(new { Sale, CartTotal }) ;
         }
         #endregion
     }

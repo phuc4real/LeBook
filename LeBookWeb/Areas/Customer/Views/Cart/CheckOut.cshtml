@@ -109,13 +109,13 @@
                                     <div class="checkout-product-item-name">
                                         <p>@item.Book.Title</p>
                                     </div>
-                                    <div class="checkout-product-item-price">
+                                    <div class="checkout-product-item-price" id="@item.Book.Id+price">
                                         <p>@Html.DisplayFor(modelItem => item.Book.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice)</p>
                                     </div>
                                     <div class="checkout-product-item-quantity">
                                         <p>@item.Count</p>
                                     </div>
-                                    <div class="checkout-product-item-total">
+                                    <div class="checkout-product-item-total" id="@item.Book.Id+totle">
                                         <p>@Html.DisplayFor(modelItem => item.ItemTotal)</p>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                             <li class="payment-product" style="font-weight: 600">
                                 <div class="total-subtotal">
                                     <div>Thành Tiền:</div>
-                                    <div>@Html.DisplayFor(Model => Model.CartTotal)</div>
+                                    <div id="carttotal">@Html.DisplayFor(Model => Model.CartTotal)</div>
                                 </div>
                                 <div class="total-shipping">
                                     <div>Phí vận chuyển (Giao hàng tiêu chuẩn):</div>
@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="total-grand-total">
                                     <div>Tổng Số Tiền (gồm VAT):</div>
-                                    <div>@Html.DisplayFor(Model => Model.Order.OrderTotal)</div>
+                                    <div id="ordertotal">@Html.DisplayFor(Model => Model.Order.OrderTotal)</div>
                                 </div>
                                 <div>
                                     <div>

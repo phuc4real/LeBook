@@ -1,0 +1,85 @@
+﻿@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Thông tin đơn hàng";
+}
+
+<div class="order-container">
+    <div class="container">
+        <div class="row">
+            <div class="order">
+                <div class="order-title">Thông tin đơn hàng</div>
+                <div class="d-flex order-info">
+                    <p>Mã đơn hàng:&nbsp;</p> @Html.DisplayFor(model => model.Order.Id)
+                    <p class="ps-4">Ngày đặt hàng:&nbsp;</p> @Html.DisplayFor(model => model.Order.CreatedAt)
+                </div>
+                <div class="row mt-2 ms-2 me-2">
+                    <div class="col-md-4 order-content">
+                        <span>Thông tin người nhận</span>
+                        <div class="order-address mt-2">
+                            <p>Tên người nhận: @Model.Address.First().Name </p>
+                            <p>Số điện thoại: @Model.Address.First().Contact</p>
+                            <p>Địa chỉ giao hàng: @Model.Address.First().Street</p>
+                            <p>Xã/Phường: @Model.Address.First().Ward</p>
+                            <p>Quận/Huyện: @Model.Address.First().District</p>
+                            <p>Tỉnh/Thành phố: @Model.Address.First().Province</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 order-content">
+                        <span>Thông tin giao hàng</span>
+                        <div class="order-shipping mt-2">
+                            <p>Hình thức giao hàng: @Model.Order.ShippingType</p>
+                            <p>Thời gian dự kiến: @Html.DisplayFor(model => Model.Order.ShippingDate)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 order-content">
+                        <span>Thông tin thanh toán</span>
+                        <div class="order-payment mt-2">
+                            <p>Hình thức thanh toán: @Model.Order.PaymentType</p>
+                            <p>Tình trạng thanh toán: @Model.Order.PaymentStatus</p>
+                            @if (Model.Order.TransactionId != null)
+                            {
+                                <p>Mã giao dịch: @Model.Order.TransactionId</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2 ms-2 me-2">
+                    <div class="order-content">
+                        <span>Danh sách sản phẩm</span>
+                        <div class="border-bottom m-1"></div>
+                        <div class="order-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Sản phẩm</td>
+                                        <td>Đơn giá</td>
+                                        <td>Số lượng</td>
+                                        <td>Thành tiền</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (OrderDetail item in Model.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td>@item.Book.Title</td>
+                                            <td>@item.Price</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Tổng thành tiền: @Html.DisplayFor(model => Model.Order.OrderTotal)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

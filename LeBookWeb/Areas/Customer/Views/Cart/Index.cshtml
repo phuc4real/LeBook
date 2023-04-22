@@ -94,44 +94,25 @@
                                 <span>
                                     <img src="~/assets/svg/ico_coupon.svg" alt="" />
                                 </span>
-                                <span>Khuyến Mãi</span>
-                            </div>
-                            <div class="title-right">
-                                <span>Xem thêm</span>
-                                <span>
-                                    <img src="~/assets/svg/ico_seemore_blue.svg" alt="" />
-                                </span>
+                                <span>Chương trình khuyến mãi đang diễn ra</span>
                             </div>
                         </div>
                         <div class="coupon-code-item mt-3">
-                            <div class="item-content">
-                                <div class="coupon-code-title">
-                                    <div class="title-left">MÃ GIẢM 20K</div>
-                                    <div class="title-right">
-                                        <a href="">Chi tiết</a>
+                            @foreach(var item in Model.Promotions)
+                            {
+                                <div class="item-content border-1 border-bottom">
+                                    <div class="coupon-code-title">
+                                        <div class="title-left">@item.Name</div>
+
                                     </div>
-                                </div>
-                                <div class="item-content-description">
-                                    Cho đơn hàng từ 250K - Dành Cho Tủ Sách Kinh Tế & Tâm Lý -
-                                    Kỹ Năng
-                                </div>
-                                <div class="add-coupon-code d-flex justify-content-between align-items-center">
-                                    <div class="item-progress-bar">
-                                        <div class="item-progress">
-                                            <hr style="width: 0%" />
-                                        </div>
-                                        <div class="item-minmax">
-                                            <span>Mua thêm 250.000đ để nhận mã</span>
-                                            <span>250.000đ</span>
-                                        </div>
+                                    <div class="item-content-description">
+                                        @item.Description
                                     </div>
-                                    <div>
-                                        <button type="button">
-                                            <span>Dùng Mã</span>
-                                        </button>
-                                    </div>
+                                    @*<div>
+                                        <button type="button" id="applycode" onclick="applyCode('@item.Name')" class="btn btn-primary btn-sm mt-1">Dùng mã</button>
+                                    </div>*@
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                     <div class="total-price">
@@ -141,10 +122,16 @@
                                 <span class="price" id="total-price" >@(Model.CartTotal != 0 ? Html.DisplayFor(Model => Model.CartTotal) : "0 ₫")</span>
                             </div>
                         </div>
+                        <div class="total-cart-page">
+                            <div class="title-cart-page-left">Giảm giá</div>
+                            <div class="title-cart-page-right">
+                                <span class="price" id="saleoff">0 ₫</span>
+                            </div>
+                        </div>
                         <div class="final-total-price mt-3">
                             <div class="final-total-price-left">Tổng Số Tiền (gồm VAT)</div>
                             <div class="final-total-price-right">
-                                <span class="final-price">@(Model.CartTotal != 0 ? Html.DisplayFor(Model => Model.CartTotal) : "0 ₫")</span>
+                                <span class="final-price" id="final-price">@(Model.CartTotal != 0 ? Html.DisplayFor(Model => Model.CartTotal) : "0 ₫")</span>
                             </div>
                         </div>
                         <div class="button-cart">

@@ -1,4 +1,5 @@
 ﻿using LeBook.DataAccess.Repository.IRepository;
+using LeBook.Models;
 using LeBook.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -17,6 +18,35 @@ namespace LeBookWeb.Areas.Customer.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Detail(int id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            Order order = _unitOfWork.Order.FirstOrDefault(x => x.Id == id);
+
+            if (order.UserId == claim.Value)
+            {
+                List<UserAddress> addresses = new()
+                {
+                    _unitOfWork.UserAddress.FirstOrDefault(x => x.Id == order.AddressId)
+                };
+
+                CheckoutViewModel viewModel = new CheckoutViewModel()
+                {
+                    Address = addresses,
+                    OrderDetail = _unitOfWork.OrderDetail.Get(x => x.OrderId == id, includeProperties: "Book"),
+                    Order = order
+                };
+
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         #region API
@@ -41,15 +71,8 @@ namespace LeBookWeb.Areas.Customer.Controllers
                     OrderStatus = order.OrderStatus,
                     PaymentType = order.PaymentType,
                     PaymentStatus = order.PaymentStatus,
-                    Action = "<a href=\"/Dashboard/Order/Detail/" + order.Id + "\">Chi tiết hoá đơn</a>",
+                    Action = "<a class=\"text-decoration-none\" href=\"/Customer/Order/Detail/" + order.Id + "\">Chi tiết hoá đơn</a>",
                 };
-
-                //if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Manager)) {
-                //item.Action += "| <a href=\"/Dashboard/Order/Edit/" + order.Id + "\">Cập nhật</a>\r\n| " +
-                //    "<a href=\"#\" onclick=\"return submitDelete(event,'"+order.Id+"','Đơn đặt hàng')\">Xoá</a>\r\n" +
-                //    "<form id=\"Delete+" + order.Id + "\" action=\"/Dashboard/Order/Delete\" method=\"post\">\r\n" +
-                //    "<input type=\"hidden\" value=\"" + order.Id + "\" name=\"id\" id=\"id\"></form>";
-                //}
 
                 models.Add(item);
             }

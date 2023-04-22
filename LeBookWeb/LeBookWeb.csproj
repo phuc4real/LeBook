@@ -55,11 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\img\book1.webp" />
-    <None Include="wwwroot\assets\img\book3.webp" />
-    <None Include="wwwroot\assets\img\book4.webp" />
-    <None Include="wwwroot\assets\img\book5.webp" />
-    <None Include="wwwroot\assets\img\book6.webp" />
     <None Include="wwwroot\assets\svg\ico_account_gray.svg" />
     <None Include="wwwroot\assets\svg\ico_cart_gray.svg" />
     <None Include="wwwroot\assets\svg\ico_coupon.svg" />

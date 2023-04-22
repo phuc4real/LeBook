@@ -1,7 +1,7 @@
 ﻿@model CHomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
 }
 
 @section Scripts {
@@ -12,43 +12,24 @@
     <div class="top-banner container">
         <div class="top-banner-container">
             <div class="banner owl-carousel owl-banner owl-theme">
-                <div class="image-banner">
-                    <a href="">
-                        <img class="lazyOwl" src="~/images/banner/banner1.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="image-banner">
-                    <a href="">
-                        <img class="lazyOwl" src="~/images/banner/banner2.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="image-banner">
-                    <a href="">
-                        <img class="lazyOwl" src="~/images/banner/banner3.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="image-banner">
-                    <a href="">
-                        <img class="lazyOwl" src="~/images/banner/banner4.jpg" alt="" />
-                    </a>
-                </div>
-                <div class="image-banner">
-                    <a href="">
-                        <img class="lazyOwl" src="~/images/banner/banner5.jpg" alt="" />
-                    </a>
-                </div>
+                @foreach(var item in Model.PromotionCarousel)
+                {
+                    <div class="image-banner">
+                        <a asp-controller="Book" asp-action="Find" asp-route-findby="promotion" asp-route-id="@item.Id">
+                            <img class="lazyOwl" src="@Url.Content(item.PromotionBanner)" alt="" />
+                        </a>
+                    </div>
+                }
             </div>
             <div class="banner-right">
-                <div>
-                    <a href="">
-                        <img src="~/images/banner/banner6.jpg" alt="" />
-                    </a>
-                </div>
-                <div>
-                    <a href="">
-                        <img src="~/images/banner/banner7.jpg" alt="" />
-                    </a>
-                </div>
+                @foreach (var item in Model.Promotion)
+                {
+                    <div>
+                        <a asp-controller="Book" asp-action="Find" asp-route-findby="promotion" asp-route-id="@item.Id">
+                            <img src="@Url.Content(item.PromotionBanner)" alt="" />
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -82,7 +63,7 @@
                                     <li class="slider-item sachmoi">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -90,16 +71,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title</a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title</a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +92,7 @@
                                     <li class="slider-item banchay">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -119,16 +100,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +121,7 @@
                                     <li class="slider-item giamgia">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -148,16 +129,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -190,7 +171,7 @@
                                     <li class="slider-item mangamoi">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -198,16 +179,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +199,7 @@
                                     <li class="slider-item topmanga">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -226,16 +207,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -246,7 +227,7 @@
                                     <li class="slider-item lightnovelmoi">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -254,16 +235,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +277,7 @@
                                     <li class="slider-item sachtl">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -304,16 +285,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +305,7 @@
                                     <li class="slider-item sachkt">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -332,16 +313,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -352,7 +333,7 @@
                                     <li class="slider-item sachvh">
                                         <div class="slider-content">
                                             <div class="image-container">
-                                                <a asp-action="Details" asp-route-bookId="@item.Id">
+                                                <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">
                                                     <div class="product-image-silder">
                                                         <img class="lazyOwl" src="@item.ImgUrl" alt="" />
                                                     </div>
@@ -360,16 +341,16 @@
                                             </div>
                                             <div>
                                                 <h2 class="product-name-slider">
-                                                    <a asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
+                                                    <a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.Id">@item.Title </a>
                                                 </h2>
                                                 <div class="price-label">
                                                     <p class="special-price">
                                                         <span class="price">@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                        <span class="discount-percent">-0%</span>
+@*                                                        <span class="discount-percent">-0%</span>*@
                                                     </p>
-                                                    <p class="old-price">
+@*                                                    <p class="old-price">
                                                         <span>@item.Price.OrderByDescending(p => p.Id).FirstOrDefault().ItemPrice.ToString("#,###.## đ")</span>
-                                                    </p>
+                                                    </p>*@
                                                 </div>
                                             </div>
                                         </div>
