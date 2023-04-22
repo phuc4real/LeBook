@@ -758,25 +758,25 @@ input:focus {
         margin: 0;
     }
 
-    .link .category {
+    .link .ddcustom {
         height: 0;
         overflow: hidden;
         transition: 0.4s ease;
         margin-left: 10px;
     }
 
-        .link .category li a {
+        .link .ddcustom li a {
             text-decoration: none;
             font-size: 15px;
             color: #347d56;
         }
 
-            .link .category li a:hover {
+            .link .ddcustom li a:hover {
                 color: #bf9a61;
             }
 
-    .link.active .category {
-        height: 200px;
+    .link.active .ddcustom {
+        height: 600px;
     }
 
 .caret {
@@ -793,7 +793,8 @@ input:focus {
 }
 
 .products-item {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-height: 350px;
     overflow: hidden;

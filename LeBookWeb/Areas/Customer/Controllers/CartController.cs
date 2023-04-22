@@ -64,8 +64,6 @@ namespace LeBookWeb.Areas.Customer.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            var a = _unitOfWork.UserAddress.GetAdress(claim.Value);
-
             CheckoutViewModel viewModel = new CheckoutViewModel()
             {
                 Address = _unitOfWork.UserAddress.GetAdress(claim.Value),
@@ -77,13 +75,6 @@ namespace LeBookWeb.Areas.Customer.Controllers
             {
                 cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice = GetPrice(cart.BookId);
                 cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
-
-                //var PromoDetail = _unitOfWork.PromotionDetail.Get(x => x.BookId == cart.BookId, includeProperties: "Promotion");
-                //foreach (var item in PromoDetail)
-                //{
-                //    cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice *= item.Promotion.Percent / 100;
-                //    cart.ItemTotal = cart.Book.Price.OrderByDescending(p => p.Id).First().ItemPrice * cart.Count;
-                //}
                 viewModel.CartTotal += cart.ItemTotal;
 
             }

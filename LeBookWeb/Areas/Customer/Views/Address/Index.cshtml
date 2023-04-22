@@ -1,0 +1,117 @@
+﻿@model IEnumerable<UserAddress>
+@{
+    ViewData["Title"] = "Địa chỉ giao hàng";
+}
+
+@section Scripts{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.2.0/dist/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.2.0/dist/umd/simple-datatables.min.js"></script>
+    <script src="/js/Address.js"></script>
+}
+
+<main>
+    <div class="payment-container">
+        <div class="container">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <h5 class="page-header-title">Danh sách địa chỉ nhận hàng</h5>
+                        </div>
+                        <div class="col-12 col-xl-auto">
+                            <a class="btn btn-sm btn-outline-green text-primary" asp-action="Upsert">
+                                <i class="me-1" data-feather="plus"></i>
+                                Thêm địa chỉ giao hàng
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="addressTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Contact)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Street)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ward)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.District)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Province)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Contact)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Street)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ward)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.District)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Province)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>
+                                        @Html.DisplayFor(model => item.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(model => item.Contact)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(model => item.Street)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(model => item.Ward)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(model => item.District)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(model => item.Province)
+                                    </th>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <a class="btn btn-outline-primary btn-sm ms-1 me-1" asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="#" onclick="return submitDelete(event,'@item.Id','Địa chỉ')">Xoá</a>
+                                            <form asp-action="Delete" id="Delete+@item.Id">
+                                                <input type="hidden" value="@item.Id" name="id" id="id" />
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

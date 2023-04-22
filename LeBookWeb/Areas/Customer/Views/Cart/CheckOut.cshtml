@@ -32,7 +32,7 @@
 
                                     <input type="radio" asp-for="Order.AddressId" id="@address.Id" value="@address.Id" class="checkout-option">
                                     <span class="radiomark-big"></span>
-                                    <a class="text-decoration-none text-black" asp-controller="Address" asp-action="Edit" asp-route-id="@address.Id">
+                                    <a class="text-decoration-none text-black" asp-controller="Address" asp-action="Upsert" asp-route-id="@address.Id">
                                         <span>Sửa</span>
                                     </a>
                                 </li>

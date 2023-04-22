@@ -21,9 +21,15 @@ namespace LeBook.DataAccess.Repository
 
         public IEnumerable<UserAddress> GetAdress(string ApplicationUserId)
         {
-            IQueryable<UserAddress> userAddresses = _context.UserAddresses.Where(c => c.UserId == ApplicationUserId);
+            IQueryable<UserAddress> userAddresses = _context.UserAddresses.Where(c => c.UserId == ApplicationUserId && c.IsDeleted == false);
             userAddresses = userAddresses.Include(c => c.User);
             return userAddresses.ToList();
+        }
+
+        public void SoftDelete(UserAddress address)
+        {
+            address.IsDeleted = true;
+            address.DeletedAt = DateTime.Now;
         }
 
         public void Update(UserAddress address)

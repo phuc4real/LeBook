@@ -5,6 +5,8 @@
 
 @{
     ViewData["Title"] = "Tìm kiếm sản phẩm";
+    var segments = Context.Request.Path.Value.Split('/');
+    var id = segments[segments.Length - 1];
 }
 
 @section StyleSheets{
@@ -24,10 +26,7 @@
                         <h4>Thể loại</h4>
                         <div class="caret"></div>
                     </div>
-                    <ul id="category">
-                        <li class="py-1">
-                            <a href="">Novel</a>
-                        </li>
+                    <ul class="ddcustom" id="category">
                     </ul>
                 </div>
 
@@ -36,10 +35,7 @@
                         <h4>Loại Bìa</h4>
                         <div class="caret"></div>
                     </div>
-                    <ul id="covertype">
-                        <li class="py-1">
-                            <a href="">$5 -$10</a>
-                        </li>
+                    <ul class="ddcustom" id="covertype">
                     </ul>
                 </div>
 
@@ -49,10 +45,7 @@
                         <div class="caret"></div>
                     </div>
 
-                    <ul id="age">
-                        <li class="py-1">
-                            <a href="">Novel</a>
-                        </li>
+                    <ul class="ddcustom" id="age">
                     </ul>
                 </div>
             </div>
@@ -87,14 +80,23 @@
                             <p class="lead fw-normal mb-2">Không tìm thấy sản phẩm, quý khách vui lòng thử lại!</p>
                             <a asp-controller="Home" asp-action="Index" class="text-decoration-none d-flex align-items-center">
                                 <i class="fas fa-long-arrow-alt-left me-2"></i>Trở về trang sản phẩm
-                                </a>
+                            </a>
                         </div>
                     }
                 </div>
             </div>
             <div class="d-flex flex-row-reverse">
-                @Html.PagedListPager(Model, page => Url.Action("Search", new { search= Context.Request.Query["search"], page = page }),
-                new PagedListRenderOptions {
+                @{
+
+                }
+                @Html.PagedListPager(Model, page => Url.Action("Find", new
+                {
+                findby = Context.Request.Query["findby"],
+                id = id,
+                page = page
+                }),
+                new PagedListRenderOptions
+                {
                 LiElementClasses = new string[] { "page-item" },
                 PageClasses = new string[] { "page-link" }
                 })

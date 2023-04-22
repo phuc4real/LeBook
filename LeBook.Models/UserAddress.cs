@@ -30,8 +30,10 @@ namespace LeBook.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [DisplayName("Ngày chỉnh sửa")]
         public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; }
+        public DateTime DeletedAt { get; set; }
 
-        [Required]
+
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         [JsonIgnore]
